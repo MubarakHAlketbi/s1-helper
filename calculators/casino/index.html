@@ -1,12 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Casino Index</title>
-  <link rel="stylesheet" href="/assets/css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Casino Calculators & Info</title>
+    <meta name="description" content="Information and calculators for the Casino games (Blackjack, Ride the Bus, Slots) in Schedule 1.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Optional: Link to a specific casino stylesheet -->
+    <link rel="stylesheet" href="casino.css">
 </head>
 <body>
-  <h1>Casino Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/assets/js/main.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/">Database</a></li>
+                    <li><a href="/calculators/" class="active">Calculators</a></li> <!-- Mark as active -->
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+            <!-- Optional: Add search back if needed -->
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="tool-section">
+            <h2>Casino Calculators & Information</h2>
+            <p>Understand the rules, payouts, and potential winnings for the casino games available in Schedule 1.</p>
+
+            <!-- Blackjack Section -->
+            <article class="game-card card" id="blackjack">
+                <h3>Blackjack</h3>
+                <div class="game-rules">
+                    <h4>Rules & Payouts</h4>
+                    <ul>
+                        <li><strong>Objective:</strong> Get closer to 21 than the dealer without going over.</li>
+                        <li><strong>Player Limit:</strong> Max 4 players + Dealer.</li>
+                        <li><strong>Bet Range:</strong> $10 (Min) - $1000 (Max) per round.</li>
+                        <li><strong>Card Values:</strong> 2-10 face value, J/Q/K = 10, Ace = 1 or 11.</li>
+                        <li><strong>Player Actions:</strong> Hit (take card) or Stand (keep hand).</li>
+                        <li><strong>Dealer Rules:</strong> Stands on 17 or higher (Implied standard rule).</li>
+                        <li><strong>Payouts:</strong>
+                            <ul>
+                                <li><strong>Blackjack (Ace + 10-value on first two cards):</strong> Pays 1.5x bet (e.g., $10 bet wins $15 profit).</li>
+                                <li><strong>Win (Higher score than dealer / Dealer busts):</strong> Pays 1x bet (e.g., $10 bet wins $10 profit).</li>
+                                <li><strong>Push (Tie with dealer):</strong> Bet returned.</li>
+                                <li><strong>Lose (Bust / Lower score than dealer):</strong> Bet lost.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="calculator-area">
+                    <h4>Payout Calculator</h4>
+                    <form id="blackjack-payout-form">
+                        <div class="form-group">
+                            <label for="bj-bet">Your Bet ($):</label>
+                            <input type="number" id="bj-bet" min="10" max="1000" step="1" placeholder="10 - 1000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bj-outcome">Outcome:</label>
+                            <select id="bj-outcome">
+                                <option value="win">Win</option>
+                                <option value="blackjack">Blackjack</option>
+                                <option value="push">Push</option>
+                                <option value="lose">Lose</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="calculateBlackjackPayout()">Calculate Profit/Loss</button>
+                        <div id="bj-result" class="result-display"></div>
+                    </form>
+                </div>
+            </article>
+
+            <!-- Ride the Bus (RTB) Section -->
+            <article class="game-card card" id="rtb">
+                <h3>Ride the Bus (RTB)</h3>
+                 <div class="game-rules">
+                    <h4>Rules & Payouts</h4>
+                     <ul>
+                        <li><strong>Objective:</strong> Correctly guess card outcomes across 4 stages.</li>
+                        <li><strong>Bet Range:</strong> $10 (Min) - $500 (Max) initial bet.</li>
+                         <li><strong>Gameplay:</strong> Progress through stages by guessing correctly. Incorrect guess loses entire potential winnings. Can forfeit to keep current winnings before next stage.</li>
+                         <li><strong>Answer Time:</strong> 6 seconds per question.</li>
+                        <li><strong>Stages & Multipliers (Inferred):</strong>
+                            <ul>
+                                <li>Stage 1: Red or Black? (Potential Winnings: Bet x 2)</li>
+                                <li>Stage 2: Higher or Lower? (Potential Winnings: Bet x 4)</li>
+                                <li>Stage 3: Inside or Outside? (Potential Winnings: Bet x 8)</li>
+                                <li>Stage 4: Suit? (Potential Winnings: Bet x 32)</li>
+                            </ul>
+                         </li>
+                         <li><strong>Note:</strong> Card ranking for Higher/Lower/Inside/Outside needs in-game confirmation (Ace high/low? Face card values?).</li>
+                    </ul>
+                </div>
+                 <div class="calculator-area">
+                    <h4>Potential Winnings Calculator</h4>
+                    <form id="rtb-payout-form">
+                        <div class="form-group">
+                            <label for="rtb-bet">Initial Bet ($):</label>
+                            <input type="number" id="rtb-bet" min="10" max="500" step="1" placeholder="10 - 500" required>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="calculateRtbPayout()">Show Potential Winnings</button>
+                        <div id="rtb-result" class="result-display">
+                            <!-- Results will be populated by JS -->
+                        </div>
+                    </form>
+                </div>
+            </article>
+
+            <!-- Slot Machine Section -->
+            <article class="game-card card" id="slots">
+                <h3>Slot Machine</h3>
+                 <div class="game-rules">
+                    <h4>Rules & Payouts</h4>
+                     <ul>
+                        <li><strong>Objective:</strong> Spin three reels and match symbols.</li>
+                        <li><strong>Betting:</strong> Uses fixed bet amounts (e.g., $10, $25, $50, $100 - *exact amounts TBC*), cycled using Up/Down buttons in-game.</li>
+                        <li><strong>Symbols:</strong> Cherry, Lemon, Grape, Watermelon, Bell, Seven.</li>
+                        <li><strong>Winning Combinations (Payout Multipliers Not Specified):</strong>
+                            <ul>
+                                <li><strong>Jackpot:</strong> 3 Sevens.</li>
+                                <li><strong>Big Win:</strong> 3 Bells.</li>
+                                <li><strong>Small Win:</strong> 3 Watermelons OR 3 Grapes.</li>
+                                <li><strong>Mini Win:</strong> 3 Lemons OR 3 Cherries OR Any 3 Fruit symbols (Cherry, Lemon, Grape, Watermelon).</li>
+                                <li><strong>No Win:</strong> Any other combination.</li>
+                            </ul>
+                        </li>
+                         <li><strong>Note:</strong> Payout amount depends on the bet amount and the specific win level achieved. The exact multipliers are internal game balance values.</li>
+                    </ul>
+                </div>
+                <!-- No calculator practical here without multipliers -->
+                 <div class="calculator-area">
+                     <h4>Information</h4>
+                     <p>Payouts depend on the specific win level (Mini, Small, Big, Jackpot) and your selected bet amount. Exact multipliers are not available from game data, but higher win levels pay significantly more.</p>
+                 </div>
+            </article>
+
+        </section> <!-- End tool-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- Add specific script for this tool -->
+    <script src="casino.js"></script>
 </body>
 </html>

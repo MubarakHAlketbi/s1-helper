@@ -1,12 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Growing Index</title>
-  <link rel="stylesheet" href="/assets/css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Growing Calculator</title>
+    <meta name="description" content="Calculate plant grow times, harvest dates, and watering needs based on seeds and pots in Schedule 1.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Optional: Link to a specific growing calculator stylesheet -->
+    <link rel="stylesheet" href="growing.css">
 </head>
 <body>
-  <h1>Growing Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/assets/js/main.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/">Database</a></li>
+                    <li><a href="/calculators/" class="active">Calculators</a></li> <!-- Mark as active -->
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+            <!-- Optional: Add search back if needed -->
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="tool-section">
+            <h2>Growing Calculator</h2>
+            <p>Estimate plant growth times, harvest dates, and watering needs based on your chosen seed and pot. Assumes default game time speed (1 game minute = 1 real second).</p>
+
+            <div class="calculator-card card">
+                <h3>Calculate Grow Cycle</h3>
+                <form id="grow-calculator-form">
+                    <div class="form-group">
+                        <label for="calc-seed-name">Seed Type:</label>
+                        <select id="calc-seed-name" required>
+                            <option value="" disabled selected>-- Select Seed --</option>
+                            <!-- Options populated by JS -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="calc-pot-type">Pot/Container Type:</label>
+                        <select id="calc-pot-type" required>
+                            <option value="" disabled selected>-- Select Pot --</option>
+                            <!-- Options populated by JS -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="calc-plant-time">Planted Date & Time:</label>
+                        <input type="datetime-local" id="calc-plant-time" required>
+                        <small>The real-world date and time you planted the seed.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="calc-last-watered">Last Watered Date & Time:</label>
+                        <input type="datetime-local" id="calc-last-watered">
+                        <small>(Optional) Set to plant time if watered immediately. Used for 'Next Water' estimate.</small>
+                    </div>
+
+                    <button type="button" id="calculate-grow-btn" class="btn btn-primary">Calculate</button>
+                </form>
+
+                <div id="grow-results" class="result-display" style="display: none;">
+                    <h4>Results:</h4>
+                    <p id="result-grow-time"></p>
+                    <p id="result-harvest-time"></p>
+                    <p id="result-next-water"></p>
+                    <p id="result-notes"></p>
+                </div>
+            </div>
+
+             <div class="data-reference card">
+                <h3>Data Reference (Defaults)</h3>
+                <p>These values are based on game data and used in calculations:</p>
+                <div id="reference-tables">
+                    <div class="ref-table">
+                        <h4>Base Grow Times (Game Minutes)</h4>
+                        <ul id="ref-grow-times"></ul>
+                    </div>
+                    <div class="ref-table">
+                        <h4>Pot Modifiers</h4>
+                        <ul id="ref-pot-mods"></ul>
+                    </div>
+                </div>
+             </div>
+
+        </section> <!-- End tool-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- Add specific script for this tool -->
+    <script src="growing.js"></script>
 </body>
 </html>

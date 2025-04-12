@@ -1,0 +1,171 @@
+.tool-section .warning {
+    background-color: #fff3cd; /* Light yellow */
+    color: #856404; /* Dark yellow/brown text */
+    border: 1px solid #ffeeba;
+    padding: 0.8rem 1.2rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 0.9em;
+}
+.tool-section .warning strong {
+    color: #721c24; /* Dark red for emphasis */
+}
+
+
+.calculator-layout {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column default */
+    gap: 2rem;
+}
+
+@media (min-width: 992px) {
+    .calculator-layout {
+        grid-template-columns: 1fr 1.5fr; /* Form on left, results on right */
+    }
+}
+
+
+.calculator-card, .results-card {
+    background-color: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.calculator-card h3, .results-card h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #0056b3;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #fff;
+}
+
+#calculate-mix-btn {
+    margin-top: 1rem;
+    display: block;
+    width: 100%;
+}
+
+/* Results Area */
+.results-card {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+}
+
+#results-summary p {
+    margin-bottom: 0.7rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+#results-summary p:last-of-type {
+    margin-bottom: 0;
+}
+
+
+#results-summary strong {
+    color: #333;
+    min-width: 180px; /* Align labels */
+    display: inline-block;
+}
+#results-summary span {
+    font-weight: bold;
+    color: #0056b3;
+}
+
+#results-summary hr {
+    margin: 1rem 0;
+    border: 0;
+    border-top: 1px dashed #ccc;
+}
+
+#results-summary #result-addictiveness,
+#results-summary #result-value-mod {
+    font-weight: bold;
+}
+#results-summary #result-addictiveness {
+    color: #dc3545; /* Red for addictiveness */
+}
+#results-summary #result-value-mod {
+    color: #28a745; /* Green for value */
+}
+#results-summary #result-market-value {
+    font-weight: bold;
+    color: #17a2b8; /* Teal for market value */
+}
+
+
+#results-effects-list {
+    list-style: none; /* Remove default bullets */
+    padding: 0;
+    margin: 0.5rem 0 1rem 0;
+}
+
+#results-effects-list li {
+    background-color: #e9ecef;
+    padding: 0.3rem 0.6rem;
+    margin-bottom: 0.3rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+    display: inline-block; /* Effects side-by-side */
+    margin-right: 0.4rem;
+    border: 1px solid #ced4da;
+}
+#results-effects-list li .tier {
+    font-weight: bold;
+    color: #6c757d;
+    margin-left: 0.3rem;
+}
+
+
+.reference-note {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #ccc;
+    font-size: 0.85em;
+    color: #6c757d;
+    text-align: center;
+}
+.reference-note strong {
+    color: #dc3545;
+}
+
+
+/* Use button styles from main style.css or redefine if needed */
+.btn {
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #0056b3;
+    color: white;
+}
+.btn-primary:hover { background-color: #004494; }

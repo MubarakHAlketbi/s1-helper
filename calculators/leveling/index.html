@@ -1,12 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Leveling Index</title>
-  <link rel="stylesheet" href="/assets/css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Leveling & Rank Calculator</title>
+    <meta name="description" content="Calculate your current rank, tier, XP needed for the next level, and see associated unlocks in Schedule 1.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Optional: Link to a specific leveling calculator stylesheet -->
+    <link rel="stylesheet" href="leveling.css">
 </head>
 <body>
-  <h1>Leveling Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/assets/js/main.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/">Database</a></li>
+                    <li><a href="/calculators/" class="active">Calculators</a></li> <!-- Mark as active -->
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+            <!-- Optional: Add search back if needed -->
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="tool-section">
+            <h2>Leveling & Rank Calculator</h2>
+            <p>Calculate your progress, XP needed for the next level, and see associated unlocks. Based on game data (11 Ranks, 5 Tiers per Rank).</p>
+
+            <div class="calculator-layout">
+                <!-- Input Form -->
+                <div class="calculator-card card">
+                    <h3>Calculate Your Level</h3>
+                    <form id="leveling-calculator-form">
+                        <p>Enter either your current Rank/Tier/XP OR your Total XP:</p>
+
+                        <fieldset>
+                            <legend>Option 1: Current Rank/Tier/XP</legend>
+                            <div class="form-group">
+                                <label for="calc-rank">Current Rank:</label>
+                                <select id="calc-rank">
+                                    <!-- Options populated by JS -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="calc-tier">Current Tier (1-5):</label>
+                                <input type="number" id="calc-tier" min="1" max="5" value="1">
+                            </div>
+                             <div class="form-group">
+                                <label for="calc-current-xp">Current XP in this Tier:</label>
+                                <input type="number" id="calc-current-xp" min="0" value="0">
+                            </div>
+                        </fieldset>
+
+                        <div class="or-divider">OR</div>
+
+                        <fieldset>
+                             <legend>Option 2: Total XP</legend>
+                             <div class="form-group">
+                                <label for="calc-total-xp">Total XP Earned:</label>
+                                <input type="number" id="calc-total-xp" min="0">
+                             </div>
+                        </fieldset>
+
+                        <button type="button" id="calculate-level-btn" class="btn btn-primary">Calculate</button>
+                    </form>
+                </div>
+
+                <!-- Results Display -->
+                <div class="results-card card" id="leveling-results" style="display: none;">
+                    <h3>Results</h3>
+                    <div id="results-summary">
+                        <p><strong>Current Rank:</strong> <span id="result-rank-name"></span></p>
+                        <p><strong>Current Tier:</strong> <span id="result-tier"></span></p>
+                        <p><strong>XP in Current Tier:</strong> <span id="result-current-xp"></span> / <span id="result-xp-needed"></span></p>
+                        <p><strong>XP Remaining for Next Tier:</strong> <span id="result-xp-remaining"></span></p>
+                        <p><strong>Total XP Earned:</strong> <span id="result-total-xp"></span></p>
+                        <p><strong>Next Level:</strong> <span id="result-next-level"></span></p>
+                        <p><strong>Supplier Order Limit Multiplier:</strong> <span id="result-order-multiplier"></span>x</p>
+                    </div>
+                    <div id="results-unlocks">
+                        <h4>Unlocks at Current Rank/Tier:</h4>
+                        <ul id="result-current-unlocks"><li>None</li></ul>
+                        <h4>Unlocks at Next Rank/Tier:</h4>
+                        <ul id="result-next-unlocks"><li>None</li></ul>
+                    </div>
+                     <div class="reference-note">
+                        <p><strong>Note:</strong> XP per tier scales from 200 (Rank 0) to 2500 (Rank 10). Order Limit Multiplier increases with Rank.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section> <!-- End tool-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- Add specific script for this tool -->
+    <script src="leveling.js"></script>
 </body>
 </html>

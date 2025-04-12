@@ -1,12 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Mixing Index</title>
-  <link rel="stylesheet" href="/assets/css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Mixing Calculator</title>
+    <meta name="description" content="Calculate the potential outcome of mixing base products with ingredients in Schedule 1. Estimate resulting effects, value, and addictiveness.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Optional: Link to a specific mixing calculator stylesheet -->
+    <link rel="stylesheet" href="mixing.css">
 </head>
 <body>
-  <h1>Mixing Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/assets/js/main.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/">Database</a></li>
+                    <li><a href="/calculators/" class="active">Calculators</a></li> <!-- Mark as active -->
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+            <!-- Optional: Add search back if needed -->
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="tool-section">
+            <h2>Mixing Calculator</h2>
+            <p>Select a base product and an ingredient to see the calculated outcome based on combining their properties. Max 8 properties per mix.</p>
+            <p class="warning"><strong>Note:</strong> This calculator uses a simplified model. It adds the ingredient's effect to the base product's effects (up to 8 total) and sums their value/addictiveness modifiers. The actual game uses a more complex "Mixer Map" system where combinations can result in entirely different effects not shown here. Use this as a basic estimate.</p>
+
+            <div class="calculator-layout">
+                <!-- Input Form -->
+                <div class="calculator-card card">
+                    <h3>Create a Mix</h3>
+                    <form id="mixing-calculator-form">
+                         <div class="form-group">
+                            <label for="base-product-type">Base Product Type:</label>
+                            <select id="base-product-type" required>
+                                <option value="Marijuana">Marijuana</option>
+                                <option value="Methamphetamine">Methamphetamine</option>
+                                <option value="Cocaine">Cocaine</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="base-product">Base Product:</label>
+                            <select id="base-product" required>
+                                <option value="" disabled selected>-- Select Base Product --</option>
+                                <!-- Options populated by JS based on type -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ingredient">Ingredient (Mixer):</label>
+                            <select id="ingredient" required>
+                                <option value="" disabled selected>-- Select Ingredient --</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+
+                        <button type="button" id="calculate-mix-btn" class="btn btn-primary">Calculate Mix Outcome</button>
+                    </form>
+                </div>
+
+                <!-- Results Display -->
+                <div class="results-card card" id="mixing-results" style="display: none;">
+                    <h3>Estimated Mix Outcome</h3>
+                    <div id="results-summary">
+                        <p><strong>Base Product:</strong> <span id="result-base-product-name"></span></p>
+                        <p><strong>Ingredient:</strong> <span id="result-ingredient-name"></span></p>
+                        <hr>
+                        <p><strong>Resulting Effects:</strong></p>
+                        <ul id="result-effects-list"></ul>
+                        <hr>
+                        <p><strong>Estimated Addictiveness:</strong> <span id="result-addictiveness"></span>%</p>
+                        <p><strong>Estimated Value Modifier:</strong> <span id="result-value-mod"></span>%</p>
+                        <p><strong>Estimated Base Market Value:</strong> $<span id="result-market-value"></span> (per unit)</p>
+                    </div>
+                     <div class="reference-note">
+                        <p><strong>Disclaimer:</strong> Values are estimates based on summing modifiers. Actual game results may vary due to the Mixer Map system and quality levels.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section> <!-- End tool-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- Add specific script for this tool -->
+    <script src="mixing.js"></script>
 </body>
 </html>
