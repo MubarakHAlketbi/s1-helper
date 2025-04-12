@@ -1,0 +1,189 @@
+/* --- Tool Specific Styles --- */
+
+.tool-section h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.tool-section > p {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+.tracker-content {
+    display: grid;
+    grid-template-columns: 1fr; /* Default to single column */
+    gap: 2rem;
+}
+
+/* Layout for wider screens */
+@media (min-width: 992px) {
+    .tracker-content {
+        grid-template-columns: 1fr 2fr; /* Form on left, list on right */
+    }
+}
+
+.card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-container h3,
+.list-container h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical; /* Allow vertical resize */
+}
+
+.form-group small {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.2rem;
+}
+
+.form-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn {
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #0056b3;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #004494;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    font-size: 0.8rem; /* Smaller buttons for edit/delete */
+    padding: 0.3rem 0.6rem;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    color: #212529;
+     font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+}
+
+/* Customer List Styles */
+#customer-list {
+    max-height: 600px; /* Limit height and make scrollable */
+    overflow-y: auto;
+}
+
+.customer-entry {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #f9f9f9;
+}
+
+.customer-entry h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #0056b3;
+}
+
+.customer-info p {
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.customer-info strong {
+    color: #333;
+}
+
+.customer-actions {
+    margin-top: 0.8rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.category-label {
+    display: inline-block;
+    margin-left: 0.5rem;
+    font-size: 0.85rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.cooldown-info {
+    font-style: italic;
+    color: #555;
+}
+
+#no-customers-message {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
+}

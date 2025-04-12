@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Tools & Planners</title>
+    <meta name="description" content="Access helpful tools and planners for Schedule 1, including customer tracking, delivery management, financial logs, and grow planning.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/tools.css">
+    <!-- Optional: Link to a specific tools section stylesheet -->
+    <!-- <link rel="stylesheet" href="tools.css"> -->
+</head>
+<body>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/">Database</a></li>
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/" class="active">Tools & Planners</a></li> <!-- Mark as active -->
+                </ul>
+            </nav>
+            <!-- Optional: Add search back if needed -->
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="tool-section">
+            <h2>Tools & Planners</h2>
+            <p>Use these tools to help manage your operations in Schedule 1. Plan your grows, track finances, manage deliveries, and keep tabs on your customer relationships.</p>
+            <p><strong>Important:</strong> All data entered into these tools is stored <em>locally in your web browser's localStorage</em>. It is not saved on our server and will be lost if you clear your browser data.</p>
+
+            <div class="tool-list">
+                <article class="tool-card">
+                    <h3>Customer Tracker</h3>
+                    <p>Keep detailed notes on your customers, track relationship levels, preferred products/effects, quality standards, and deal cooldowns.</p>
+                    <a href="/tools/customer-tracker/" class="btn btn-primary">Go to Customer Tracker</a>
+                </article>
+
+                <article class="tool-card">
+                    <h3>Delivery Tracker</h3>
+                    <p>Manually log your incoming deliveries from suppliers. Track contents, estimated arrival times, and mark them as arrived.</p>
+                    <a href="/tools/delivery-tracker/" class="btn btn-primary">Go to Delivery Tracker</a>
+                </article>
+
+                <article class="tool-card">
+                    <h3>Financial Tracker</h3>
+                    <p>Log your cash and online transactions, manually update your current balances, and maintain a history of your income and expenses.</p>
+                    <a href="/tools/financial-tracker/" class="btn btn-primary">Go to Financial Tracker</a>
+                </article>
+
+                <article class="tool-card">
+                    <h3>Grow Planner</h3>
+                    <p>Plan your grows by tracking planted seeds, locations, pot types, estimated harvest times, and watering needs based on pot modifiers.</p>
+                    <a href="/tools/grow-planner/" class="btn btn-primary">Go to Grow Planner</a>
+                </article>
+
+                <!-- Add more tools here as they are created -->
+
+            </div> <!-- End tool-list -->
+
+        </section> <!-- End tool-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- No specific JS needed for this index page itself -->
+</body>
+</html>

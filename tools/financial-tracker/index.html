@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Financial Tracker</title>
+    <meta name="description" content="Manually track your cash, online balance, net worth, and transactions in Schedule 1.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Add specific styles for this tool -->
+    <link rel="stylesheet" href="financial-tracker.css">
+</head>
+<body>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/">Database</a></li>
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="tool-section">
+            <h2>Financial Tracker</h2>
+            <p>Manually track your in-game finances. Update your balances and log transactions to keep a record.</p>
+            <p><em>Data is saved locally in your browser using localStorage. Deleting transactions only removes the log entry, it does NOT automatically recalculate current balances.</em></p>
+
+            <div class="tracker-layout">
+                <!-- Balances & Update Section -->
+                <div class="balances-section card">
+                    <h3>Current Balances</h3>
+                    <div class="balance-display">
+                        <div class="balance-item cash">
+                            <span>Cash Balance:</span>
+                            <strong id="display-cash-balance">$0.00</strong>
+                        </div>
+                        <div class="balance-item online">
+                            <span>Online Balance:</span>
+                            <strong id="display-online-balance">$0.00</strong>
+                        </div>
+                        <!-- Net worth could be added here later -->
+                    </div>
+
+                    <hr>
+
+                    <h4>Update Balances</h4>
+                    <form id="update-balances-form">
+                        <div class="form-group">
+                            <label for="update-cash">Set Cash Balance:</label>
+                            <input type="number" id="update-cash" step="0.01" min="0" placeholder="Enter current cash">
+                        </div>
+                        <div class="form-group">
+                            <label for="update-online">Set Online Balance:</label>
+                            <input type="number" id="update-online" step="0.01" min="0" placeholder="Enter current online balance">
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Update Balances</button>
+                    </form>
+                </div>
+
+                <!-- Add Transaction Section -->
+                <div class="transaction-form-section card">
+                    <h3>Log New Transaction</h3>
+                    <form id="add-transaction-form">
+                        <div class="form-group">
+                            <label for="tx-date">Date:</label>
+                            <input type="datetime-local" id="tx-date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tx-type">Type:</label>
+                            <select id="tx-type" required>
+                                <option value="Income">Income (Sale, Job)</option>
+                                <option value="Expense">Expense (Purchase, Fee)</option>
+                                <option value="ATM Deposit">ATM Deposit</option>
+                                <option value="ATM Withdrawal">ATM Withdrawal</option>
+                                <option value="Laundering Deposit">Laundering Deposit</option>
+                                <option value="Laundering Payout">Laundering Payout</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tx-description">Description:</label>
+                            <input type="text" id="tx-description" placeholder="e.g., Sold 10x OG Kush, Bought Soil" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tx-amount">Amount ($):</label>
+                            <input type="number" id="tx-amount" step="0.01" min="0.01" placeholder="e.g., 350.00" required>
+                        </div>
+
+                        <div class="form-group radio-group">
+                            <label>Affected Balance:</label>
+                            <div>
+                                <input type="radio" id="tx-affect-cash" name="tx-affect" value="cash" checked>
+                                <label for="tx-affect-cash">Cash</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="tx-affect-online" name="tx-affect" value="online">
+                                <label for="tx-affect-online">Online</label>
+                            </div>
+                             <small id="tx-transfer-note" style="display: none; color: #0056b3;">(Note: Transfers like ATM/Laundering will affect both balances)</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Add Transaction</button>
+                    </form>
+                </div>
+            </div> <!-- End tracker-layout -->
+
+            <!-- Transaction Log Section -->
+            <section class="transaction-log-section card">
+                <h3>Transaction Log</h3>
+                 <div class="log-controls">
+                    <button id="clear-log-btn" class="btn btn-danger btn-small">Clear Entire Log</button>
+                    <span class="log-info">(Newest transactions first)</span>
+                </div>
+                <div class="table-container">
+                    <table id="transaction-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Balance After</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transaction-log-body">
+                            <!-- Log entries added by JS -->
+                            <tr id="no-transactions-row">
+                                <td colspan="6">No transactions logged yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </section> <!-- End tool-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- Add specific script for this tool -->
+    <script src="financial-tracker.js"></script>
+</body>
+</html>

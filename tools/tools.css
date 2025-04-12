@@ -1,0 +1,69 @@
+/* --- Styles for Tools Index Page --- */
+
+.tool-section h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.tool-section > p {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #555;
+    max-width: 800px; /* Limit width of intro text */
+    margin-left: auto;
+    margin-right: auto;
+}
+.tool-section > p strong {
+    color: #d9534f; /* Highlight the local storage warning */
+}
+
+.tool-list {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 1.5rem;
+}
+
+.tool-card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.tool-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.tool-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    color: #0056b3;
+    font-size: 1.3rem;
+}
+
+.tool-card p {
+    font-size: 0.95rem;
+    color: #444;
+    flex-grow: 1; /* Make text take available space */
+    margin-bottom: 1.2rem;
+}
+
+.tool-card .btn {
+    margin-top: auto; /* Push button to the bottom */
+    display: block; /* Make button take full width */
+    text-align: center;
+}
+
+/* Active class for navigation */
+header nav ul li a.active {
+    font-weight: bold;
+    /* Add other styling like background or underline */
+    background-color: #555;
+     border-radius: 4px;
+}

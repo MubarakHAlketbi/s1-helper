@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Grow Planner</title>
+    <meta name="description" content="Plan and track your plant growing cycles, harvest times, and watering needs in Schedule 1.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Add specific styles for this tool -->
+    <link rel="stylesheet" href="grow-planner.css">
+</head>
+<body>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/">Database</a></li>
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="tool-section">
+            <h2>Grow Planner</h2>
+            <p>Track your plants from seed to harvest. Enter planting details to estimate harvest times and manage watering.</p>
+            <p><em>Data is saved locally in your browser using localStorage. Assumes default game time speed (1 real second = 1 game minute).</em></p>
+
+            <div class="tracker-layout">
+                <!-- Add/Edit Plant Form -->
+                <div class="form-container card">
+                    <h3 id="form-title">Add New Plant</h3>
+                    <form id="grow-form">
+                        <input type="hidden" id="plant-id"> <!-- For editing -->
+
+                        <div class="form-group">
+                            <label for="seed-name">Seed Type:</label>
+                            <select id="seed-name" required>
+                                <option value="" disabled selected>-- Select Seed --</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location-id">Location ID:</label>
+                            <input type="text" id="location-id" placeholder="e.g., Tent 1, Pot A3" required>
+                        </div>
+
+                         <div class="form-group">
+                            <label for="pot-type">Pot/Container Type:</label>
+                            <select id="pot-type" required>
+                                <option value="" disabled selected>-- Select Pot --</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="plant-time">Planted Date & Time:</label>
+                            <input type="datetime-local" id="plant-time" required>
+                        </div>
+
+                         <div class="form-group">
+                            <label for="last-watered">Initial/Last Watered Date & Time:</label>
+                            <input type="datetime-local" id="last-watered" required>
+                            <small>(Set to plant time if watered immediately)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notes">Notes:</label>
+                            <textarea id="notes" rows="2" placeholder="e.g., Used Fertilizer"></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Save Plant</button>
+                            <button type="button" id="clear-form-btn" class="btn btn-secondary">Clear Form</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Plant List Display -->
+                <div class="list-container card">
+                    <h3>Tracked Plants</h3>
+                    <div class="sort-options">
+                        <label for="sort-plants">Sort by:</label>
+                        <select id="sort-plants">
+                            <option value="harvest_asc">Harvest Time (Soonest First)</option>
+                            <option value="harvest_desc">Harvest Time (Latest First)</option>
+                            <option value="water_asc">Watering Need (Soonest First)</option>
+                            <option value="location_asc">Location ID (A-Z)</option>
+                            <option value="seed_asc">Seed Name (A-Z)</option>
+                        </select>
+                    </div>
+                    <div id="plant-list">
+                        <!-- Plant entries will be generated here by JS -->
+                        <p id="no-plants-message">No plants tracked yet. Add one using the form!</p>
+                    </div>
+                </div>
+            </div> <!-- End tracker-layout -->
+
+        </section> <!-- End tool-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- Add specific script for this tool -->
+    <script src="grow-planner.js"></script>
+</body>
+</html>

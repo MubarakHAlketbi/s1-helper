@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Customer Tracker</title>
+    <meta name="description" content="Track your customer relationships, preferences, cooldowns, and notes for Schedule 1.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Add specific styles for this tool -->
+    <link rel="stylesheet" href="customer-tracker.css">
+</head>
+<body>
+    <header>
+        <!-- Re-use the standard site header structure -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/">Database</a></li>
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+            <!-- Optional: Add search back if needed -->
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="tool-section">
+            <h2>Customer Tracker</h2>
+            <p>Keep track of your valuable customers, their preferences, relationship status, and deal cooldowns.</p>
+            <p><em>Data is saved locally in your browser using localStorage.</em></p>
+
+            <div class="tracker-content">
+                <!-- Add/Edit Customer Form -->
+                <div class="form-container card">
+                    <h3 id="form-title">Add New Customer</h3>
+                    <form id="customer-form">
+                        <input type="hidden" id="customer-id"> <!-- For editing -->
+
+                        <div class="form-group">
+                            <label for="customer-name">Customer Name:</label>
+                            <input type="text" id="customer-name" list="npc-names" required>
+                            <!-- Datalist populated by JS with known customer NPCs -->
+                            <datalist id="npc-names">
+                                <!-- Options added dynamically by JS -->
+                            </datalist>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="relationship-level">Relationship Level (0-5):</label>
+                            <input type="number" id="relationship-level" min="0" max="5" step="0.1" value="2.0" required>
+                            <span id="relationship-category-display" class="category-label">Neutral</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="last-interaction-date">Last Deal/Interaction Date:</label>
+                            <input type="date" id="last-interaction-date">
+                             <input type="time" id="last-interaction-time">
+                             <small>(Optional, helps track cooldowns)</small>
+                        </div>
+
+                         <div class="form-group">
+                            <label for="addiction-level">Current Addiction (0-1):</label>
+                            <input type="number" id="addiction-level" min="0" max="1" step="0.01" value="0">
+                        </div>
+
+                        <div class="form-group">
+                           <label for="preferred-drugs">Preferred Drug Types (comma-separated):</label>
+                           <input type="text" id="preferred-drugs" placeholder="e.g., Marijuana, Meth">
+                           <small>(Reference only, use Database for precise affinities)</small>
+                        </div>
+
+                        <div class="form-group">
+                           <label for="preferred-effects">Preferred Effects (comma-separated):</label>
+                           <input type="text" id="preferred-effects" placeholder="e.g., Calming, Energizing">
+                           <small>(Reference only, use Database for precise list)</small>
+                        </div>
+
+                         <div class="form-group">
+                            <label for="quality-standard">Quality Standard:</label>
+                            <select id="quality-standard">
+                                <option value="0">Very Low</option>
+                                <option value="1">Low</option>
+                                <option value="2" selected>Moderate</option>
+                                <option value="3">High</option>
+                                <option value="4">Very High</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notes">Notes:</label>
+                            <textarea id="notes" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Save Customer</button>
+                            <button type="button" id="clear-form-btn" class="btn btn-secondary">Clear Form</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Customer List Display -->
+                <div class="list-container card">
+                    <h3>Tracked Customers</h3>
+                    <div id="customer-list">
+                        <!-- Customer entries will be generated here by JS -->
+                        <p id="no-customers-message">No customers tracked yet. Add one using the form!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Re-use the standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- Add specific script for this tool -->
+    <script src="customer-tracker.js"></script>
+</body>
+</html>
