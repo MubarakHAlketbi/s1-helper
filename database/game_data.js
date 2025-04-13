@@ -1,4 +1,4 @@
-// Centralized Game Data for Schedule 1 Helper
+12// Centralized Game Data for Schedule 1 Helper
 
 // --- Growing Data ---
 
@@ -27,6 +27,7 @@ export const POT_DATA = {
 
 // Conversion factor
 export const GAME_MINUTE_TO_REAL_MS = 1000; // 1 game minute = 1 real second = 1000 ms
+export const GAME_HOURS_PER_DAY = 24; // Assuming a standard 24-hour game day cycle
 
 
 // --- Leveling Data ---
@@ -188,6 +189,15 @@ export const CUSTOMER_DATA = {
     "tobias": { name: "Tobias", standard: 3, affinity: { Marijuana: 0.19, Methamphetamine: 0.76, Cocaine: 0.17 }, prefs: ["be6ef3c6460adac459cb7b6f45e4e75f", "8301163bca693374fbca43f5ae493605", "c45539561ef11a746bfb77b48ae01268"] }, // Lethal, Energizing, Shrinking
     "walter": { name: "Walter", standard: 3, affinity: { Marijuana: -0.14, Methamphetamine: -0.30, Cocaine: -0.44 }, prefs: ["09cc6fed996998f40b9411f43cfa8146", "ff88fffc965badc409a4b46d2652a178", "40784621a2e5fbe4cbc4248de7983706"] }, // Slippery, Calming, Anti-gravity
 };
+
+// List of known customer names (used by Customer Tracker tool)
+export const KNOWN_CUSTOMER_NAMES = [
+    "Beth", "Billy", "Carl", "Chloe", "Chris", "Dennis", "Donna", "Doris",
+    "Elizabeth", "Eugene", "Fiona", "Genghis", "Greg", "Harold", "Herbert",
+    "Jack", "Jennifer", "Jeremy", "Lisa", "Louis", "Lucy", "Ludwig", "Mac",
+    "Marco", "Meg", "Melissa", "Michael", "Pearl", "Philip", "Sam", "Tobias",
+    "Walter" // Add more as identified
+];
 
 // Default utility prices (Update if actual game values are found)
 export const PRICE_PER_KWH = 0.15; // Placeholder cost per kWh

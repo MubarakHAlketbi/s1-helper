@@ -1,4 +1,5 @@
 import { generateId, formatDateTime } from '../../utils/helpers.js';
+import { KNOWN_CUSTOMER_NAMES } from '../../database/game_data.js'; // Import customer names
 
 document.addEventListener('DOMContentLoaded', () => {
     const customerForm = document.getElementById('customer-form');
@@ -14,15 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const STORAGE_KEY = 'schedule1_customerTrackerData';
     const DEAL_COOLDOWN_MINUTES = 600; // From economy.md
 
-    // --- Static Data (Populate from your database findings) ---
-    const KNOWN_CUSTOMER_NAMES = [
-        "Beth", "Billy", "Carl", "Chloe", "Chris", "Dennis", "Donna", "Doris",
-        "Elizabeth", "Eugene", "Fiona", "Genghis", "Greg", "Harold", "Herbert",
-        "Jack", "Jennifer", "Jeremy", "Lisa", "Louis", "Lucy", "Ludwig", "Mac",
-        "Marco", "Meg", "Melissa", "Michael", "Pearl", "Philip", "Sam", "Tobias",
-        "Walter" // Add more as identified
-    ];
-
+    // --- Static Data ---
+    // KNOWN_CUSTOMER_NAMES is now imported from game_data.js
     const RELATIONSHIP_CATEGORIES = {
         0: { name: "Hostile", color: "#dc3545" },
         1: { name: "Unfriendly", color: "#ffc107" },

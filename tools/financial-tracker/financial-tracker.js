@@ -1,4 +1,4 @@
-import { generateId, formatCurrency, formatDateTimeForInput } from '../../utils/helpers.js';
+import { generateId, formatCurrency, formatDateTimeForInput, formatDateTime } from '../../utils/helpers.js'; // Added formatDateTime
 
 document.addEventListener('DOMContentLoaded', () => {
     const cashBalanceDisplay = document.getElementById('display-cash-balance');
@@ -16,14 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Utility Functions ---
     // generateId, formatCurrency, formatDateTimeForInput imported from helpers.js
 
-    const formatTimestamp = (timestamp) => {
-        if (!timestamp) return 'N/A';
-        const date = new Date(timestamp);
-        return date.toLocaleString('en-US', {
-            year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
-        });
-    };
-
+    // formatTimestamp function removed, using imported formatDateTime instead
     // formatDateTimeForInput is now imported
 
     // --- Local Storage Functions ---
@@ -103,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             row.innerHTML = `
-                <td>${formatTimestamp(tx.timestamp)}</td>
+                <td>${formatDateTime(tx.timestamp)}</td>
                 <td>${tx.type}</td>
                 <td>${tx.description}</td>
                 <td class="${amountClass}">${amountPrefix}${formatCurrency(tx.amount)}</td>

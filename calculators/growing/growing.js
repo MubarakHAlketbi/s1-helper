@@ -1,5 +1,5 @@
 import { BASE_GROW_TIMES, POT_DATA, GAME_MINUTE_TO_REAL_MS } from '../../database/game_data.js';
-
+import { formatDateTime, formatDuration } from '../../utils/helpers.js'; // Import shared helpers
 document.addEventListener('DOMContentLoaded', () => {
     const seedSelect = document.getElementById('calc-seed-name');
     const potSelect = document.getElementById('calc-pot-type');
@@ -13,35 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultNotesP = document.getElementById('result-notes');
 
     // Game data is imported from ../../database/game_data.js
-    // --- Utility Functions ---
-    const formatDateTime = (timestamp) => {
-        if (!timestamp || isNaN(timestamp)) return 'N/A';
-        const date = new Date(timestamp);
-        return date.toLocaleString('en-US', {
-            weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true
-        });
-    };
-
-    const formatDuration = (milliseconds) => {
-        if (isNaN(milliseconds) || milliseconds < 0) return 'N/A';
-
-        const totalSeconds = Math.floor(milliseconds / 1000);
-        const seconds = totalSeconds % 60;
-        const totalMinutes = Math.floor(totalSeconds / 60);
-        const minutes = totalMinutes % 60;
-        const totalHours = Math.floor(totalMinutes / 60);
-        const hours = totalHours % 24;
-        const days = Math.floor(totalHours / 24);
-
-        let parts = [];
-        if (days > 0) parts.push(`${days}d`);
-        if (hours > 0) parts.push(`${hours}h`);
-        if (minutes > 0) parts.push(`${minutes}m`);
-        if (seconds > 0 && parts.length < 2) parts.push(`${seconds}s`); // Only show seconds if duration is short
-
-        return parts.length > 0 ? parts.join(' ') : 'Instant';
-    };
-
+    // Helper functions (formatDateTime, formatDuration) are imported from ../../utils/helpers.js
     // --- Populate Selects ---
     Object.keys(BASE_GROW_TIMES).sort().forEach(seedName => {
         const option = document.createElement('option');
