@@ -129,3 +129,27 @@ export const formatTimeDifference = (diffMillis) => {
     const prefix = isPast ? "-" : "";
     return prefix + parts.join(' ');
 };
+
+/**
+ * Formats a duration in seconds into a human-readable string (e.g., "1h 30m 15s").
+ * @param {number} totalSeconds - The duration in seconds.
+ * @returns {string} Formatted duration string.
+ */
+export const formatDuration = (totalSeconds) => {
+    if (isNaN(totalSeconds) || totalSeconds < 0) {
+        return "0s";
+    }
+
+    const seconds = Math.floor(totalSeconds % 60);
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const minutes = totalMinutes % 60;
+    const hours = Math.floor(totalMinutes / 60);
+
+    let parts = [];
+    if (hours > 0) parts.push(`${hours}h`);
+    if (minutes > 0) parts.push(`${minutes}m`);
+    // Always show seconds if duration is less than a minute or if seconds are non-zero
+    if (seconds > 0 || parts.length === 0) parts.push(`${seconds}s`);
+
+    return parts.join(' ') || '0s'; // Return '0s' if totalSeconds was 0
+};

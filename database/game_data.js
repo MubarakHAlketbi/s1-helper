@@ -189,6 +189,10 @@ export const CUSTOMER_DATA = {
     "walter": { name: "Walter", standard: 3, affinity: { Marijuana: -0.14, Methamphetamine: -0.30, Cocaine: -0.44 }, prefs: ["09cc6fed996998f40b9411f43cfa8146", "ff88fffc965badc409a4b46d2652a178", "40784621a2e5fbe4cbc4248de7983706"] }, // Slippery, Calming, Anti-gravity
 };
 
+// Default utility prices (Update if actual game values are found)
+export const PRICE_PER_KWH = 0.15; // Placeholder cost per kWh
+export const PRICE_PER_LITRE = 0.01; // Placeholder cost per Litre of water
+
 export const QUALITY_LEVELS = ["Trash", "Poor", "Standard", "Premium", "Heavenly"]; // Index 0-4
 export const QUALITY_VALUE_MULTIPLIERS = { 0: 0.5, 1: 0.8, 2: 1.0, 3: 1.2, 4: 1.5 }; // Assumed values
 export const MAX_EFFECT_CONTRIBUTION = { type: 0.3, property: 0.4, quality: 0.3 }; // From economy.md

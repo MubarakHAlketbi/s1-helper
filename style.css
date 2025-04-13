@@ -120,6 +120,13 @@ header nav ul li a:hover {
     border-radius: 4px;
 }
 
+/* Style for the active navigation link */
+header nav ul li a.active {
+    font-weight: bold;
+    background-color: #555; /* Same as hover for consistency */
+    border-radius: 4px;
+}
+
 header .search-container input[type="search"] {
     padding: 8px;
     border: none;
@@ -147,6 +154,21 @@ section {
     margin-bottom: 1.5rem;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* --- Base Card Component --- */
+.card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Consistent shadow */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    margin-bottom: 1.5rem; /* Add default bottom margin like sections */
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Consistent hover shadow */
 }
 
 .hero {

@@ -57,10 +57,3 @@
 }
 
 /* Use button styles from main style.css or redefine if needed */
-/* Active class for navigation */
-header nav ul li a.active {
-    font-weight: bold;
-    /* Add other styling like background or underline */
-    background-color: #555;
-     border-radius: 4px;
-}

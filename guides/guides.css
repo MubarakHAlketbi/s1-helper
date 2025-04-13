@@ -73,10 +73,3 @@
     pointer-events: none; /* Prevent clicks */
 }
 
-
-/* Active class for navigation */
-header nav ul li a.active {
-    font-weight: bold;
-    background-color: #555;
-     border-radius: 4px;
-}
