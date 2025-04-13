@@ -1,12 +1,152 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Utilities Index</title>
-  <link rel="stylesheet" href="/assets/css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Utility Cost Calculator</title>
+    <meta name="description" content="Estimate your daily or weekly power and water costs based on your equipment usage in Schedule 1.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Optional: Link to a specific calculator stylesheet -->
+    <link rel="stylesheet" href="utilities.css">
 </head>
 <body>
-  <h1>Utilities Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/assets/js/main.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/">Database</a></li>
+                    <li><a href="/calculators/" class="active">Calculators</a></li> <!-- Mark as active -->
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+            <!-- Optional: Add search back if needed -->
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="tool-section">
+            <h2>Utility Cost Calculator</h2>
+            <p>Estimate your power and water costs based on the number of appliances running. Uses default game costs.</p>
+            <p class="warning"><strong>Note:</strong> Exact power/water consumption per item is not known. This calculator uses estimates. Adjust quantities based on your setup.</p>
+
+            <div class="calculator-layout">
+                <!-- Input Form -->
+                <div class="calculator-card card">
+                    <h3>Usage Details</h3>
+                    <form id="utility-calculator-form">
+                        <h4>Power Consumption</h4>
+                        <div class="form-group item-group">
+                            <label for="calc-chem-stations">Chemistry Stations:</label>
+                            <input type="number" id="calc-chem-stations" min="0" value="0">
+                            <small>(Est. 0.5 kWh/game hour)</small>
+                        </div>
+                         <div class="form-group item-group">
+                            <label for="calc-lab-ovens">Lab Ovens:</label>
+                            <input type="number" id="calc-lab-ovens" min="0" value="0">
+                            <small>(Est. 0.8 kWh/game hour)</small>
+                        </div>
+                        <div class="form-group item-group">
+                            <label for="calc-grow-lights">Grow Lights (per tent/area):</label>
+                            <input type="number" id="calc-grow-lights" min="0" value="0">
+                            <small>(Est. 0.2 kWh/game hour)</small>
+                        </div>
+                         <div class="form-group item-group">
+                            <label for="calc-other-power">Other Stations (Mixer, Press, etc.):</label>
+                            <input type="number" id="calc-other-power" min="0" value="0">
+                            <small>(Est. 0.1 kWh/game hour each)</small>
+                        </div>
+                         <div class="form-group item-group">
+                            <label for="calc-property-lights">Property Lights (per room approx):</label>
+                            <input type="number" id="calc-property-lights" min="0" value="0">
+                            <small>(Est. 0.05 kWh/game hour each, only when ON)</small>
+                        </div>
+
+                        <hr>
+                        <h4>Water Consumption</h4>
+                         <div class="form-group item-group">
+                            <label for="calc-taps-used">Manual Watering (Avg Litres/day):</label>
+                            <input type="number" id="calc-taps-used" min="0" value="0">
+                            <small>(Estimate total litres used daily)</small>
+                        </div>
+                        <div class="form-group item-group">
+                            <label for="calc-pot-sprinklers">Pot Sprinklers Running:</label>
+                            <input type="number" id="calc-pot-sprinklers" min="0" value="0">
+                            <small>(Est. 10 Litres/game day each)</small>
+                        </div>
+                        <div class="form-group item-group">
+                            <label for="calc-big-sprinklers">Big Sprinklers Running:</label>
+                            <input type="number" id="calc-big-sprinklers" min="0" value="0">
+                            <small>(Est. 50 Litres/game day each)</small>
+                        </div>
+
+                        <hr>
+                        <h4>Calculation Period</h4>
+                        <div class="form-group">
+                            <label for="calc-duration">Duration:</label>
+                            <select id="calc-duration">
+                                <option value="1">1 Game Day</option>
+                                <option value="7" selected>1 Game Week (7 Days)</option>
+                                <option value="30">1 Game Month (30 Days)</option>
+                            </select>
+                        </div>
+
+
+                        <button type="button" id="calculate-utility-btn" class="btn btn-primary">Calculate Costs</button>
+                    </form>
+                </div>
+
+                <!-- Results Display -->
+                <div class="results-card card" id="utility-results" style="display: none;">
+                    <h3>Estimated Costs</h3>
+                    <div id="results-summary">
+                        <p><strong>Calculation Period:</strong> <span id="result-duration"></span> Game Days</p>
+                        <hr>
+                        <p><strong>Estimated Power Usage:</strong> <span id="result-power-kwh"></span> kWh</p>
+                        <p><strong>Estimated Power Cost:</strong> <span id="result-power-cost"></span></p>
+                        <hr>
+                        <p><strong>Estimated Water Usage:</strong> <span id="result-water-l"></span> Litres</p>
+                        <p><strong>Estimated Water Cost:</strong> <span id="result-water-cost"></span></p>
+                        <hr>
+                        <p><strong>Total Estimated Utility Cost:</strong> <span id="result-total-cost"></span></p>
+                    </div>
+                     <div class="reference-note">
+                        <p><strong>Based on default costs:</strong></p>
+                        <ul>
+                            <li>Power: $<span id="ref-power-cost"></span> per kWh</li>
+                            <li>Water: $<span id="ref-water-cost"></span> per Litre</li>
+                        </ul>
+                         <p>Actual costs depend on precise item usage and game balance.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section> <!-- End tool-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- Add specific script for this tool -->
+    <script src="utilities.js"></script>
 </body>
 </html>

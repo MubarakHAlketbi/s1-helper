@@ -1,12 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Calculators Index</title>
-  <link rel="stylesheet" href="/assets/css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Calculators</title>
+    <meta name="description" content="Calculators for various game mechanics in Schedule 1, including mixing, growing, leveling, casino odds, customer satisfaction, and utility costs.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Optional: Link to a specific calculator index stylesheet -->
+    <link rel="stylesheet" href="calculators.css"> <!-- You might create this file for specific index styling -->
 </head>
 <body>
-  <h1>Calculators Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/assets/js/main.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/">Database</a></li>
+                    <li><a href="/calculators/" class="active">Calculators</a></li> <!-- Mark as active -->
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+            <!-- Optional: Add search back if needed -->
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="tool-section">
+            <h2>Game Calculators</h2>
+            <p>Use these calculators to plan your strategies, estimate outcomes, and manage your resources effectively in Schedule 1.</p>
+
+            <div class="calculator-list">
+                <article class="calculator-card card">
+                    <h3>Mixing Calculator</h3>
+                    <p>Estimate the effects, addictiveness, and value changes when mixing base products with various ingredients. Note: Uses a simplified model; actual game results may vary due to the Mixer Map system.</p>
+                    <a href="/calculators/mixing/" class="btn btn-primary">Go to Mixing Calculator</a>
+                </article>
+
+                <article class="calculator-card card">
+                    <h3>Growing Calculator</h3>
+                    <p>Calculate plant grow times, estimate harvest dates, and predict watering needs based on the seed type and pot used.</p>
+                    <a href="/calculators/growing/" class="btn btn-primary">Go to Growing Calculator</a>
+                </article>
+
+                <article class="calculator-card card">
+                    <h3>Leveling & Rank Calculator</h3>
+                    <p>Determine your current rank and tier based on total XP, or calculate the XP needed to reach the next level. See associated unlocks.</p>
+                    <a href="/calculators/leveling/" class="btn btn-primary">Go to Leveling Calculator</a>
+                </article>
+
+                <article class="calculator-card card">
+                    <h3>Casino Calculators</h3>
+                    <p>Check Blackjack payouts based on outcomes and bets. See potential winnings progression for Ride the Bus (RTB).</p>
+                    <a href="/calculators/casino/" class="btn btn-primary">Go to Casino Calculators</a>
+                </article>
+
+                 <article class="calculator-card card">
+                    <h3>Customer Satisfaction Calculator</h3>
+                    <p>Estimate customer satisfaction and relationship changes based on the product, quality, price, and effects offered in a deal.</p>
+                    <a href="/calculators/satisfaction/" class="btn btn-primary">Go to Satisfaction Calculator</a>
+                </article>
+
+                 <article class="calculator-card card">
+                    <h3>Utility Cost Calculator</h3>
+                    <p>Estimate your daily or weekly power and water costs based on the number and type of equipment running in your properties.</p>
+                    <a href="/calculators/utilities/" class="btn btn-primary">Go to Utility Cost Calculator</a>
+                </article>
+
+                <!-- Add more calculators here as they are created -->
+
+            </div> <!-- End calculator-list -->
+
+        </section> <!-- End tool-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- No specific JS needed for this index page itself -->
 </body>
 </html>

@@ -1,12 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Satisfaction Index</title>
-  <link rel="stylesheet" href="/assets/css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Customer Satisfaction Calculator</title>
+    <meta name="description" content="Estimate customer satisfaction and relationship change based on deal details like product, quality, price, and effects in Schedule 1.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Optional: Link to a specific calculator stylesheet -->
+    <link rel="stylesheet" href="satisfaction.css">
 </head>
 <body>
-  <h1>Satisfaction Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/assets/js/main.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/">Database</a></li>
+                    <li><a href="/calculators/" class="active">Calculators</a></li> <!-- Mark as active -->
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+            <!-- Optional: Add search back if needed -->
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="tool-section">
+            <h2>Customer Satisfaction Calculator</h2>
+            <p>Estimate customer satisfaction and relationship change from a deal. Based on game data and inferred mechanics.</p>
+            <p class="warning"><strong>Note:</strong> This is an estimation based on known factors (quality, type affinity, preferred effects, price). The exact in-game calculation might differ slightly, especially regarding price sensitivity and relationship impact.</p>
+
+            <div class="calculator-layout">
+                <!-- Input Form -->
+                <div class="calculator-card card">
+                    <h3>Deal Details</h3>
+                    <form id="satisfaction-calculator-form">
+                        <div class="form-group">
+                            <label for="calc-customer">Customer:</label>
+                            <select id="calc-customer" required>
+                                <option value="" disabled selected>-- Select Customer --</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="calc-product">Base Product Delivered:</label>
+                            <select id="calc-product" required>
+                                <option value="" disabled selected>-- Select Product --</option>
+                                <!-- Options populated by JS -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="calc-quality">Quality Delivered:</label>
+                            <select id="calc-quality" required>
+                                <option value="0">Trash</option>
+                                <option value="1">Poor</option>
+                                <option value="2" selected>Standard</option>
+                                <option value="3">Premium</option>
+                                <option value="4">Heavenly</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="calc-quantity">Quantity Delivered:</label>
+                            <input type="number" id="calc-quantity" min="1" value="1" required>
+                        </div>
+
+                         <div class="form-group">
+                            <label for="calc-price-paid">Total Price Paid ($):</label>
+                            <input type="number" id="calc-price-paid" min="0" step="0.01" required>
+                        </div>
+
+                         <div class="form-group">
+                            <label for="calc-current-relationship">Current Relationship Level (0-5):</label>
+                            <input type="number" id="calc-current-relationship" min="0" max="5" step="0.1" value="2.0">
+                             <small>(Optional, may slightly influence price satisfaction in future versions)</small>
+                        </div>
+
+                        <button type="button" id="calculate-satisfaction-btn" class="btn btn-primary">Calculate Satisfaction</button>
+                    </form>
+                </div>
+
+                <!-- Results Display -->
+                <div class="results-card card" id="satisfaction-results" style="display: none;">
+                    <h3>Estimated Outcome</h3>
+                    <div id="results-summary">
+                        <p><strong>Overall Satisfaction Score:</strong> <span id="result-satisfaction-score"></span> / 1.0</p>
+                        <p><strong>Estimated Relationship Change:</strong> <span id="result-relationship-change"></span></p>
+                        <hr>
+                        <h4>Breakdown:</h4>
+                        <ul id="result-factors-list">
+                            <!-- Factors listed by JS -->
+                        </ul>
+                        <p><strong>Customer Expectation:</strong> Quality <span id="result-customer-standard"></span>, Prefers <span id="result-customer-prefs"></span></p>
+                         <p><strong>Calculated Ideal Price:</strong> <span id="result-ideal-price"></span></p>
+                    </div>
+                     <div class="reference-note">
+                        <p><strong>Calculation Notes:</strong></p>
+                        <ul>
+                            <li>Assumes Quality Multipliers: Trash(0.5x), Poor(0.8x), Standard(1.0x), Premium(1.2x), Heavenly(1.5x).</li>
+                            <li>Max contribution from factors: Type Affinity (30%), Effects (40%), Quality (30%).</li>
+                            <li>Price satisfaction compares Price Paid to Calculated Ideal Price.</li>
+                             <li>Relationship change is non-linear based on satisfaction score.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </section> <!-- End tool-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- Add specific script for this tool -->
+    <script src="satisfaction.js"></script>
 </body>
 </html>
