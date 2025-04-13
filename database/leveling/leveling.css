@@ -1,1 +1,21 @@
-/* Styles for the leveling database section */
+/* Styles specific to the Leveling & Ranks section */
+
+/* Inherits styles from /style.css and /database/database.css */
+
+/* Add specific overrides or styles for ranks, tiers, unlocks display if needed */
+#rank-list-container .card { /* Example: Style the rank cards */
+    border-left: 4px solid #17a2b8; /* Example: Teal border for leveling */
+}
+
+#rank-list-container h4 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #495057;
+}
+
+#rank-list-container ul {
+    list-style: disc;
+    margin-left: 20px;
+    font-size: 0.9rem;
+}

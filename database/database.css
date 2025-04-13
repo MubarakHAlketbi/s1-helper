@@ -1,1 +1,120 @@
-/* Styles for the database section */
+/* Styles specific to the Database section */
+
+/* Inherits base styles from /style.css */
+
+/* General Database Section Layout */
+.database-section {
+    /* Re-use section padding/margin from base style.css if needed, or add specific ones */
+    /* Example: Add more top padding if desired */
+    /* padding-top: 2rem; */
+}
+
+.database-section h2 {
+    /* Style for main section titles within the database */
+    border-bottom: 2px solid #0056b3; /* Example border */
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Breadcrumb Navigation specific to database pages */
+.breadcrumb-nav {
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: #6c757d; /* Example color */
+}
+
+.breadcrumb-nav ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.breadcrumb-nav li {
+    margin-right: 5px;
+}
+
+.breadcrumb-nav li::after {
+    content: '/';
+    margin-left: 5px;
+    color: #6c757d;
+}
+
+.breadcrumb-nav li:last-child::after {
+    content: ''; /* Remove trailing slash */
+}
+
+.breadcrumb-nav a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.breadcrumb-nav a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-nav span[aria-current="page"] {
+    color: #333; /* Darker color for the current page */
+    font-weight: bold;
+}
+
+
+/* Card Grid Layout (Common for listing items, NPCs, etc.) */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjust minmax as needed */
+    gap: 1.5rem;
+}
+
+/* Base Database Item Card Style (Can be extended by specific types like item, npc) */
+.database-item-card {
+    /* Inherits .card styles from style.css */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+}
+
+.database-item-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.database-item-card h3 a {
+    color: #333; /* Match heading color */
+}
+
+.database-item-card .item-details {
+    flex-grow: 1; /* Allow details section to fill space */
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.database-item-card .item-details p,
+.database-item-card .item-details div {
+     margin-bottom: 0.4rem;
+}
+
+.database-item-card .item-details strong {
+    color: #333;
+}
+
+.database-item-card .btn-small {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+    align-self: flex-start; /* Align button to the start */
+    margin-top: auto; /* Push button to the bottom */
+}
+
+/* Styles for positive/negative values (e.g., affinities) */
+.positive-value {
+    color: #28a745; /* Green */
+    font-weight: bold;
+}
+
+.negative-value {
+    color: #dc3545; /* Red */
+    font-weight: bold;
+}

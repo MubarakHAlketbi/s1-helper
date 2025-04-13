@@ -1,1 +1,21 @@
-/* Styles for the npcs database section */
+/* Styles specific to the NPCs section and its sub-sections */
+
+/* Inherits styles from /style.css and /database/database.css */
+
+/* Style adjustments for NPC cards if needed */
+.database-item-card.npc-card { /* Example specific class */
+    /* Add styles specific to NPC cards, overriding database-item-card if necessary */
+    /* border-left: 4px solid #ffc107; */ /* Example: Yellow border for NPCs */
+}
+
+.npc-card .item-details ul {
+    list-style: none; /* Remove default list style for preferences/affinities */
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.npc-card .item-details li {
+    margin-bottom: 0.3rem;
+}
+
+/* Add other common styles for NPC pages */

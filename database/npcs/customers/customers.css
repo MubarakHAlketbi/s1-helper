@@ -1,1 +1,5 @@
-/* Styles for the customers npcs database section */
+/* Styles specific to the Customers NPC sub-section */
+
+/* Inherits styles from /style.css, /database/database.css, /database/npcs/npcs.css */
+
+/* Add specific overrides or styles for customer cards if needed */

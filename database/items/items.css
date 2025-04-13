@@ -1,1 +1,21 @@
-/* Styles for the items database section */
+/* Styles specific to the Items section and its sub-sections */
+
+/* Inherits styles from /style.css and /database/database.css */
+
+/* Style adjustments for item cards if needed */
+.database-item-card.item-card { /* Example specific class */
+    /* Add styles specific to item cards, overriding database-item-card if necessary */
+    /* border-left: 4px solid #007bff; */ /* Example: Blue border for items */
+}
+
+.item-card .item-details ul {
+    list-style: disc;
+    margin-left: 20px;
+    padding-left: 0;
+}
+
+.item-card .item-details li {
+    margin-bottom: 0.2rem;
+}
+
+/* Add other common styles for item pages */

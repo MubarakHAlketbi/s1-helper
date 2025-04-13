@@ -1,1 +1,8 @@
-/* Styles for the locations database section */
+/* Styles specific to the Locations section */
+
+/* Inherits styles from /style.css and /database/database.css */
+
+/* Add specific overrides or styles for regions, properties, stores, POIs if needed */
+.database-item-card.location-card { /* Example specific class */
+    /* border-left: 4px solid #6f42c1; */ /* Example: Purple border for locations */
+}

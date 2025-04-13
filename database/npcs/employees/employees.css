@@ -1,1 +1,5 @@
-/* Styles for the employees npcs database section */
+/* Styles specific to the Employees NPC sub-section */
+
+/* Inherits styles from /style.css, /database/database.css, /database/npcs/npcs.css */
+
+/* Add specific overrides or styles for employee cards if needed */
