@@ -73,6 +73,13 @@ a:hover {
     border-color: #545b62;
 }
 
+.btn-secondary.disabled {
+    background-color: #adb5bd;
+    color: #6c757d;
+    cursor: not-allowed;
+    pointer-events: none; /* Prevent clicks */
+}
+
 
 h1, h2, h3, h4 {
     margin-bottom: 0.8rem;

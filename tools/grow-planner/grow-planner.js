@@ -1,5 +1,5 @@
 import { BASE_GROW_TIMES, POT_DATA } from '../../database/game_data.js';
-import { generateId, formatDateTime, formatDateTimeForInput, formatTimeDifference } from '../../utils/helpers.js';
+import { generateId, formatDateTime, formatDateTimeForInput, formatTimeDifference, loadFromLocalStorage, saveToLocalStorage } from '../../utils/helpers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const growForm = document.getElementById('grow-form');
@@ -23,26 +23,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // --- Local Storage Functions ---
-    const loadPlants = () => {
-        const data = localStorage.getItem(STORAGE_KEY);
-        try {
-            const plants = data ? JSON.parse(data) : [];
-            // Ensure timestamps are numbers
-             return plants.map(p => ({
-                ...p,
-                plantTime: Number(p.plantTime) || null,
-                estimatedHarvestTime: Number(p.estimatedHarvestTime) || null,
-                lastWateredTime: Number(p.lastWateredTime) || null
-            }));
-        } catch (e) {
-            console.error("Error parsing plant data from localStorage:", e);
+    // --- Local Storage Functions (using helpers) ---
+    // loadFromLocalStorage and saveToLocalStorage are imported
+
+    // --- Data Validation ---
+    const validatePlantData = (data) => {
+        if (!Array.isArray(data)) {
             return [];
         }
-    };
-
-    const savePlants = (plants) => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(plants));
+        // Ensure timestamps are numbers
+        return data.map(p => ({
+            ...p,
+            plantTime: Number(p.plantTime) || null,
+            estimatedHarvestTime: Number(p.estimatedHarvestTime) || null,
+            lastWateredTime: Number(p.lastWateredTime) || null
+        }));
     };
 
     // --- Calculation Functions ---
@@ -126,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Rendering Functions ---
     const renderPlantList = () => {
         plantListDiv.innerHTML = ''; // Clear existing list
-        const plants = loadPlants();
+        const plants = validatePlantData(loadFromLocalStorage(STORAGE_KEY, []));
         const sortBy = sortSelect.value;
         const sortedPlants = sortPlants(plants, sortBy);
 
@@ -191,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const populateEditForm = (id) => {
-        const plants = loadPlants();
+        const plants = validatePlantData(loadFromLocalStorage(STORAGE_KEY, []));
         const plant = plants.find(p => p.id === id);
         if (!plant) return;
 
@@ -245,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Calculate derived data (harvest time, water interval)
         const fullPlantData = calculatePlantData(plantInputData);
 
-        let plants = loadPlants();
+        let plants = validatePlantData(loadFromLocalStorage(STORAGE_KEY, []));
 
         if (id) { // Editing existing plant
             plants = plants.map(p => p.id === id ? { ...p, ...fullPlantData } : p);
@@ -254,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
             plants.push(fullPlantData);
         }
 
-        savePlants(plants);
+        saveToLocalStorage(STORAGE_KEY, plants);
         renderPlantList();
         resetForm();
     };
@@ -276,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const plantId = target.dataset.id;
         if (!plantId) return; // Clicked somewhere else
 
-        let plants = loadPlants();
+        let plants = validatePlantData(loadFromLocalStorage(STORAGE_KEY, []));
         let needsRender = false;
 
         if (target.classList.contains('btn-edit')) {
@@ -305,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (needsRender) {
-            savePlants(plants);
+            saveToLocalStorage(STORAGE_KEY, plants);
             renderPlantList();
         }
     });

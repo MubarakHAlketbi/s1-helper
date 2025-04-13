@@ -1,4 +1,4 @@
-import { generateId, formatDateTime } from '../../utils/helpers.js';
+import { generateId, formatDateTime, loadFromLocalStorage, saveToLocalStorage } from '../../utils/helpers.js';
 import { KNOWN_CUSTOMER_NAMES } from '../../database/game_data.js'; // Import customer names
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -59,25 +59,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // formatDateTime is now imported
 
-    // --- Local Storage Functions ---
-    const loadCustomers = () => {
-        const data = localStorage.getItem(STORAGE_KEY);
-        try {
-            return data ? JSON.parse(data) : [];
-        } catch (e) {
-            console.error("Error parsing customer data from localStorage:", e);
-            return [];
-        }
-    };
-
-    const saveCustomers = (customers) => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(customers));
-    };
+    // --- Local Storage Functions (using helpers) ---
+    // loadFromLocalStorage and saveToLocalStorage are imported
 
     // --- Rendering Functions ---
     const renderCustomerList = () => {
         customerListDiv.innerHTML = ''; // Clear existing list
-        const customers = loadCustomers();
+        const customers = loadFromLocalStorage(STORAGE_KEY, []);
 
         if (customers.length === 0) {
             noCustomersMessage.style.display = 'block';
@@ -134,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const populateEditForm = (id) => {
-        const customers = loadCustomers();
+        const customers = loadFromLocalStorage(STORAGE_KEY, []);
         const customer = customers.find(c => c.id === id);
         if (!customer) return;
 
@@ -218,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             notes
         };
 
-        let customers = loadCustomers();
+        let customers = loadFromLocalStorage(STORAGE_KEY, []);
 
         if (id) { // Editing existing customer
             customers = customers.map(c => c.id === id ? { ...c, ...customerData } : c);
@@ -227,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             customers.push(customerData);
         }
 
-        saveCustomers(customers);
+        saveToLocalStorage(STORAGE_KEY, customers);
         renderCustomerList();
         resetForm();
     };
@@ -246,9 +234,9 @@ document.addEventListener('DOMContentLoaded', () => {
             populateEditForm(customerId);
         } else if (target.classList.contains('btn-danger')) {
             if (confirm('Are you sure you want to delete this customer entry?')) {
-                let customers = loadCustomers();
+                let customers = loadFromLocalStorage(STORAGE_KEY, []);
                 customers = customers.filter(c => c.id !== customerId);
-                saveCustomers(customers);
+                saveToLocalStorage(STORAGE_KEY, customers);
                 renderCustomerList();
                 // If the deleted customer was being edited, clear the form
                 if (customerIdInput.value === customerId) {

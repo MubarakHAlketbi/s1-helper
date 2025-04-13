@@ -1,4 +1,4 @@
-import { generateId, formatCurrency, formatDateTimeForInput, formatDateTime } from '../../utils/helpers.js'; // Added formatDateTime
+import { generateId, formatCurrency, formatDateTimeForInput, formatDateTime, loadFromLocalStorage, saveToLocalStorage } from '../../utils/helpers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const cashBalanceDisplay = document.getElementById('display-cash-balance');
@@ -14,47 +14,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const txAffectedOnlineRadio = document.getElementById('tx-affect-online');
 
     const STORAGE_KEY = 'schedule1_financialData';
-
-    // --- Utility Functions ---
-    // generateId, formatCurrency, formatDateTimeForInput, formatDateTime imported from helpers.js
-
-    // --- Local Storage Functions ---
-    const loadData = () => {
-        const data = localStorage.getItem(STORAGE_KEY);
-        const defaults = {
-            cashBalance: 0,
-            onlineBalance: 0,
-            transactions: []
-        };
-        try {
-            const parsed = data ? JSON.parse(data) : defaults;
-            // Ensure structure is correct
-            parsed.cashBalance = Number(parsed.cashBalance) || 0;
-            parsed.onlineBalance = Number(parsed.onlineBalance) || 0;
-            parsed.transactions = Array.isArray(parsed.transactions) ? parsed.transactions : [];
-            // Ensure timestamps are numbers
-            parsed.transactions.forEach(tx => tx.timestamp = Number(tx.timestamp) || Date.now());
-            return parsed;
-        } catch (e) {
-            console.error("Error parsing financial data from localStorage:", e);
-            return defaults;
-        }
+    const defaults = {
+        cashBalance: 0,
+        onlineBalance: 0,
+        transactions: []
     };
 
-    const saveData = (data) => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    // --- Utility Functions ---
+    // Imported from helpers.js
+
+    // --- Data Validation ---
+    const validateFinancialData = (data) => {
+        const validated = { ...defaults, ...data }; // Start with defaults, override with loaded data
+        validated.cashBalance = Number(validated.cashBalance) || 0;
+        validated.onlineBalance = Number(validated.onlineBalance) || 0;
+        validated.transactions = Array.isArray(validated.transactions) ? validated.transactions : [];
+        validated.transactions.forEach(tx => tx.timestamp = Number(tx.timestamp) || Date.now());
+        return validated;
     };
 
     // --- Rendering Functions ---
     const updateBalanceDisplay = () => {
-        const data = loadData();
+        const data = validateFinancialData(loadFromLocalStorage(STORAGE_KEY, defaults));
         cashBalanceDisplay.textContent = formatCurrency(data.cashBalance);
         onlineBalanceDisplay.textContent = formatCurrency(data.onlineBalance);
     };
 
     const renderTransactionLog = () => {
         transactionLogBody.innerHTML = ''; // Clear existing log
-        const data = loadData();
+        const data = validateFinancialData(loadFromLocalStorage(STORAGE_KEY, defaults));
         const transactions = data.transactions;
 
         if (transactions.length === 0) {
@@ -153,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newCashStr = document.getElementById('update-cash').value;
         const newOnlineStr = document.getElementById('update-online').value;
 
-        const data = loadData();
+        const data = validateFinancialData(loadFromLocalStorage(STORAGE_KEY, defaults));
 
         // Only update if a value was entered
         if (newCashStr !== '') {
@@ -176,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        saveData(data);
+        saveToLocalStorage(STORAGE_KEY, data);
         updateBalanceDisplay();
         updateBalancesForm.reset(); // Clear the update form
         alert('Balances updated!');
@@ -220,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
 
-        const data = loadData();
+        const data = validateFinancialData(loadFromLocalStorage(STORAGE_KEY, defaults));
         let balanceAfter; // This will store the balance *of the selected affected account* after the transaction
 
         // Apply transaction logic to actual balances
@@ -298,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         data.transactions.push(newTransaction);
-        saveData(data);
+        saveToLocalStorage(STORAGE_KEY, data);
         updateBalanceDisplay();
         renderTransactionLog();
         addTransactionForm.reset(); // Clear the form
@@ -327,9 +315,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target.classList.contains('btn-delete-tx')) {
             const txId = event.target.dataset.id;
             if (confirm('Are you sure you want to delete this transaction log entry?\n(This will NOT automatically adjust your current balances)')) {
-                const data = loadData();
+                const data = validateFinancialData(loadFromLocalStorage(STORAGE_KEY, defaults));
                 data.transactions = data.transactions.filter(tx => tx.id !== txId);
-                saveData(data);
+                saveToLocalStorage(STORAGE_KEY, data);
                 renderTransactionLog(); // Re-render the log
                 // Balances remain unchanged as per the warning
             }
@@ -339,9 +327,9 @@ document.addEventListener('DOMContentLoaded', () => {
      // Clear Entire Log Button
      clearLogBtn.addEventListener('click', () => {
          if (confirm('Are you sure you want to clear the ENTIRE transaction log?\n(This CANNOT be undone and will NOT affect your current balances)')) {
-             const data = loadData();
+             const data = validateFinancialData(loadFromLocalStorage(STORAGE_KEY, defaults));
              data.transactions = []; // Empty the array
-             saveData(data);
+             saveToLocalStorage(STORAGE_KEY, data);
              renderTransactionLog();
          }
      });

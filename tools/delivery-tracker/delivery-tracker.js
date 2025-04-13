@@ -1,4 +1,4 @@
-import { generateId, formatDateTime, formatDateTimeForInput, calculateTimeRemaining } from '../../utils/helpers.js';
+import { generateId, formatDateTime, formatDateTimeForInput, calculateTimeRemaining, loadFromLocalStorage, saveToLocalStorage } from '../../utils/helpers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const deliveryForm = document.getElementById('delivery-form');
@@ -16,21 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // generateId, formatDateTime, formatDateTimeForInput, calculateTimeRemaining are imported from helpers.js
 
 
-    // --- Local Storage Functions ---
-    const loadDeliveries = () => {
-        const data = localStorage.getItem(STORAGE_KEY);
-        try {
-            const deliveries = data ? JSON.parse(data) : [];
-            // Ensure arrivalTime is a number (timestamp)
-            return deliveries.map(d => ({ ...d, arrivalTime: Number(d.arrivalTime) || null }));
-        } catch (e) {
-            console.error("Error parsing delivery data from localStorage:", e);
+    // --- Local Storage Functions (using helpers) ---
+    // loadFromLocalStorage and saveToLocalStorage are imported
+
+    // --- Data Validation ---
+    const validateDeliveryData = (data) => {
+        if (!Array.isArray(data)) {
             return [];
         }
-    };
-
-    const saveDeliveries = (deliveries) => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(deliveries));
+        // Ensure arrivalTime is a number (timestamp) and arrived is boolean
+        return data.map(d => ({
+            ...d,
+            arrivalTime: Number(d.arrivalTime) || null,
+            arrived: typeof d.arrived === 'boolean' ? d.arrived : false
+        }));
     };
 
     // --- Sorting ---
@@ -52,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Rendering Functions ---
     const renderDeliveryList = () => {
         deliveryListDiv.innerHTML = ''; // Clear existing list
-        const deliveries = loadDeliveries();
+        const deliveries = validateDeliveryData(loadFromLocalStorage(STORAGE_KEY, []));
         const sortBy = sortSelect.value;
         const sortedDeliveries = sortDeliveries(deliveries, sortBy);
 
@@ -99,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const populateEditForm = (id) => {
-        const deliveries = loadDeliveries();
+        const deliveries = validateDeliveryData(loadFromLocalStorage(STORAGE_KEY, []));
         const delivery = deliveries.find(d => d.id === id);
         if (!delivery) return;
 
@@ -148,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             arrived: false // Always reset arrived status when saving/editing
         };
 
-        let deliveries = loadDeliveries();
+        let deliveries = validateDeliveryData(loadFromLocalStorage(STORAGE_KEY, []));
 
         if (id) { // Editing existing delivery
              // Keep original arrived status unless explicitly changed by mark arrived button
@@ -160,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
             deliveries.push(deliveryData);
         }
 
-        saveDeliveries(deliveries);
+        saveToLocalStorage(STORAGE_KEY, deliveries);
         renderDeliveryList();
         resetForm();
     };
@@ -185,15 +184,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target.classList.contains('btn-edit')) {
             populateEditForm(deliveryId);
         } else if (target.classList.contains('btn-mark-arrived')) {
-            let deliveries = loadDeliveries();
+            let deliveries = validateDeliveryData(loadFromLocalStorage(STORAGE_KEY, []));
             deliveries = deliveries.map(d => d.id === deliveryId ? { ...d, arrived: true } : d);
-            saveDeliveries(deliveries);
+            saveToLocalStorage(STORAGE_KEY, deliveries);
             renderDeliveryList();
         } else if (target.classList.contains('btn-danger')) {
             if (confirm('Are you sure you want to delete this delivery entry?')) {
-                let deliveries = loadDeliveries();
+                let deliveries = validateDeliveryData(loadFromLocalStorage(STORAGE_KEY, []));
                 deliveries = deliveries.filter(d => d.id !== deliveryId);
-                saveDeliveries(deliveries);
+                saveToLocalStorage(STORAGE_KEY, deliveries);
                 renderDeliveryList();
                 // If the deleted delivery was being edited, clear the form
                 if (deliveryIdInput.value === deliveryId) {

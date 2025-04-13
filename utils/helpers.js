@@ -113,3 +113,43 @@ export function formatTimeDifference(durationMs) {
 
   return parts.join(' ');
 }
+
+/**
+ * Loads data from localStorage.
+ * Includes error handling for parsing issues.
+ *
+ * @param {string} key The localStorage key to load from.
+ * @param {*} defaultValue The value to return if the key is not found or data is invalid.
+ * @returns {*} The parsed data from localStorage or the defaultValue.
+ */
+export function loadFromLocalStorage(key, defaultValue) {
+  try {
+    const storedValue = localStorage.getItem(key);
+    if (storedValue === null) {
+      return defaultValue;
+    }
+    return JSON.parse(storedValue);
+  } catch (error) {
+    console.error(`Error loading data from localStorage key "${key}":`, error);
+    return defaultValue;
+  }
+}
+
+/**
+ * Saves data to localStorage.
+ * Includes error handling for stringification issues.
+ *
+ * @param {string} key The localStorage key to save to.
+ * @param {*} data The data to save (will be JSON.stringified).
+ * @returns {boolean} True if save was successful, false otherwise.
+ */
+export function saveToLocalStorage(key, data) {
+  try {
+    const stringifiedData = JSON.stringify(data);
+    localStorage.setItem(key, stringifiedData);
+    return true;
+  } catch (error) {
+    console.error(`Error saving data to localStorage key "${key}":`, error);
+    return false;
+  }
+}

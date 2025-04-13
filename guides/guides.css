@@ -66,10 +66,4 @@
 }
 
 /* Button Styles (assuming main styles exist) */
-.btn-secondary.disabled {
-    background-color: #adb5bd;
-    color: #6c757d;
-    cursor: not-allowed;
-    pointer-events: none; /* Prevent clicks */
-}
 
