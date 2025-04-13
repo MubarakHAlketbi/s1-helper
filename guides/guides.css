@@ -1,0 +1,99 @@
+/* Styles specific to the guides index page */
+
+.guide-section h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.guide-section > p {
+    text-align: center;
+    margin-bottom: 2rem; /* More space below intro */
+    color: #555;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.guide-category-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 1.5rem;
+}
+
+.guide-category-card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    text-align: center; /* Center content */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.guide-category-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.guide-category-card .category-icon {
+    font-size: 2.5rem; /* Make icon larger */
+    margin-bottom: 1rem;
+    color: #0056b3; /* Example color */
+}
+
+.guide-category-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    color: #0056b3;
+    font-size: 1.4rem;
+}
+
+.guide-category-card p {
+    font-size: 0.95rem;
+    color: #444;
+    flex-grow: 1; /* Make text take available space */
+    margin-bottom: 1.2rem;
+}
+
+.guide-category-card .btn {
+    margin-top: auto; /* Push button to the bottom */
+    /* display: block; */ /* Button width determined by content or set explicitly */
+    /* width: 80%; */ /* Example width */
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+}
+
+/* Button Styles (assuming main styles exist) */
+.btn {
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    display: inline-block; /* Allow text-align center to work */
+}
+
+.btn-primary {
+    background-color: #0056b3;
+    color: white;
+}
+.btn-primary:hover { background-color: #004494; }
+
+.btn-secondary.disabled {
+    background-color: #adb5bd;
+    color: #6c757d;
+    cursor: not-allowed;
+    pointer-events: none; /* Prevent clicks */
+}
+
+
+/* Active class for navigation */
+header nav ul li a.active {
+    font-weight: bold;
+    background-color: #555;
+     border-radius: 4px;
+}

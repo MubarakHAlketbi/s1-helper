@@ -1,12 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Guides Index</title>
-  <link rel="stylesheet" href="/assets/css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Guides</title>
+    <meta name="description" content="Find helpful guides for playing Schedule 1, covering getting started, game mechanics, strategies, and more.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Optional: Link to a specific guides index stylesheet -->
+    <link rel="stylesheet" href="guides.css">
 </head>
 <body>
-  <h1>Guides Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/assets/js/main.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/">Database</a></li>
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/" class="active">Guides</a></li> <!-- Mark as active -->
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+            <!-- Optional: Add search back if needed -->
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="guide-section">
+            <h2>Game Guides</h2>
+            <p>Learn the ropes, understand complex mechanics, and optimize your strategies with these guides for Schedule 1.</p>
+
+            <div class="guide-category-list">
+                <article class="guide-category-card card">
+                    <i class="category-icon">🚀</i> <!-- Placeholder Icon -->
+                    <h3>Getting Started</h3>
+                    <p>New to the game? Start here to learn the basics, from your first day to setting up your initial operation.</p>
+                    <a href="/guides/getting-started/" class="btn btn-primary">View Getting Started Guides</a>
+                </article>
+
+                <article class="guide-category-card card">
+                     <i class="category-icon">⚙️</i> <!-- Placeholder Icon -->
+                    <h3>Game Mechanics</h3>
+                    <p>Deep dives into specific game systems like growing, mixing, the economy, law enforcement, leveling, employees, and more.</p>
+                    <a href="/guides/mechanics/" class="btn btn-primary">View Mechanics Guides</a>
+                </article>
+
+                <article class="guide-category-card card">
+                     <i class="category-icon">💰</i> <!-- Placeholder Icon -->
+                    <h3>Money Making Strategies</h3>
+                    <p>Explore different approaches to maximizing your profits, from optimizing grow cycles to advanced mixing and customer management. (Coming Soon)</p>
+                    <a href="#" class="btn btn-secondary disabled">Coming Soon</a>
+                </article>
+
+                 <article class="guide-category-card card">
+                     <i class="category-icon">🗺️</i> <!-- Placeholder Icon -->
+                    <h3>Exploration & Locations</h3>
+                    <p>Learn about the different regions, points of interest, hidden locations, and property acquisition. (Coming Soon)</p>
+                    <a href="#" class="btn btn-secondary disabled">Coming Soon</a>
+                </article>
+
+                <!-- Add more categories as needed -->
+
+            </div> <!-- End guide-category-list -->
+
+        </section> <!-- End guide-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- No specific JS needed for this index page itself -->
 </body>
 </html>

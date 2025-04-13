@@ -1,0 +1,157 @@
+/* Styles specific to the getting-started index page */
+
+.guide-section h2 {
+    text-align: center;
+    margin-bottom: 0.5rem; /* Less margin below title */
+    color: #333;
+}
+
+.guide-section > p {
+    text-align: center;
+    margin-bottom: 2rem; /* More space below intro */
+    color: #555;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb-nav {
+    margin-bottom: 1.5rem;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.breadcrumb-nav ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.breadcrumb-nav li {
+    display: inline;
+}
+
+.breadcrumb-nav li + li::before {
+    content: "/";
+    padding: 0 0.5em;
+    color: #6c757d;
+}
+
+.breadcrumb-nav a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.breadcrumb-nav a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-nav span[aria-current="page"] {
+    color: #343a40;
+    font-weight: bold;
+}
+
+
+/* Guide List */
+.guide-list {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column */
+    gap: 1rem; /* Space between cards */
+}
+
+.guide-link-card {
+    background-color: #fff;
+    padding: 1rem 1.5rem; /* Slightly less padding */
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column; /* Default */
+    align-items: flex-start; /* Align content left */
+     transition: box-shadow 0.2s ease-in-out;
+}
+@media (min-width: 768px) {
+     .guide-link-card {
+        flex-direction: row; /* Side-by-side layout */
+        justify-content: space-between; /* Space out content and button */
+        align-items: center; /* Vertically align items */
+    }
+}
+
+
+.guide-link-card:hover {
+     box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+}
+
+
+.guide-link-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #0056b3;
+    font-size: 1.2rem;
+}
+
+.guide-link-card p {
+    font-size: 0.95rem;
+    color: #444;
+    margin-bottom: 1rem; /* Space below text on mobile */
+    flex-grow: 1; /* Allow text to take space */
+}
+@media (min-width: 768px) {
+    .guide-link-card p {
+        margin-bottom: 0; /* Remove bottom margin on wider screens */
+        margin-right: 1rem; /* Add space between text and button */
+    }
+}
+
+
+.guide-link-card .btn {
+    margin-top: auto; /* Push button down on mobile */
+    flex-shrink: 0; /* Prevent button from shrinking */
+}
+@media (min-width: 768px) {
+     .guide-link-card .btn {
+         margin-top: 0; /* Reset margin */
+     }
+}
+
+
+/* Button Styles (assuming main styles exist) */
+.btn {
+    padding: 0.6rem 1rem; /* Slightly smaller button */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem; /* Smaller font */
+    transition: background-color 0.3s ease;
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: #0056b3;
+    color: white;
+}
+.btn-primary:hover { background-color: #004494; }
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+.btn-secondary:hover { background-color: #5a6268; }
+
+.btn-secondary.disabled {
+    background-color: #adb5bd;
+    color: #6c757d;
+    cursor: not-allowed;
+    pointer-events: none; /* Prevent clicks */
+}
+
+/* Active class for navigation */
+header nav ul li a.active {
+    font-weight: bold;
+    background-color: #555;
+     border-radius: 4px;
+}
