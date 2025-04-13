@@ -1,5 +1,5 @@
-// Import data if needed, e.g., for specific roles or locations
-// import { LOCATION_DATA } from '../../game_data.js';
+import { STORY_NPC_DATA } from '../../game_data.js'; // Import STORY_NPC_DATA
+// Import helpers if needed
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('story-npc-list-container');
@@ -9,24 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     container.innerHTML = ''; // Clear loading message
 
-    // Manually define known story/quest NPCs based on npc.md analysis
-    const storyNPCs = [
-        { id: "uncleNelson", name: "Uncle Nelson", role: "Mentor", notes: "Provides initial guidance and quests." },
-        { id: "lily", name: "Lily", role: "Tutorial/Quest Giver", notes: "Involved in early game progression." },
-        { id: "thomas", name: "Thomas", role: "Quest NPC", notes: "Involved in Cartel questline." },
-        { id: "fixer", name: "Fixer", role: "Service Provider", notes: "Handles employee hiring." },
-        { id: "igor", name: "Igor", role: "Bouncer", notes: "Controls access to the Dark Market." },
-        { id: "ming", name: "Ming", role: "Property Owner?", notes: "Associated with the Chinese Restaurant property." },
-        // Add other key characters like potential antagonists (Benzies family mentioned in calls?)
-        // or other quest givers as they are identified.
-    ].sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+    // Use STORY_NPC_DATA from game_data.js
+    const storyEntries = Object.values(STORY_NPC_DATA)
+        .sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
 
-    if (storyNPCs.length === 0) {
+    if (storyEntries.length === 0) {
         container.innerHTML = '<p>No specific story character data available yet.</p>';
         return;
     }
 
-    storyNPCs.forEach((npc) => {
+    storyEntries.forEach((npc) => {
         const card = document.createElement('div');
         card.classList.add('database-item-card', 'card'); // Reuse item card styling
 
@@ -37,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <h3><a href="${detailLink}">${npc.name}</a></h3>
             <div class="item-details">
                 <p><strong>Role:</strong> ${npc.role || 'N/A'}</p>
-                <p><strong>Notes:</strong> ${npc.notes || 'N/A'}</p>
+                <p><strong>Notes:</strong> ${npc.role || 'N/A'}</p> <!-- Display role as notes for now -->
                 <!-- Add other relevant details if available -->
             </div>
             <a href="${detailLink}" class="btn btn-secondary btn-small">View Details</a>

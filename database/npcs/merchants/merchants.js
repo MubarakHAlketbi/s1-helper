@@ -1,4 +1,4 @@
-import { SUPPLIER_DATA } from '../../game_data.js'; // Adjust path
+import { MERCHANT_NPC_DATA, SUPPLIER_DATA } from '../../game_data.js'; // Import MERCHANT_NPC_DATA
 // Import helpers if needed
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,31 +9,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     container.innerHTML = ''; // Clear loading message
 
-    // Manually define known merchants based on npc.md and market.md
-    // Combine with SUPPLIER_DATA if applicable
-    const knownMerchants = [
-        { id: "dan", name: "Dan", shop: "Hardware Store", type: "General Store", notes: "Sells equipment, tools, growing supplies." },
-        { id: "fiona", name: "Fiona", shop: "Gas Mart", type: "General Store", notes: "Sells ingredients, consumables." },
-        { id: "herbert", name: "Herbert", shop: "Pharmacy", type: "General Store", notes: "Sells ingredients, medical supplies." },
-        { id: "jeremy", name: "Jeremy", shop: "Dealership", type: "Specialty", notes: "Sells vehicles." },
-        { id: "marco", name: "Marco", shop: "Autoshop", type: "Service", notes: "Repairs and repaints vehicles." },
-        { id: "mick", name: "Mick", shop: "Pawn Shop", type: "Specialty", notes: "Buys items from player." },
-        { id: "oscar", name: "Oscar", shop: "Warehouse", type: "Underground", notes: "Sells specialized equipment, ingredients, weapons? Offers deliveries." },
-        { id: "ray", name: "Ray", shop: "Ray's Realty", type: "Service", notes: "Sells properties/businesses." },
-        { id: "stan", name: "Stan", shop: "Unknown", type: "General Store?", notes: "Shop type TBD." }, // Shop type needs confirmation
-        { id: "steve", name: "Steve", shop: "Liquor Store", type: "General Store", notes: "Sells consumables." },
-        // Add Suppliers as merchants if they have direct interaction/shop UI
-        { id: "albertHoover", name: SUPPLIER_DATA.albertHoover.name, shop: "Dead Drop", type: "Supplier", notes: SUPPLIER_DATA.albertHoover.notes },
-        // { id: "salvador", name: "Salvador", shop: "Dead Drop/Meeting", type: "Supplier", notes: "Sells Coca related items?" }, // Add if confirmed
-        // { id: "shirley", name: "Shirley", shop: "Dead Drop/Meeting", type: "Supplier", notes: "Sells Pseudoephedrine." }, // Add if confirmed
-    ].sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+    // Use MERCHANT_NPC_DATA from game_data.js
+    const merchantEntries = Object.values(MERCHANT_NPC_DATA);
 
-    if (knownMerchants.length === 0) {
+    // Optionally add suppliers if they function as merchants
+    // Example: Add Albert Hoover from SUPPLIER_DATA
+    if (SUPPLIER_DATA.albertHoover) {
+         merchantEntries.push({
+            id: "albertHoover",
+            name: SUPPLIER_DATA.albertHoover.name,
+            shop: SUPPLIER_DATA.albertHoover.contactMethod, // Use contact method as shop type for suppliers
+            type: "Supplier",
+            notes: SUPPLIER_DATA.albertHoover.notes
+        });
+    }
+     // Add other suppliers here if needed following the same pattern
+
+    merchantEntries.sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+
+    if (merchantEntries.length === 0) {
         container.innerHTML = '<p>No merchant data found.</p>';
         return;
     }
 
-    knownMerchants.forEach((merchant) => {
+    merchantEntries.forEach((merchant) => {
         const card = document.createElement('div');
         card.classList.add('database-item-card', 'card'); // Reuse item card styling
 

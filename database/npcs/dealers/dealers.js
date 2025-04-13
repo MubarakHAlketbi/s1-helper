@@ -1,4 +1,4 @@
-import { EMPLOYEE_DATA, MAX_CUSTOMERS_PER_DEALER } from '../../game_data.js'; // Adjust path
+import { DEALER_NPC_DATA, MAX_CUSTOMERS_PER_DEALER } from '../../game_data.js'; // Import DEALER_NPC_DATA
 import { formatCurrency } from '../../utils/helpers.js'; // Adjust path
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,23 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     container.innerHTML = ''; // Clear loading message
 
-    // Filter EMPLOYEE_DATA for dealers or define a specific DEALER_NPC_DATA if available
-    // For now, manually listing known dealers based on npc.md
-    const knownDealers = [
-        { id: "benji", name: "Benji Coleman", cost: 150, cut: 0.20 }, // Example cost/cut
-        { id: "brad", name: "Brad", cost: 120, cut: 0.15 },
-        { id: "jane", name: "Jane", cost: 200, cut: 0.25 },
-        { id: "leo", name: "Leo", cost: 180, cut: 0.20 },
-        { id: "molly", name: "Molly", cost: 160, cut: 0.18 },
-        { id: "wei", name: "Wei", cost: 220, cut: 0.22 },
-    ].sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+    // Use DEALER_NPC_DATA from game_data.js
+    const dealerEntries = Object.values(DEALER_NPC_DATA)
+        .sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
 
-    if (knownDealers.length === 0) {
+    if (dealerEntries.length === 0) {
         container.innerHTML = '<p>No dealer data found.</p>';
         return;
     }
 
-    knownDealers.forEach((dealer) => {
+    dealerEntries.forEach((dealer) => {
         const card = document.createElement('div');
         card.classList.add('database-item-card', 'card'); // Reuse item card styling
 

@@ -446,6 +446,48 @@ export const EMPLOYEE_DATA = {
     // Add more specific named employees if they exist
 };
 
+// --- Specific NPC Data ---
+
+// Specific Dealer NPCs (id -> { name, cost, cut }) - Based on dealers.js hardcoded list
+export const DEALER_NPC_DATA = {
+    "benji": { id: "benji", name: "Benji Coleman", cost: 150, cut: 0.20 },
+    "brad": { id: "brad", name: "Brad", cost: 120, cut: 0.15 },
+    "jane": { id: "jane", name: "Jane", cost: 200, cut: 0.25 },
+    "leo": { id: "leo", name: "Leo", cost: 180, cut: 0.20 },
+    "molly": { id: "molly", name: "Molly", cost: 160, cut: 0.18 },
+    "wei": { id: "wei", name: "Wei", cost: 220, cut: 0.22 },
+};
+
+// Specific Merchant NPCs (id -> { name, role, shop? }) - Based on game_info.md analysis
+export const MERCHANT_NPC_DATA = {
+    "dan": { id: "dan", name: "Dan", role: "Shopkeeper", shop: "Hardware Store" },
+    "fiona": { id: "fiona", name: "Fiona", role: "Shopkeeper", shop: "Gas Mart" },
+    "herbert": { id: "herbert", name: "Herbert", role: "Shopkeeper", shop: "Pharmacy" },
+    "mick": { id: "mick", name: "Mick", role: "Shopkeeper", shop: "Pawn Shop" },
+    "steve": { id: "steve", name: "Steve", role: "Shopkeeper", shop: "Liquor Store" },
+    "oscar": { id: "oscar", name: "Oscar", role: "Shopkeeper", shop: "Warehouse" },
+    "ray": { id: "ray", name: "Ray", role: "Realtor", shop: "Ray's Realty" },
+    "jeremy": { id: "jeremy", name: "Jeremy", role: "Shopkeeper", shop: "Dealership" },
+    "marco": { id: "marco", name: "Marco", role: "Mechanic", shop: "Autoshop" },
+    "dean": { id: "dean", name: "Dean", role: "Artist", shop: "Tattoo Parlor" },
+    "anna": { id: "anna", name: "Anna", role: "Stylist", shop: "Hair Salon" },
+    // Add other merchants if identified
+};
+
+// Specific Story NPCs (id -> { name, role }) - Based on game_info.md analysis
+export const STORY_NPC_DATA = {
+    "uncleNelson": { id: "uncleNelson", name: "Uncle Nelson", role: "Mentor" },
+    "igor": { id: "igor", name: "Igor", role: "Bouncer (Dark Market)" },
+    "fixer": { id: "fixer", name: "Fixer", role: "Employee Recruiter" },
+    "thomas": { id: "thomas", name: "Thomas", role: "Cartel Contact" },
+    "ming": { id: "ming", name: "Ming", role: "Restaurant Owner?" },
+    "salvador": { id: "salvador", name: "Salvador", role: "Supplier (Cocaine?)" },
+    "shirley": { id: "shirley", name: "Shirley", role: "Supplier (Pseudo)" },
+    "lily": { id: "lily", name: "Lily", role: "Tutorial/Early Quest NPC" },
+    // Add other key story characters if identified
+};
+}
+
 // --- Supplier Data ---
 // id -> { name, type, items: [itemId1, itemId2, ...], contactMethod, notes? }
 // Types: Seeds, Ingredients, Equipment, Other
