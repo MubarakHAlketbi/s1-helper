@@ -1,4 +1,5 @@
 import { BASE_GROW_TIMES, POT_DATA } from '../../database/game_data.js';
+import { generateId, formatDateTime, formatDateTimeForInput, formatTimeDifference } from '../../utils/helpers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const growForm = document.getElementById('grow-form');
@@ -18,56 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Game data is imported from ../../database/game_data.js
 
     // --- Utility Functions ---
-    const generateId = () => '_' + Math.random().toString(36).substr(2, 9);
+    // generateId, formatDateTime, formatDateTimeForInput, formatTimeDifference are imported from helpers.js
 
-    const formatDateTime = (timestamp) => {
-        if (!timestamp) return 'N/A';
-        const date = new Date(timestamp);
-        if (isNaN(date)) return 'Invalid Date';
-        return date.toLocaleString('en-US', {
-            month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit'
-        });
-    };
-
-     const formatDateTimeForInput = (timestamp) => {
-        if (!timestamp) return '';
-        const date = new Date(timestamp);
-        if (isNaN(date)) return '';
-        // Format for datetime-local input: YYYY-MM-DDTHH:mm
-        const yyyy = date.getFullYear();
-        const mm = String(date.getMonth() + 1).padStart(2, '0');
-        const dd = String(date.getDate()).padStart(2, '0');
-        const hh = String(date.getHours()).padStart(2, '0');
-        const min = String(date.getMinutes()).padStart(2, '0');
-        return `${yyyy}-${mm}-${dd}T${hh}:${min}`;
-    };
-
-    const formatTimeDifference = (diffMillis) => {
-        if (isNaN(diffMillis)) return "N/A";
-
-        const isPast = diffMillis <= 0;
-        const absDiff = Math.abs(diffMillis);
-
-        const totalSeconds = Math.floor(absDiff / 1000);
-        const seconds = totalSeconds % 60;
-        const totalMinutes = Math.floor(totalSeconds / 60);
-        const minutes = totalMinutes % 60;
-        const totalHours = Math.floor(totalMinutes / 60);
-        const hours = totalHours % 24;
-        const days = Math.floor(totalHours / 24);
-
-        let parts = [];
-        if (days > 0) parts.push(`${days}d`);
-        if (hours > 0) parts.push(`${hours}h`);
-        if (minutes > 0 && days === 0) parts.push(`${minutes}m`); // Show minutes only if less than a day
-        if (seconds > 0 && days === 0 && hours === 0) parts.push(`${seconds}s`); // Show seconds only if less than an hour
-
-        if (parts.length === 0) {
-            return isPast ? "Now" : "Soon";
-        }
-
-        return parts.join(' ');
-    };
 
 
     // --- Local Storage Functions ---

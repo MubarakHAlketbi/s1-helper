@@ -1,3 +1,5 @@
+import { generateId, formatDateTime, formatDateTimeForInput, calculateTimeRemaining } from '../../utils/helpers.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const deliveryForm = document.getElementById('delivery-form');
     const deliveryListDiv = document.getElementById('delivery-list');
@@ -11,59 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let updateInterval; // To store the interval ID
 
     // --- Utility Functions ---
-    const generateId = () => '_' + Math.random().toString(36).substr(2, 9);
+    // generateId, formatDateTime, formatDateTimeForInput, calculateTimeRemaining are imported from helpers.js
 
-    const formatDateTime = (timestamp) => {
-        if (!timestamp) return 'N/A';
-        const date = new Date(timestamp);
-         if (isNaN(date)) return 'Invalid Date';
-        return date.toLocaleString('en-US', {
-            year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true
-        });
-    };
-
-    const formatDateTimeForInput = (timestamp) => {
-        if (!timestamp) return '';
-        const date = new Date(timestamp);
-        if (isNaN(date)) return '';
-        // Format for datetime-local input: YYYY-MM-DDTHH:mm
-        const yyyy = date.getFullYear();
-        const mm = String(date.getMonth() + 1).padStart(2, '0');
-        const dd = String(date.getDate()).padStart(2, '0');
-        const hh = String(date.getHours()).padStart(2, '0');
-        const min = String(date.getMinutes()).padStart(2, '0');
-        return `${yyyy}-${mm}-${dd}T${hh}:${min}`;
-    };
-
-    const calculateTimeRemaining = (arrivalTimestamp) => {
-        if (!arrivalTimestamp) return { text: 'No arrival time set', sortValue: Infinity };
-        const now = Date.now();
-        const arrival = arrivalTimestamp;
-        const diff = arrival - now; // Difference in milliseconds
-
-        if (diff <= 0) { // Arrived or past due
-            const pastDiff = Math.abs(diff);
-            const minutes = Math.floor(pastDiff / (1000 * 60));
-            const hours = Math.floor(minutes / 60);
-            const days = Math.floor(hours / 24);
-
-            if (days > 0) return { text: `Arrived ${days}d ${hours % 24}h ago`, sortValue: diff };
-            if (hours > 0) return { text: `Arrived ${hours}h ${minutes % 60}m ago`, sortValue: diff };
-            if (minutes > 0) return { text: `Arrived ${minutes}m ago`, sortValue: diff };
-            return { text: `Arrived just now`, sortValue: diff };
-        } else { // Pending arrival
-            const seconds = Math.floor(diff / 1000);
-            const minutes = Math.floor(seconds / 60);
-            const hours = Math.floor(minutes / 60);
-            const days = Math.floor(hours / 24);
-
-            if (days > 0) return { text: `Arriving in ${days}d ${hours % 24}h`, sortValue: diff };
-            if (hours > 0) return { text: `Arriving in ${hours}h ${minutes % 60}m`, sortValue: diff };
-            if (minutes > 0) return { text: `Arriving in ${minutes}m ${seconds % 60}s`, sortValue: diff };
-            if (seconds > 0) return { text: `Arriving in ${seconds}s`, sortValue: diff };
-            return { text: `Arriving now...`, sortValue: diff };
-        }
-    };
 
     // --- Local Storage Functions ---
     const loadDeliveries = () => {

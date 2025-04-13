@@ -1,4 +1,5 @@
 import { PRICE_PER_KWH, PRICE_PER_LITRE, EQUIPMENT_POWER_WATER, GAME_HOURS_PER_DAY } from '../../database/game_data.js';
+import { formatCurrency } from '../../utils/helpers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Input fields
@@ -29,10 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Game data is imported from ../../database/game_data.js
 
-    // --- Utility Functions ---
-     const formatCurrency = (amount) => {
-        return `$${Number(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`; // Add commas
-    };
+    // Game data and helpers are imported
 
     // --- Populate Reference Costs ---
     refPowerCostSpan.textContent = PRICE_PER_KWH.toFixed(2);

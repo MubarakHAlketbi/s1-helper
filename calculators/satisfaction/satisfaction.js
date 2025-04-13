@@ -1,4 +1,5 @@
 import { CUSTOMER_DATA, BASE_PRODUCTS, EFFECTS_DATA, QUALITY_LEVELS, QUALITY_VALUE_MULTIPLIERS, MAX_EFFECT_CONTRIBUTION } from '../../database/game_data.js';
+import { formatCurrency } from '../../utils/helpers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const customerSelect = document.getElementById('calc-customer');

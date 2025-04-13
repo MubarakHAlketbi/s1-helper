@@ -1,3 +1,5 @@
+import { generateId, formatCurrency, formatDateTimeForInput } from '../../utils/helpers.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const cashBalanceDisplay = document.getElementById('display-cash-balance');
     const onlineBalanceDisplay = document.getElementById('display-online-balance');
@@ -12,11 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const STORAGE_KEY = 'schedule1_financialData';
 
     // --- Utility Functions ---
-    const generateId = () => '_' + Math.random().toString(36).substr(2, 9);
-
-    const formatCurrency = (amount) => {
-        return `$${Number(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`; // Add commas
-    };
+    // generateId, formatCurrency, formatDateTimeForInput imported from helpers.js
 
     const formatTimestamp = (timestamp) => {
         if (!timestamp) return 'N/A';
@@ -26,18 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    const formatDateTimeForInput = (timestamp) => {
-        if (!timestamp) return '';
-        const date = new Date(timestamp);
-         if (isNaN(date)) return '';
-        // Format for datetime-local input: YYYY-MM-DDTHH:mm
-        const yyyy = date.getFullYear();
-        const mm = String(date.getMonth() + 1).padStart(2, '0');
-        const dd = String(date.getDate()).padStart(2, '0');
-        const hh = String(date.getHours()).padStart(2, '0');
-        const min = String(date.getMinutes()).padStart(2, '0');
-        return `${yyyy}-${mm}-${dd}T${hh}:${min}`;
-    };
+    // formatDateTimeForInput is now imported
 
     // --- Local Storage Functions ---
     const loadData = () => {

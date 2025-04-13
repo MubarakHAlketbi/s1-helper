@@ -1,3 +1,5 @@
+import { generateId, formatDateTime } from '../../utils/helpers.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const customerForm = document.getElementById('customer-form');
     const customerListDiv = document.getElementById('customer-list');
@@ -30,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- Utility Functions ---
-    const generateId = () => '_' + Math.random().toString(36).substr(2, 9);
+    // generateId and formatDateTime imported from helpers.js
 
     const getRelationshipCategory = (level) => {
         if (level < 1.0) return RELATIONSHIP_CATEGORIES[0];
@@ -61,12 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return new Date(nextAvailableTimestamp);
     };
 
-    const formatDateTime = (date) => {
-        if (!date) return 'N/A';
-        return date.toLocaleString('en-US', {
-            year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true
-        });
-    };
+    // formatDateTime is now imported
 
     // --- Local Storage Functions ---
     const loadCustomers = () => {

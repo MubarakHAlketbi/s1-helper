@@ -199,7 +199,19 @@ export const MAX_EFFECT_CONTRIBUTION = { type: 0.3, property: 0.4, quality: 0.3 
 
 // --- Utility Cost Data ---
 // (To be added later from utilities.js)
-export const EQUIPMENT_POWER_WATER = {};
+export const EQUIPMENT_POWER_WATER = {
+    // Power consumption in kWh per game hour (unless specified otherwise)
+    "chemStation_kWh_per_Hour": 0.5,
+    "labOven_kWh_per_Hour": 0.8,
+    "growLight_kWh_per_Hour": 0.2,
+    "otherStation_kWh_per_Hour": 0.1, // Mixer, Press, etc.
+    "propertyLight_kWh_per_Hour": 0.05, // Assumed only when ON
+
+    // Water consumption in Litres per game day
+    "potSprinkler_L_per_Day": 10,
+    "bigSprinkler_L_per_Day": 50,
+    // Manual watering is handled directly in the calculator based on user input
+};
 
 // --- Customer Tracker Data ---
 // (Uses CUSTOMER_DATA from Satisfaction)

@@ -1,10 +1,8 @@
+import { formatCurrency } from '../../utils/helpers.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Casino calculator script loaded!");
 
-    function formatCurrency(amount) {
-        // Simple formatting, adjust as needed
-        return `$${amount.toFixed(2)}`;
-    }
 
     function calculateBlackjackPayout() {
         const betInput = document.getElementById('bj-bet');
