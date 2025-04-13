@@ -1,4 +1,5 @@
 import { LOCATION_DATA } from '../game_data.js'; // Adjust path as necessary
+import { formatCurrency } from '../../utils/helpers.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('location-list-container');
@@ -55,14 +56,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Helper function (consider moving to utils/helpers.js if used elsewhere)
-// Or import if already there
-const formatCurrency = (amount) => {
-    const numAmount = Number(amount);
-    if (isNaN(numAmount)) {
-        // For locations, cost might genuinely be N/A (like regions)
-        return 'N/A';
-    }
-    // Assuming rent/purchase price
-    return `$${numAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
-};
+// formatCurrency is now imported from utils/helpers.js
