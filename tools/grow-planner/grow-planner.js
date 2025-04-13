@@ -1,3 +1,5 @@
+import { BASE_GROW_TIMES, POT_DATA } from '../../database/game_data.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const growForm = document.getElementById('grow-form');
     const plantListDiv = document.getElementById('plant-list');
@@ -13,32 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const UPDATE_INTERVAL = 10000; // Update timers every 10 seconds
     let updateIntervalId;
 
-    // --- Static Game Data (Populate accurately from game files/database) ---
-    // Base grow times in GAME MINUTES (1 real second = 1 game minute default)
-    const BASE_GROW_TIMES = {
-        "OG Kush Seed": 1440, // Example: 1 game day
-        "Sour Diesel Seed": 1500, // Example
-        "Green Crack Seed": 1380, // Example
-        "Granddaddy Purple Seed": 1600, // Example
-        "Coca Seed": 2880, // Example: 2 game days
-        "Test Weed Seed": 1440 // Placeholder
-        // Add all seeds
-    };
-
-    // Pot modifiers and watering intervals
-    // waterIntervalMinutes: Base GAME MINUTES before needing water
-    // drainMultiplier: How much faster/slower water drains (1.0 = normal)
-    // growthMultiplier: How much faster/slower plants grow (1.0 = normal)
-    const POT_DATA = {
-        "Plastic Pot": { waterIntervalMinutes: 1440, drainMultiplier: 1.0, growthMultiplier: 1.0 }, // Example: 24 game hours
-        "Air Pot": { waterIntervalMinutes: 1440, drainMultiplier: 1.3, growthMultiplier: 1.15 }, // Drains 30% faster, grows 15% faster
-        "Moisture-Preserving Pot": { waterIntervalMinutes: 1440, drainMultiplier: 0.6, growthMultiplier: 1.0 }, // Drains 40% slower
-        "Grow Tent": { waterIntervalMinutes: 1440, drainMultiplier: 1.0, growthMultiplier: 1.25 }, // Example: Grows 25% faster (adjust based on game)
-        // Add other pots if necessary
-    };
-
-    const SEED_NAMES = Object.keys(BASE_GROW_TIMES);
-    const POT_NAMES = Object.keys(POT_DATA);
+    // Game data is imported from ../../database/game_data.js
 
     // --- Utility Functions ---
     const generateId = () => '_' + Math.random().toString(36).substr(2, 9);
@@ -382,13 +359,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Initial Load ---
     // Populate Selects
-    SEED_NAMES.forEach(name => {
+    Object.keys(BASE_GROW_TIMES).sort().forEach(name => {
         const option = document.createElement('option');
         option.value = name;
         option.textContent = name;
         seedSelect.appendChild(option);
     });
-     POT_NAMES.forEach(name => {
+     Object.keys(POT_DATA).sort().forEach(name => {
         const option = document.createElement('option');
         option.value = name;
         option.textContent = name;

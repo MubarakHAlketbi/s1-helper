@@ -1,4 +1,6 @@
       
+import { RANKS, UNLOCKS, TIERS_PER_RANK, MAX_RANK_INDEX, XP_PER_TIER_MIN, XP_PER_TIER_MAX } from '../../database/game_data.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const rankSelect = document.getElementById('calc-rank');
     const tierInput = document.getElementById('calc-tier');
@@ -19,53 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultCurrentUnlocksUl = document.getElementById('result-current-unlocks');
     const resultNextUnlocksUl = document.getElementById('result-next-unlocks');
 
-    // --- Game Data ---
-    const TIERS_PER_RANK = 5;
-    const MAX_RANK_INDEX = 10; // Rank 0 to 10
-    const XP_PER_TIER_MIN = 200;
-    const XP_PER_TIER_MAX = 2500;
-
-    const RANKS = [
-        { index: 0, name: "Street Rat" },
-        { index: 1, name: "Hoodlum" },
-        { index: 2, name: "Peddler" },
-        { index: 3, name: "Hustler" },
-        { index: 4, name: "Bagman" },
-        { index: 5, name: "Enforcer" },
-        { index: 6, name: "Shot Caller" },
-        { index: 7, name: "Block Boss" },
-        { index: 8, name: "Underlord" },
-        { index: 9, name: "Baron" },
-        { index: 10, name: "Kingpin" }
-    ];
-
-    // Simplified Unlock Data (Expand with actual game data)
-    // Key: "RankIndex-Tier"
-    const UNLOCKS = {
-        "0-0": [], // Starting
-        "0-3": ["Jar Packaging"],
-        "0-4": ["Long-Life Soil", "Fertilizer", "Plastic Pot", "Moisture-Preserving Pot", "Sour Diesel Seed"],
-        "0-5": ["Electric Plant Trimmers", "Pot Sprinkler", "Big Sprinkler"],
-        "1-1": ["Mixing Station"],
-        "1-2": ["Soil Pourer", "Green Crack Seed"],
-        "1-3": ["Extra Long-Life Soil"],
-        "1-4": ["Granddaddy Purple Seed"],
-        "1-5": ["Packaging Station Mk II"],
-        "2-2": ["Mixing Station Mk2"],
-        "2-3": ["Air Pot"],
-        // Add many more based on your item/station data...
-        "3-3": ["Drying Rack", "Pseudo"], // Example from stations/ingredients
-        "4-5": ["Brick Press", "High-Quality Pseudo"], // Example
-        "5-1": ["Cauldron"], // Example
-        // Map Region Unlocks (Example - Needs confirmation)
-        "1-1": ["Westville Region Access"],
-        "2-1": ["Downtown Region Access"],
-        "3-1": ["Docks Region Access"],
-        "4-1": ["Suburbia Region Access"],
-        "5-1": ["Uptown Region Access"],
-        "6-1": ["Northtown Region Access"] // Assuming Northtown is last?
-    };
-
+    // Game data is imported from ../../database/game_data.js
     // --- Calculation Functions ---
 
     // Estimate XP needed for a tier within a specific rank (linear scaling)

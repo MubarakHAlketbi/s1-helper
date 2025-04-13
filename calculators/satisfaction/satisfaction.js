@@ -1,3 +1,5 @@
+import { CUSTOMER_DATA, BASE_PRODUCTS, EFFECTS_DATA, QUALITY_LEVELS, QUALITY_VALUE_MULTIPLIERS, MAX_EFFECT_CONTRIBUTION } from '../../database/game_data.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const customerSelect = document.getElementById('calc-customer');
     const productSelect = document.getElementById('calc-product');
@@ -16,91 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultCustomerPrefsSpan = document.getElementById('result-customer-prefs');
     const resultIdealPriceSpan = document.getElementById('result-ideal-price');
 
-    // --- Game Data (Needs full population from database/supporting_data.md) ---
-    const CUSTOMER_DATA = {
-        // Example structure - Populate with ALL customers
-        "beth": { name: "Beth", standard: 1, affinity: { Marijuana: 0.30, Methamphetamine: 0.31, Cocaine: -0.20 }, prefs: ["slippery", "lethal", "athletic"] },
-        "billy": { name: "Billy", standard: 2, affinity: { Marijuana: 0.09, Methamphetamine: -0.63, Cocaine: 0.57 }, prefs: ["shrinking", "slippery", "zombifying"] },
-        "carl": { name: "Carl", standard: 3, affinity: { Marijuana: -0.81, Methamphetamine: -0.23, Cocaine: -0.58 }, prefs: ["electrifying", "toxic", "energizing"] },
-        "chloe": { name: "Chloe", standard: 1, affinity: { Marijuana: 0.44, Methamphetamine: 0.79, Cocaine: 0.25 }, prefs: ["euphoric", "lethal", "munchies"] },
-        "chris": { name: "Chris", standard: 3, affinity: { Marijuana: -0.83, Methamphetamine: 0.40, Cocaine: 0.79 }, prefs: ["spicy", "euphoric", "zombifying"] },
-        "dennis": { name: "Dennis", standard: 3, affinity: { Marijuana: 0.26, Methamphetamine: 0.08, Cocaine: -0.89 }, prefs: ["toxic", "refreshing", "electrifying"] },
-        "donna": { name: "Donna", standard: 1, affinity: { Marijuana: 0.93, Methamphetamine: -0.27, Cocaine: 0.25 }, prefs: ["energizing", "lethal", "munchies"] },
-        "doris": { name: "Doris", standard: 1, affinity: { Marijuana: 0.46, Methamphetamine: 0.16, Cocaine: 0.58 }, prefs: ["shrinking", "tropicthunder", "antigravity"] },
-        "elizabeth": { name: "Elizabeth", standard: 2, affinity: { Marijuana: 0.33, Methamphetamine: 0.45, Cocaine: 0.32 }, prefs: ["focused", "tropicthunder", "gingeritis"] },
-        "eugene": { name: "Eugene", standard: 2, affinity: { Marijuana: 0.66, Methamphetamine: 0.11, Cocaine: 0.17 }, prefs: ["slippery", "gingeritis", "calming"] },
-        "fiona": { name: "Fiona", standard: 3, affinity: { Marijuana: 0.03, Methamphetamine: 0.08, Cocaine: -0.50 }, prefs: ["lethal", "balding", "tropicthunder"] },
-        "genghis": { name: "Genghis", standard: 0, affinity: { Marijuana: 0.85, Methamphetamine: -0.64, Cocaine: 0.45 }, prefs: ["zombifying", "sneaky", "toxic"] },
-        "greg": { name: "Greg", standard: 0, affinity: { Marijuana: 0.58, Methamphetamine: -0.58, Cocaine: -0.35 }, prefs: ["euphoric", "tropicthunder", "gingeritis"] },
-        "harold": { name: "Harold", standard: 3, affinity: { Marijuana: -0.95, Methamphetamine: -0.78, Cocaine: -0.70 }, prefs: ["athletic", "shrinking", "laxative"] },
-        "herbert": { name: "Herbert", standard: 3, affinity: { Marijuana: 0.81, Methamphetamine: 0.39, Cocaine: 0.27 }, prefs: ["jennerising", "athletic", "zombifying"] },
-        "jack": { name: "Jack", standard: 3, affinity: { Marijuana: 0.66, Methamphetamine: 0.88, Cocaine: 0.10 }, prefs: ["lethal", "balding"] }, // Duplicate lethal removed
-        "jennifer": { name: "Jennifer", standard: 2, affinity: { Marijuana: -0.88, Methamphetamine: 0.42, Cocaine: 0.65 }, prefs: ["lethal", "jennerising", "gingeritis"] },
-        "jeremy": { name: "Jeremy", standard: 3, affinity: { Marijuana: 0.58, Methamphetamine: 0.53, Cocaine: 0.83 }, prefs: ["antigravity", "jennerising", "refreshing"] },
-        "lisa": { name: "Lisa", standard: 2, affinity: { Marijuana: -0.82, Methamphetamine: -0.36, Cocaine: -0.28 }, prefs: ["smelly", "slippery", "brighteyed"] },
-        "louis": { name: "Louis", standard: 2, affinity: { Marijuana: 0.94, Methamphetamine: -0.92, Cocaine: -0.30 }, prefs: ["lethal", "athletic", "disorienting"] },
-        "lucy": { name: "Lucy", standard: 2, affinity: { Marijuana: 0.65, Methamphetamine: -0.79, Cocaine: 0.19 }, prefs: ["refreshing", "euphoric", "electrifying"] },
-        "ludwig": { name: "Ludwig", standard: 1, affinity: { Marijuana: 0.79, Methamphetamine: -0.59, Cocaine: -0.68 }, prefs: ["euphoric", "energizing", "focused"] },
-        "mac": { name: "Mac", standard: 2, affinity: { Marijuana: -0.57, Methamphetamine: -0.38, Cocaine: 0.27 }, prefs: ["refreshing", "shrinking", "zombifying"] },
-        "marco": { name: "Marco", standard: 2, affinity: { Marijuana: 0.34, Methamphetamine: 0.08, Cocaine: 0.54 }, prefs: ["spicy", "zombifying", "energizing"] },
-        "meg": { name: "Meg", standard: 1, affinity: { Marijuana: 0.79, Methamphetamine: -0.04, Cocaine: 0.72 }, prefs: ["spicy", "jennerising", "balding"] },
-        "melissa": { name: "Melissa", standard: 2, affinity: { Marijuana: -0.26, Methamphetamine: 0.67, Cocaine: 0.42 }, prefs: ["brighteyed", "energizing", "jennerising"] },
-        "michael": { name: "Michael", standard: 3, affinity: { Marijuana: 0.17, Methamphetamine: 0.95, Cocaine: 0.70 }, prefs: ["laxative", "calming", "slippery"] },
-        "pearl": { name: "Pearl", standard: 3, affinity: { Marijuana: 0.89, Methamphetamine: -0.89, Cocaine: 0.67 }, prefs: ["slippery", "sneaky", "zombifying"] },
-        "philip": { name: "Philip", standard: 2, affinity: { Marijuana: 0.97, Methamphetamine: 0.78, Cocaine: -0.22 }, prefs: ["energizing", "lethal", "athletic"] },
-        "sam": { name: "Sam", standard: 1, affinity: { Marijuana: -0.76, Methamphetamine: 0.30, Cocaine: -0.80 }, prefs: ["munchies", "toxic", "refreshing"] },
-        "tobias": { name: "Tobias", standard: 3, affinity: { Marijuana: 0.19, Methamphetamine: 0.76, Cocaine: 0.17 }, prefs: ["lethal", "energizing", "shrinking"] },
-        "walter": { name: "Walter", standard: 3, affinity: { Marijuana: -0.14, Methamphetamine: -0.30, Cocaine: -0.44 }, prefs: ["slippery", "calming", "antigravity"] },
-    };
-
-    const PRODUCT_DATA = {
-        // Example - Populate with base products
-        "ogkush": { name: "OG Kush", type: "Marijuana", baseValue: 38, properties: ["calming"] },
-        "sourdiesel": { name: "Sour Diesel", type: "Marijuana", baseValue: 40, properties: ["refreshing"] },
-        "greencrack": { name: "Green Crack", type: "Marijuana", baseValue: 43, properties: ["energizing"] },
-        "granddaddypurple": { name: "Granddaddy Purple", type: "Marijuana", baseValue: 44, properties: ["sedating"] },
-        "cocaine": { name: "Cocaine", type: "Cocaine", baseValue: 150, properties: [] },
-        "meth": { name: "Meth", type: "Methamphetamine", baseValue: 70, properties: [] },
-        "babyblue": { name: "Baby Blue", type: "Methamphetamine", baseValue: 1, properties: [] }, // Needs effect data for value
-        "bikercrank": { name: "Biker Crank", type: "Methamphetamine", baseValue: 1, properties: [] }, // Needs effect data for value
-        "glass": { name: "Glass", type: "Methamphetamine", baseValue: 1, properties: [] }, // Needs effect data for value
-        "testweed": { name: "Test Weed", type: "Marijuana", baseValue: 71, properties: ["shrinking", "thoughtprovoking"] },
-    };
-
-    const EFFECT_DATA = {
-        // Example - Populate with ALL effects and their value modifiers
-        "calming": { name: "Calming", valueMod: 0.1 },
-        "refreshing": { name: "Refreshing", valueMod: 0.14 },
-        "energizing": { name: "Energizing", valueMod: 0.22 },
-        "sedating": { name: "Sedating", valueMod: 0.26 },
-        "slippery": { name: "Slippery", valueMod: 0.34 },
-        "lethal": { name: "Lethal", valueMod: 0 }, // Negative
-        "athletic": { name: "Athletic", valueMod: 0.32 },
-        "shrinking": { name: "Shrinking", valueMod: 0.6 },
-        "zombifying": { name: "Zombifying", valueMod: 0.58 },
-        "toxic": { name: "Toxic", valueMod: 0 }, // Negative
-        "euphoric": { name: "Euphoric", valueMod: 0.18 },
-        "munchies": { name: "Munchies", valueMod: 0.12 },
-        "tropicthunder": { name: "Tropic Thunder", valueMod: 0.46 },
-        "antigravity": { name: "Anti-gravity", valueMod: 0.54 },
-        "focused": { name: "Focused", valueMod: 0.16 },
-        "gingeritis": { name: "Gingeritis", valueMod: 0.2 },
-        "balding": { name: "Balding", valueMod: 0.3 },
-        "spicy": { name: "Spicy", valueMod: 0.38 },
-        "jennerising": { name: "Jennerising", valueMod: 0.42 },
-        "sneaky": { name: "Sneaky", valueMod: 0.24 },
-        "electrifying": { name: "Electrifying", valueMod: 0.5 },
-        "smelly": { name: "Smelly", valueMod: 0 }, // Negative
-        "brighteyed": { name: "Bright-Eyed", valueMod: 0.4 },
-        "disorienting": { name: "Disorienting", valueMod: 0 }, // Negative
-        "laxative": { name: "Laxative", valueMod: 0 }, // Negative
-        "thoughtprovoking": { name: "Thought-Provoking", valueMod: 0.44 },
-        // Add all others...
-    };
-
-    const QUALITY_LEVELS = ["Trash", "Poor", "Standard", "Premium", "Heavenly"];
-    const QUALITY_VALUE_MULTIPLIERS = { 0: 0.5, 1: 0.8, 2: 1.0, 3: 1.2, 4: 1.5 }; // Assumed values
-    const MAX_EFFECT_CONTRIBUTION = { type: 0.3, property: 0.4, quality: 0.3 }; // From economy.md
 
     // --- Populate Selects ---
     Object.keys(CUSTOMER_DATA).sort((a, b) => CUSTOMER_DATA[a].name.localeCompare(CUSTOMER_DATA[b].name)).forEach(id => {
@@ -110,10 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
         customerSelect.appendChild(option);
     });
 
-    Object.keys(PRODUCT_DATA).sort((a, b) => PRODUCT_DATA[a].name.localeCompare(PRODUCT_DATA[b].name)).forEach(id => {
+    Object.keys(BASE_PRODUCTS).sort((a, b) => BASE_PRODUCTS[a].name.localeCompare(BASE_PRODUCTS[b].name)).forEach(id => {
         const option = document.createElement('option');
         option.value = id;
-        option.textContent = PRODUCT_DATA[id].name;
+        option.textContent = BASE_PRODUCTS[id].name;
         productSelect.appendChild(option);
     });
 
@@ -133,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const customer = CUSTOMER_DATA[customerId];
-        const product = PRODUCT_DATA[productId];
+        const product = BASE_PRODUCTS[productId];
 
         if (!customer || !product) {
             alert('Error: Could not find data for selected customer or product.');
@@ -158,15 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 3. Preferred Property Satisfaction
         let propertyMatchScore = 0;
-        const deliveredProperties = product.properties || [];
-        const preferredProperties = customer.prefs || [];
-        const numPreferred = preferredProperties.length;
-        const numDelivered = deliveredProperties.length;
+        const deliveredPropertiesGuids = product.properties || []; // These are GUIDs from BASE_PRODUCTS
+        const preferredPropertiesGuids = customer.prefs || []; // These are GUIDs from CUSTOMER_DATA
+        const numPreferred = preferredPropertiesGuids.length;
+        const numDelivered = deliveredPropertiesGuids.length;
 
         if (numPreferred > 0 && numDelivered > 0) {
             let matches = 0;
-            deliveredProperties.forEach(propId => {
-                if (preferredProperties.includes(propId)) {
+            deliveredPropertiesGuids.forEach(propGuid => {
+                if (preferredPropertiesGuids.includes(propGuid)) {
                     matches++;
                 }
             });
@@ -184,12 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // 4. Price Satisfaction (Compare paid vs calculated ideal)
         // Calculate base value from effects
         let effectValueMultiplier = 1.0;
-        deliveredProperties.forEach(propId => {
-            effectValueMultiplier += (EFFECT_DATA[propId]?.valueMod || 0);
+        deliveredPropertiesGuids.forEach(propGuid => {
+            effectValueMultiplier += (EFFECTS_DATA[propGuid]?.valueMod || 0);
         });
 
         const qualityMultiplier = QUALITY_VALUE_MULTIPLIERS[qualityDelivered] || 1.0;
-        const calculatedIdealPricePerUnit = product.baseValue * qualityMultiplier * effectValueMultiplier;
+        const calculatedIdealPricePerUnit = product.baseMarketValue * qualityMultiplier * effectValueMultiplier; // Use baseMarketValue
         const calculatedIdealTotalPrice = calculatedIdealPricePerUnit * quantity;
 
         let priceFactor = 0;
@@ -255,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         resultCustomerStandardSpan.textContent = QUALITY_LEVELS[customerStandardQuality];
-        resultCustomerPrefsSpan.textContent = preferredProperties.map(p => EFFECT_DATA[p]?.name || p).join(', ') || 'None';
+        resultCustomerPrefsSpan.textContent = preferredPropertiesGuids.map(guid => EFFECTS_DATA[guid]?.name || guid).join(', ') || 'None';
         resultIdealPriceSpan.textContent = formatCurrency(calculatedIdealTotalPrice);
 
 

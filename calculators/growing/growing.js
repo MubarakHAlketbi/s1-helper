@@ -1,3 +1,5 @@
+import { BASE_GROW_TIMES, POT_DATA, GAME_MINUTE_TO_REAL_MS } from '../../database/game_data.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const seedSelect = document.getElementById('calc-seed-name');
     const potSelect = document.getElementById('calc-pot-type');
@@ -10,34 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultNextWaterP = document.getElementById('result-next-water');
     const resultNotesP = document.getElementById('result-notes');
 
-    // --- Static Game Data (From game files) ---
-    // Base grow times in GAME MINUTES (1 real second = 1 game minute default)
-    const BASE_GROW_TIMES = {
-        "Coca Seed": 2880, // ~48 real mins
-        "Granddaddy Purple Seed": 1600, // ~26.7 real mins
-        "Green Crack Seed": 1380, // ~23 real mins
-        "OG Kush Seed": 1440, // ~24 real mins
-        "Sour Diesel Seed": 1500, // ~25 real mins
-        // Add more from seeds.md if available
-        "Test Weed Seed": 1440 // Placeholder if needed
-    };
-
-    // Pot modifiers and watering intervals
-    // waterIntervalMinutes: Base GAME MINUTES before needing water (assuming standard soil baseline)
-    // drainMultiplier: How much faster/slower water drains (1.0 = normal)
-    // growthMultiplier: How much faster/slower plants grow (1.0 = normal)
-    const POT_DATA = {
-        "Plastic Pot": { waterIntervalMinutes: 1440, drainMultiplier: 1.0, growthMultiplier: 1.0 }, // Baseline
-        "Air Pot": { waterIntervalMinutes: 1440, drainMultiplier: 1.3, growthMultiplier: 1.15 }, // Drains 30% faster, grows 15% faster
-        "Moisture-Preserving Pot": { waterIntervalMinutes: 1440, drainMultiplier: 0.6, growthMultiplier: 1.0 }, // Drains 40% slower
-        "Grow Tent": { waterIntervalMinutes: 1440, drainMultiplier: 1.0, growthMultiplier: 1.20 }, // Grows 20% faster (Example value, adjust if known)
-        // Add other pots if necessary
-    };
-    // Note: Soil type also affects uses and potentially drain/growth, but this calculator focuses on pots for simplicity.
-    // Note: Additives like Speed Grow (instant %) or Fertilizer/PGR (quality/yield) are not calculated here.
-
-    const GAME_MINUTE_TO_REAL_MS = 1000; // 1 game minute = 1 real second = 1000 ms
-
+    // Game data is imported from ../../database/game_data.js
     // --- Utility Functions ---
     const formatDateTime = (timestamp) => {
         if (!timestamp || isNaN(timestamp)) return 'N/A';

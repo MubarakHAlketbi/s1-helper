@@ -1,3 +1,5 @@
+import { PRICE_PER_KWH, PRICE_PER_LITRE, EQUIPMENT_POWER_WATER, GAME_HOURS_PER_DAY } from '../../database/game_data.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Input fields
     const chemStationsInput = document.getElementById('calc-chem-stations');
@@ -25,24 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const refWaterCostSpan = document.getElementById('ref-water-cost');
 
 
-    // --- Game Data (From property.md - Needs confirmation) ---
-    const PRICE_PER_KWH = 0.15; // Example cost, update with actual game value if found
-    const PRICE_PER_LITRE = 0.05; // Example cost, update with actual game value if found
-
-    // Estimated Consumption Rates (per GAME HOUR for power, per GAME DAY for water)
-    // These are placeholders and need refinement based on gameplay observation
-    const CONSUMPTION_RATES = {
-        chemStation_kWh_per_Hour: 0.5,
-        labOven_kWh_per_Hour: 0.8,
-        growLight_kWh_per_Hour: 0.2,
-        otherStation_kWh_per_Hour: 0.1,
-        propertyLight_kWh_per_Hour: 0.05, // Assume lights are on ~12 hours a day? Or user estimates? Let's assume per hour ON.
-        manualWater_L_per_Day: 1.0, // User inputs total daily average
-        potSprinkler_L_per_Day: 10.0,
-        bigSprinkler_L_per_Day: 50.0,
-    };
-
-    const GAME_HOURS_PER_DAY = 24;
+    // Game data is imported from ../../database/game_data.js
 
     // --- Utility Functions ---
      const formatCurrency = (amount) => {
@@ -77,11 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const lightOnHours = durationDays * 12;
 
         const totalKwh = (
-            (numChemStations * CONSUMPTION_RATES.chemStation_kWh_per_Hour * hoursInDuration) +
-            (numLabOvens * CONSUMPTION_RATES.labOven_kWh_per_Hour * hoursInDuration) +
-            (numGrowLights * CONSUMPTION_RATES.growLight_kWh_per_Hour * hoursInDuration) +
-            (numOtherPower * CONSUMPTION_RATES.otherStation_kWh_per_Hour * hoursInDuration) +
-            (numPropertyLights * CONSUMPTION_RATES.propertyLight_kWh_per_Hour * lightOnHours) // Use lightOnHours
+            (numChemStations * EQUIPMENT_POWER_WATER.chemStation_kWh_per_Hour * hoursInDuration) +
+            (numLabOvens * EQUIPMENT_POWER_WATER.labOven_kWh_per_Hour * hoursInDuration) +
+            (numGrowLights * EQUIPMENT_POWER_WATER.growLight_kWh_per_Hour * hoursInDuration) +
+            (numOtherPower * EQUIPMENT_POWER_WATER.otherStation_kWh_per_Hour * hoursInDuration) +
+            (numPropertyLights * EQUIPMENT_POWER_WATER.propertyLight_kWh_per_Hour * lightOnHours) // Use lightOnHours
         );
 
         const totalPowerCost = totalKwh * PRICE_PER_KWH;
@@ -89,8 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Calculate Water ---
         const totalLitres = (
             (manualWaterLDay * durationDays) + // User provides daily average
-            (numPotSprinklers * CONSUMPTION_RATES.potSprinkler_L_per_Day * durationDays) +
-            (numBigSprinklers * CONSUMPTION_RATES.bigSprinkler_L_per_Day * durationDays)
+            (numPotSprinklers * EQUIPMENT_POWER_WATER.potSprinkler_L_per_Day * durationDays) +
+            (numBigSprinklers * EQUIPMENT_POWER_WATER.bigSprinkler_L_per_Day * durationDays)
         );
 
         const totalWaterCost = totalLitres * PRICE_PER_LITRE;
