@@ -35,6 +35,51 @@ export const ADDITIVE_GROWTH_EFFECTS = {
     "speedgrow": { qualityChange: -0.15, yieldChange: 0, growSpeedMultiplier: 1.0, instantGrowth: 0.5 }, // Example values
 };
 
+// Seed Data (Extracted from seeds.md)
+export const SEED_DATA = {
+    "cocaseed": {
+        id: "cocaseed",
+        name: "Coca Seed",
+        description: "A single coca seed. Grows into a coca plant, which provides coca leaves, which can be turned into something else starting with coca.",
+        cost: 150,
+        unlockRankTier: "0-0", // Assuming available early if not specified otherwise
+        legality: 0 // Assuming illegal based on context
+    },
+    "granddaddypurpleseed": {
+        id: "granddaddypurpleseed",
+        name: "Granddaddy Purple Seed",
+        description: "One 'Granddaddy Purple' marijuana seed.",
+        cost: 45,
+        unlockRankTier: "1-4",
+        legality: 0 // Assuming illegal
+    },
+    "greencrackseed": {
+        id: "greencrackseed",
+        name: "Green Crack Seed",
+        description: "One 'Green Crack' marijuana seed.",
+        cost: 40,
+        unlockRankTier: "1-2",
+        legality: 0 // Assuming illegal
+    },
+    "ogkushseed": {
+        id: "ogkushseed",
+        name: "OG Kush Seed",
+        description: "One 'OG Kush' marijuana seed.",
+        cost: 30,
+        unlockRankTier: "0-0",
+        legality: 0 // Assuming illegal
+    },
+    "sourdieselseed": {
+        id: "sourdieselseed",
+        name: "Sour Diesel Seed",
+        description: "One 'Sour Diesel' marijuana seed.",
+        cost: 35,
+        unlockRankTier: "0-4",
+        legality: 0 // Assuming illegal
+    }
+};
+
+
 // --- Leveling Data ---
 export const TIERS_PER_RANK = 5;
 export const MAX_RANK_INDEX = 10; // Rank 0 to 10
@@ -57,12 +102,13 @@ export const RANKS = [
 
 // Unlock Data (Expand with actual game data from all sources)
 // Key: "RankIndex-Tier" -> Value: Array of unlocked item/feature names
+// Updated based on cross-referencing item data
 export const UNLOCKS = {
-    "0-0": ["OG Kush Seed", "Chemistry Station", "Lab Oven", "Packaging Station", "Laundering Station", "Flashlight", "Trash Bag", "Trash Grabber", "Plant Trimmers", "Watering Can", "Cheap Skateboard", "Cruiser Skateboard", "Golden Skateboard", "Lightweight Skateboard", "Skateboard", "Safe", "Large Storage Rack", "Medium Storage Rack", "Small Storage Rack", "Wall-Mounted Shelf"], // Starting items + Rank 0 Tier 0 unlocks
-    "0-3": ["Jar Packaging"],
-    "0-4": ["Long-Life Soil", "Plastic Pot", "Moisture-Preserving Pot", "Sour Diesel Seed"],
+    "0-0": ["OG Kush Seed", "Chemistry Station", "Lab Oven", "Packaging Station", "Laundering Station", "Flashlight", "Trash Bag", "Trash Grabber", "Plant Trimmers", "Watering Can", "Cheap Skateboard", "Cruiser Skateboard", "Golden Skateboard", "Lightweight Skateboard", "Skateboard", "Safe", "Large Storage Rack", "Medium Storage Rack", "Small Storage Rack", "Wall-Mounted Shelf", "Grow Light"], // Starting items + Rank 0 Tier 0 unlocks
+    "0-3": ["Jar Packaging", "PGR", "Speed Grow"], // Added PGR, Speed Grow
+    "0-4": ["Long-Life Soil", "Plastic Pot", "Moisture-Preserving Pot", "Sour Diesel Seed", "Fertilizer"], // Added Fertilizer
     "0-5": ["Electric Plant Trimmers", "Pot Sprinkler", "Big Sprinkler"],
-    "1-1": ["Mixing Station", "Westville Region Access"], // Combined region unlock
+    "1-1": ["Mixing Station", "Westville Region Access"],
     "1-2": ["Soil Pourer", "Green Crack Seed"],
     "1-3": ["Extra Long-Life Soil"],
     "1-4": ["Granddaddy Purple Seed"],
@@ -71,14 +117,11 @@ export const UNLOCKS = {
     "2-2": ["Mixing Station Mk2"],
     "2-3": ["Air Pot"],
     "3-1": ["Docks Region Access"],
-    "3-3": ["Drying Rack", "Pseudo", "Acid"], // Added Acid
+    "3-3": ["Drying Rack", "Pseudo", "Acid"],
     "4-1": ["Suburbia Region Access"],
     "4-5": ["Brick Press", "High-Quality Pseudo"],
     "5-1": ["Cauldron", "Uptown Region Access"],
-    "6-1": ["Northtown Region Access"] // Assuming Northtown is last? Adjust if other regions exist
-    // Add many more based on your item/station data...
-    // Example: "3-2": ["Addy Ingredient"] // Check ingredients.md for ranks
-    // Example: "2-5": ["Battery Ingredient"]
+    "6-1": ["Northtown Region Access"]
 };
 
 
@@ -259,46 +302,46 @@ export const EQUIPMENT_POWER_WATER = {
 // --- Equipment Data ---
 // id -> { name, category, description, cost, unlockRankTier, power?, water? }
 // Categories: Station, Tool, Pot, Storage, Other
-// Note: Cost, descriptions are placeholders/estimates unless specified. Power/Water from EQUIPMENT_POWER_WATER.
+// Updated costs/ranks based on markdown files
 export const EQUIPMENT_DATA = {
     // Stations
-    "chemStation": { name: "Chemistry Station", category: "Station", description: "Used for basic Methamphetamine crafting.", cost: 500, unlockRankTier: "0-0", power: EQUIPMENT_POWER_WATER.chemStation_kWh_per_Hour },
-    "labOven": { name: "Lab Oven", category: "Station", description: "Used for drying products or specific crafting steps.", cost: 750, unlockRankTier: "0-0", power: EQUIPMENT_POWER_WATER.labOven_kWh_per_Hour },
-    "packagingStation": { name: "Packaging Station", category: "Station", description: "Packages products into baggies.", cost: 300, unlockRankTier: "0-0" },
-    "launderingStation": { name: "Laundering Station", category: "Station", description: "Used to launder cash (details TBC).", cost: 1000, unlockRankTier: "0-0" },
-    "mixingStation": { name: "Mixing Station", category: "Station", description: "Mixes ingredients with base products.", cost: 600, unlockRankTier: "1-1", power: EQUIPMENT_POWER_WATER.otherStation_kWh_per_Hour },
-    "packagingStationMk2": { name: "Packaging Station Mk II", category: "Station", description: "Advanced packaging station (details TBC).", cost: 1200, unlockRankTier: "1-5", power: EQUIPMENT_POWER_WATER.packagingMk2_kWh_per_Hour },
-    "mixingStationMk2": { name: "Mixing Station Mk2", category: "Station", description: "Advanced mixing station (details TBC).", cost: 1500, unlockRankTier: "2-2", power: EQUIPMENT_POWER_WATER.mixingMk2_kWh_per_Hour },
-    "dryingRack": { name: "Drying Rack", category: "Station", description: "Used for drying plants.", cost: 400, unlockRankTier: "3-3" },
-    "brickPress": { name: "Brick Press", category: "Station", description: "Compresses products into bricks.", cost: 2000, unlockRankTier: "4-5", power: EQUIPMENT_POWER_WATER.otherStation_kWh_per_Hour },
-    "cauldron": { name: "Cauldron", category: "Station", description: "Used for advanced crafting (details TBC).", cost: 2500, unlockRankTier: "5-1", power: EQUIPMENT_POWER_WATER.cauldron_kWh_per_Hour },
+    "chemStation": { name: "Chemistry Station", category: "Station", description: "General-purpose chemistry station used for mixing and cooking.", cost: 1000, unlockRankTier: "0-0", power: EQUIPMENT_POWER_WATER.chemStation_kWh_per_Hour },
+    "labOven": { name: "Lab Oven", category: "Station", description: "Special-purpose laboratory oven for cooking/drying out substances.", cost: 1000, unlockRankTier: "0-0", power: EQUIPMENT_POWER_WATER.labOven_kWh_per_Hour },
+    "packagingStation": { name: "Packaging Station", category: "Station", description: "Provides a clean surface to place product into packaging.", cost: 100, unlockRankTier: "0-0" },
+    "launderingStation": { name: "Laundering Station", category: "Station", description: "Workstation that contains the interface for laundering money. Must be placed at a business to work.", cost: 500, unlockRankTier: "0-0" },
+    "mixingStation": { name: "Mixing Station", category: "Station", description: "Used to mix product with ingredients to create unique new products.", cost: 500, unlockRankTier: "1-1", power: EQUIPMENT_POWER_WATER.otherStation_kWh_per_Hour },
+    "packagingStationMk2": { name: "Packaging Station Mk II", category: "Station", description: "An upgraded version of the packaging station with a rotary packing tool. Allows for much faster packing of products.", cost: 750, unlockRankTier: "1-5", power: EQUIPMENT_POWER_WATER.packagingMk2_kWh_per_Hour },
+    "mixingStationMk2": { name: "Mixing Station Mk2", category: "Station", description: "An upgraded model of the mixing station with automatic ingredient insertion, and faster mix times.", cost: 2000, unlockRankTier: "2-2", power: EQUIPMENT_POWER_WATER.mixingMk2_kWh_per_Hour },
+    "dryingRack": { name: "Drying Rack", category: "Station", description: "Hang up organic items (weed, coca leaves) here to improve their quality.", cost: 250, unlockRankTier: "3-3" },
+    "brickPress": { name: "Brick Press", category: "Station", description: "Industrial brick press used to squish stuff into bricks.", cost: 800, unlockRankTier: "4-5", power: EQUIPMENT_POWER_WATER.otherStation_kWh_per_Hour },
+    "cauldron": { name: "Cauldron", category: "Station", description: "Industrial cauldron used for boiling a lot of stuff at once.", cost: 3000, unlockRankTier: "5-1", power: EQUIPMENT_POWER_WATER.cauldron_kWh_per_Hour },
     // Tools
-    "flashlight": { name: "Flashlight", category: "Tool", description: "Provides light.", cost: 50, unlockRankTier: "0-0" },
-    "trashBag": { name: "Trash Bag", category: "Tool", description: "Used for disposing of items.", cost: 10, unlockRankTier: "0-0" },
-    "trashGrabber": { name: "Trash Grabber", category: "Tool", description: "Picks up trash.", cost: 25, unlockRankTier: "0-0" },
-    "plantTrimmers": { name: "Plant Trimmers", category: "Tool", description: "Used to harvest plants.", cost: 75, unlockRankTier: "0-0" },
-    "wateringCan": { name: "Watering Can", category: "Tool", description: "Manually waters plants.", cost: 40, unlockRankTier: "0-0" },
-    "electricPlantTrimmers": { name: "Electric Plant Trimmers", category: "Tool", description: "Faster plant harvesting.", cost: 300, unlockRankTier: "0-5" },
-    "soilPourer": { name: "Soil Pourer", category: "Tool", description: "Faster soil application.", cost: 150, unlockRankTier: "1-2" },
+    "flashlight": { name: "Flashlight", category: "Tool", description: "A small handheld flashlight used for illuminating stuff.", cost: 15, unlockRankTier: "0-0" },
+    "trashBag": { name: "Trash Bag", category: "Tool", description: "Can be used to either gather up trash or to bag the contents of a trash can.", cost: 1, unlockRankTier: "0-0" },
+    "trashGrabber": { name: "Trash Grabber", category: "Tool", description: "Used to easily collect trash.", cost: 20, unlockRankTier: "0-0" },
+    "plantTrimmers": { name: "Plant Trimmers", category: "Tool", description: "A pair of plant trimmers. Necessity for harvesting plants.", cost: 10, unlockRankTier: "0-0" },
+    "wateringCan": { name: "Watering Can", category: "Tool", description: "Holds water.", cost: 15, unlockRankTier: "0-0" },
+    "electricPlantTrimmers": { name: "Electric Plant Trimmers", category: "Tool", description: "A pair of electric plant trimmers. Simply click and drag to harvest.", cost: 50, unlockRankTier: "0-5" },
+    "soilPourer": { name: "Soil Pourer", category: "Tool", description: "When activated, will fill the adjacent pot or grow tent with soil.", cost: 300, unlockRankTier: "1-2" },
     // Pots (Data also in POT_DATA, linking here for completeness)
-    "plasticPot": { name: "Plastic Pot", category: "Pot", description: "Standard growing pot.", cost: 20, unlockRankTier: "0-4", growthMultiplier: POT_DATA["Plastic Pot"].growthMultiplier },
-    "moisturePreservingPot": { name: "Moisture-Preserving Pot", category: "Pot", description: "Slows water drainage.", cost: 50, unlockRankTier: "0-4", growthMultiplier: POT_DATA["Moisture-Preserving Pot"].growthMultiplier },
-    "airPot": { name: "Air Pot", category: "Pot", description: "Increases growth speed.", cost: 70, unlockRankTier: "2-3", growthMultiplier: POT_DATA["Air Pot"].growthMultiplier },
+    "plasticPot": { name: "Plastic Pot", category: "Pot", description: "Flimsy plastic pot made in China.", cost: 20, unlockRankTier: "0-4", growthMultiplier: POT_DATA["Plastic Pot"].growthMultiplier },
+    "moisturePreservingPot": { name: "Moisture-Preserving Pot", category: "Pot", description: "A special metal pot with moisture-preserving functionality. Soil will lose moisture 40% slower.", cost: 50, unlockRankTier: "0-4", growthMultiplier: POT_DATA["Moisture-Preserving Pot"].growthMultiplier },
+    "airPot": { name: "Air Pot", category: "Pot", description: "Fancy hand woven fabric pot that keeps roots ventilated. Boosts plant growth speed by 15%, but also increases moisture drain by 30%.", cost: 120, unlockRankTier: "2-3", growthMultiplier: POT_DATA["Air Pot"].growthMultiplier },
     // Sprinklers (Could be Tool or Station)
-    "potSprinkler": { name: "Pot Sprinkler", category: "Station", description: "Automatically waters a single pot.", cost: 100, unlockRankTier: "0-5", water: EQUIPMENT_POWER_WATER.potSprinkler_L_per_Day },
-    "bigSprinkler": { name: "Big Sprinkler", category: "Station", description: "Waters a larger area.", cost: 400, unlockRankTier: "0-5", water: EQUIPMENT_POWER_WATER.bigSprinkler_L_per_Day },
+    "potSprinkler": { name: "Pot Sprinkler", category: "Station", description: "When activated, will water the adjacent pot or grow tent.", cost: 200, unlockRankTier: "0-5", water: EQUIPMENT_POWER_WATER.potSprinkler_L_per_Day },
+    "bigSprinkler": { name: "Big Sprinkler", category: "Station", description: "When activated, will water up to 8 surrounding plants. Plants must be directly next to or diagonal from the sprinkler.", cost: 600, unlockRankTier: "0-5", water: EQUIPMENT_POWER_WATER.bigSprinkler_L_per_Day },
     // Storage
-    "safe": { name: "Safe", category: "Storage", description: "Secure storage for cash or items.", cost: 1000, unlockRankTier: "0-0" },
-    "largeStorageRack": { name: "Large Storage Rack", category: "Storage", description: "Large capacity item storage.", cost: 500, unlockRankTier: "0-0" },
-    "mediumStorageRack": { name: "Medium Storage Rack", category: "Storage", description: "Medium capacity item storage.", cost: 300, unlockRankTier: "0-0" },
-    "smallStorageRack": { name: "Small Storage Rack", category: "Storage", description: "Small capacity item storage.", cost: 150, unlockRankTier: "0-0" },
-    "wallMountedShelf": { name: "Wall-Mounted Shelf", category: "Storage", description: "Wall storage.", cost: 100, unlockRankTier: "0-0" },
+    "safe": { name: "Safe", category: "Storage", description: "A big metal safe to store all your fancy stuff in.", cost: 500, unlockRankTier: "0-0" },
+    "largeStorageRack": { name: "Large Storage Rack", category: "Storage", description: "A large sized, 4-tier storage rack.", cost: 60, unlockRankTier: "0-0" },
+    "mediumStorageRack": { name: "Medium Storage Rack", category: "Storage", description: "A medium sized, 4-tier storage rack.", cost: 45, unlockRankTier: "0-0" },
+    "smallStorageRack": { name: "Small Storage Rack", category: "Storage", description: "A small sized, 4-tier storage rack.", cost: 30, unlockRankTier: "0-0" },
+    "wallMountedShelf": { name: "Wall-Mounted Shelf", category: "Storage", description: "A 2-tier wall-mounted shelf which you can place items on.", cost: 50, unlockRankTier: "0-0" },
     // Other (Skateboards listed in unlocks, maybe add here?)
-    "cheapSkateboard": { name: "Cheap Skateboard", category: "Other", description: "Basic transportation.", cost: 50, unlockRankTier: "0-0" },
-    "cruiserSkateboard": { name: "Cruiser Skateboard", category: "Other", description: "A better skateboard.", cost: 150, unlockRankTier: "0-0" },
-    "goldenSkateboard": { name: "Golden Skateboard", category: "Other", description: "A fancy skateboard.", cost: 1000, unlockRankTier: "0-0" },
-    "lightweightSkateboard": { name: "Lightweight Skateboard", category: "Other", description: "A faster skateboard.", cost: 250, unlockRankTier: "0-0" },
-    "skateboard": { name: "Skateboard", category: "Other", description: "Standard skateboard.", cost: 100, unlockRankTier: "0-0" },
+    "cheapSkateboard": { name: "Cheap Skateboard", category: "Other", description: "Old wood with some wheels nailed to it. Not fancy but it rolls.", cost: 75, unlockRankTier: "0-0" },
+    "cruiserSkateboard": { name: "Cruiser Skateboard", category: "Other", description: "Cruiser skateboard designed for high-speed, straight line motion. Not particularly agile.", cost: 500, unlockRankTier: "0-0" },
+    "goldenSkateboard": { name: "Golden Skateboard", category: "Other", description: "Tasteful gold-plated skateboard. High top speed but slow acceleration.", cost: 1500, unlockRankTier: "0-0" },
+    "lightweightSkateboard": { name: "Lightweight Skateboard", category: "Other", description: "Low-weight plastic skateboard with increased jump height.", cost: 500, unlockRankTier: "0-0" },
+    "skateboard": { name: "Skateboard", category: "Other", description: "Classic double-kick popsicle skateboard. Use it to get around faster than on-foot.", cost: 250, unlockRankTier: "0-0" },
     // Grow Lights (Listed in power consumption)
     "growLight": { name: "Grow Light", category: "Station", description: "Provides light for plant growth.", cost: 120, unlockRankTier: "0-0", power: EQUIPMENT_POWER_WATER.growLight_kWh_per_Hour }, // Assuming unlocked early
 };
@@ -312,9 +355,9 @@ export const PACKAGING_CAPACITY = {
 
 // More detailed Packaging Data (id -> { name, capacity, cost, unlockRankTier })
 export const PACKAGING_DATA = {
-    "baggie": { name: "Baggie", capacity: PACKAGING_CAPACITY.baggie, cost: 5, unlockRankTier: "0-0" }, // Assuming available at start
-    "jar": { name: "Jar", capacity: PACKAGING_CAPACITY.jar, cost: 15, unlockRankTier: "0-3" },
-    "brick": { name: "Brick Packaging", capacity: PACKAGING_CAPACITY.brick, cost: 50, unlockRankTier: "4-5" } // Requires Brick Press
+    "baggie": { name: "Baggie", capacity: PACKAGING_CAPACITY.baggie, cost: 1, unlockRankTier: "0-0" }, // Updated cost
+    "jar": { name: "Jar", capacity: PACKAGING_CAPACITY.jar, cost: 3, unlockRankTier: "0-3" }, // Updated cost
+    "brick": { name: "Brick Packaging", capacity: PACKAGING_CAPACITY.brick, cost: 1, unlockRankTier: "4-5" } // Updated cost, Requires Brick Press
 };
 
 // --- Law Data ---
@@ -481,6 +524,7 @@ export const LOCATION_DATA = {
 // --- Other Items Data ---
 // id -> { name, category, description, cost?, unlockRankTier? }
 // Categories: Consumable, Tool, Misc, Quest
+// Updated costs/ranks based on markdown files
 export const OTHER_ITEMS_DATA = {
     // From EQUIPMENT_DATA (Tools/Other)
     "flashlight": { name: EQUIPMENT_DATA.flashlight.name, category: "Tool", description: EQUIPMENT_DATA.flashlight.description, cost: EQUIPMENT_DATA.flashlight.cost, unlockRankTier: EQUIPMENT_DATA.flashlight.unlockRankTier },
@@ -492,11 +536,33 @@ export const OTHER_ITEMS_DATA = {
     "lightweightSkateboard": { name: EQUIPMENT_DATA.lightweightSkateboard.name, category: "Misc", description: EQUIPMENT_DATA.lightweightSkateboard.description, cost: EQUIPMENT_DATA.lightweightSkateboard.cost, unlockRankTier: EQUIPMENT_DATA.lightweightSkateboard.unlockRankTier },
     "skateboard": { name: EQUIPMENT_DATA.skateboard.name, category: "Misc", description: EQUIPMENT_DATA.skateboard.description, cost: EQUIPMENT_DATA.skateboard.cost, unlockRankTier: EQUIPMENT_DATA.skateboard.unlockRankTier },
     // From UNLOCKS (Soil)
-    "longLifeSoil": { name: "Long-Life Soil", category: "Consumable", description: "Soil for growing plants.", cost: 20, unlockRankTier: "0-4" }, // Placeholder cost
-    "extraLongLifeSoil": { name: "Extra Long-Life Soil", category: "Consumable", description: "Improved soil for growing plants.", cost: 40, unlockRankTier: "1-3" }, // Placeholder cost
+    "longLifeSoil": { name: "Long-Life Soil", category: "Consumable", description: "Long-lasting soil that can be used to grow 2 plants before expiring.", cost: 30, unlockRankTier: "0-4" }, // Updated cost
+    "extraLongLifeSoil": { name: "Extra Long-Life Soil", category: "Consumable", description: "Extra long-lasting soil that can be used to grow 3 plants before expiring.", cost: 60, unlockRankTier: "1-3" }, // Updated cost
     // From ADDITIVE_GROWTH_EFFECTS (Consumables)
-    "fertilizer": { name: "Fertilizer", category: "Consumable", description: "Improves plant quality.", cost: 30, unlockRankTier: "0-4" }, // Placeholder cost, unlock from UNLOCKS
-    "pgr": { name: "PGR", category: "Consumable", description: "Increases yield but reduces quality.", cost: 50, unlockRankTier: "???" }, // Placeholder cost, unlock TBD
-    "speedgrow": { name: "Speed Grow", category: "Consumable", description: "Instantly advances plant growth stage.", cost: 100, unlockRankTier: "???" }, // Placeholder cost, unlock TBD
+    "fertilizer": { name: "Fertilizer", category: "Consumable", description: "All-natural fertilizer which will increase the quality of your plants.", cost: 30, unlockRankTier: "0-4" }, // Updated cost
+    "pgr": { name: "PGR", category: "Consumable", description: "Plant growth regulator (PGR) will increase the yields of your plants, at the cost of quality.", cost: 30, unlockRankTier: "0-3" }, // Updated cost
+    "speedgrow": { name: "Speed Grow", category: "Consumable", description: "Instantly grows the plant by 50%, but reduces plant quality.", cost: 30, unlockRankTier: "0-3" }, // Updated cost
     // Add other misc items if known (keys, quest items etc.)
+};
+
+// --- Clothing Data (Placeholder) ---
+// id -> { name, slot, description, cost?, unlockRankTier?, attributes?: {} }
+// Slots: Head, Torso, Legs, Feet, Accessory
+export const CLOTHING_DATA = {
+    "basicTee": { name: "Basic T-Shirt", slot: "Torso", description: "A plain t-shirt.", cost: 10, unlockRankTier: "0-0" },
+    "jeans": { name: "Jeans", slot: "Legs", description: "Standard blue jeans.", cost: 25, unlockRankTier: "0-0" },
+    "sneakers": { name: "Sneakers", slot: "Feet", description: "Basic sneakers.", cost: 30, unlockRankTier: "0-0" },
+    "hoodie": { name: "Hoodie", slot: "Torso", description: "A comfortable hoodie.", cost: 40, unlockRankTier: "0-2" },
+    "baseballCap": { name: "Baseball Cap", slot: "Head", description: "A simple cap.", cost: 15, unlockRankTier: "0-1" },
+    // Add more clothing items as data becomes available
+};
+
+// --- Vehicle Data (Placeholder) ---
+// id -> { name, type, description, cost?, unlockRankTier?, speed?, handling?, storage? }
+// Types: Car, Van, Truck, Bike
+export const VEHICLE_DATA = {
+    "sedan": { name: "Basic Sedan", type: "Car", description: "A reliable four-door sedan. Average performance.", cost: 5000, unlockRankTier: "0-0", speed: "Medium", handling: "Medium", storage: "Small" },
+    "van": { name: "Cargo Van", type: "Van", description: "Slow and bulky, but offers large storage capacity.", cost: 8000, unlockRankTier: "1-0", speed: "Low", handling: "Low", storage: "Large" },
+    "sportsCar": { name: "Sports Car", type: "Car", description: "Fast and agile, but limited storage.", cost: 25000, unlockRankTier: "3-0", speed: "High", handling: "High", storage: "Very Small" },
+    // Add more vehicles as data becomes available
 };

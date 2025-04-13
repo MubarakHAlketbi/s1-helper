@@ -1,8 +1,11 @@
 import { BASE_GROW_TIMES, POT_DATA, GAME_MINUTE_TO_REAL_MS } from '../../database/game_data.js';
+import { formatDateTime, formatTimeDifference } from '../../utils/helpers.js'; // Import helpers
 
 document.addEventListener('DOMContentLoaded', () => {
     const seedSelect = document.getElementById('calc-seed-name');
     const potSelect = document.getElementById('calc-pot-type');
+    const plantTimeInput = document.getElementById('calc-plant-time');
+    const lastWateredInput = document.getElementById('calc-last-watered');
     const calculateBtn = document.getElementById('calculate-grow-btn');
     const resultsDiv = document.getElementById('grow-results');
     const refGrowTimesTableBody = document.getElementById('ref-grow-times')?.querySelector('tbody');
@@ -41,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const realTimeMs = timeInMinutes * GAME_MINUTE_TO_REAL_MS;
                 row.insertCell().textContent = seedName;
                 row.insertCell().textContent = `${timeInMinutes} min`;
-                row.insertCell().textContent = formatDuration(realTimeMs);
+                row.insertCell().textContent = formatTimeDifference(realTimeMs); // Use imported helper
+                row.cells[2].title = `${realTimeMs} ms`; // Add tooltip for milliseconds
             }
         }
 
@@ -50,10 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
             for (const potName in POT_DATA) {
                 const row = refPotModsTableBody.insertRow();
                 const data = POT_DATA[potName];
+                const growthMod = data.growthMultiplier ? `${(data.growthMultiplier * 100).toFixed(0)}%` : 'N/A';
+                const drainMod = data.drainMultiplier ? `${(data.drainMultiplier * 100).toFixed(0)}%` : 'N/A';
+                const waterInt = data.waterIntervalMinutes ? `${data.waterIntervalMinutes} min` : 'N/A';
                 row.insertCell().textContent = potName;
-                row.insertCell().textContent = `${(data.growthMultiplier * 100).toFixed(0)}%`;
-                row.insertCell().textContent = `${(data.drainMultiplier * 100).toFixed(0)}%`;
-                // Base water interval could be added if needed
+                row.insertCell().textContent = growthMod;
+                row.insertCell().textContent = drainMod;
+                row.insertCell().textContent = waterInt;
             }
         }
     }
@@ -62,31 +69,46 @@ document.addEventListener('DOMContentLoaded', () => {
     function calculateGrowTime() {
         const selectedSeed = seedSelect?.value;
         const selectedPot = potSelect?.value;
+        const plantTimeString = plantTimeInput?.value;
+        const lastWateredString = lastWateredInput?.value;
 
-        if (!selectedSeed || !selectedPot) {
-            displayResults({ error: "Please select both a seed and a pot." });
+        if (!selectedSeed || !selectedPot || !plantTimeString) {
+            displayResults({ error: "Please select a seed, pot, and enter the planted date/time." });
             return;
         }
 
+        const plantTime = new Date(plantTimeString);
+        if (isNaN(plantTime.getTime())) {
+            displayResults({ error: "Invalid Planted Date & Time." });
+            return;
+        }
+
+        let lastWateredTime = plantTime; // Default to plant time if not provided or invalid
+        if (lastWateredString) {
+            const parsedLastWatered = new Date(lastWateredString);
+            if (!isNaN(parsedLastWatered.getTime())) {
+                lastWateredTime = parsedLastWatered;
+            }
+        }
+
+
         const baseGrowMinutes = BASE_GROW_TIMES[selectedSeed];
         const potGrowthMultiplier = POT_DATA[selectedPot].growthMultiplier;
-        const potDrainMultiplier = POT_DATA[selectedPot].drainMultiplier; // For potential watering info
+        const potDrainMultiplier = POT_DATA[selectedPot].drainMultiplier;
+        const baseWaterInterval = POT_DATA[selectedPot].waterIntervalMinutes;
 
-        if (baseGrowMinutes === undefined || potGrowthMultiplier === undefined) {
-             displayResults({ error: "Invalid seed or pot data." });
+        if (baseGrowMinutes === undefined || potGrowthMultiplier === undefined || potDrainMultiplier === undefined || baseWaterInterval === undefined) {
+             displayResults({ error: "Invalid seed or pot data selected." });
             return;
         }
 
         const actualGrowMinutes = baseGrowMinutes / potGrowthMultiplier;
         const actualGrowMs = actualGrowMinutes * GAME_MINUTE_TO_REAL_MS;
-
-        const plantTime = new Date(); // Use current time as planting time
         const harvestTime = new Date(plantTime.getTime() + actualGrowMs);
 
-        // Basic watering info (can be expanded)
-        const baseWaterInterval = POT_DATA[selectedPot].waterIntervalMinutes;
-        const actualWaterInterval = baseWaterInterval / potDrainMultiplier;
-        const waterIntervalMs = actualWaterInterval * GAME_MINUTE_TO_REAL_MS;
+        const actualWaterIntervalMinutes = baseWaterInterval / potDrainMultiplier;
+        const waterIntervalMs = actualWaterIntervalMinutes * GAME_MINUTE_TO_REAL_MS;
+        const nextWaterTime = new Date(lastWateredTime.getTime() + waterIntervalMs);
 
         displayResults({
             seed: selectedSeed,
@@ -94,14 +116,18 @@ document.addEventListener('DOMContentLoaded', () => {
             plantTime: plantTime,
             harvestTime: harvestTime,
             growDurationMs: actualGrowMs,
-            waterIntervalMinutes: actualWaterInterval.toFixed(0),
-            waterIntervalDuration: formatDuration(waterIntervalMs)
+            waterIntervalMinutes: actualWaterIntervalMinutes.toFixed(0),
+            waterIntervalDuration: formatTimeDifference(waterIntervalMs), // Use imported helper
+            nextWaterTime: nextWaterTime
         });
     }
 
     // --- Display Results ---
     function displayResults(data) {
         if (!resultsDiv) return;
+
+        // Ensure results div is visible (alternative to removing style in HTML)
+        resultsDiv.style.display = 'block';
 
         if (data.error) {
             resultsDiv.innerHTML = `<p class="error">${data.error}</p>`;
@@ -112,28 +138,12 @@ document.addEventListener('DOMContentLoaded', () => {
             <h4>Calculation Results:</h4>
             <p><strong>Seed:</strong> ${data.seed}</p>
             <p><strong>Pot:</strong> ${data.pot}</p>
-            <p><strong>Planted At:</strong> ${data.plantTime.toLocaleString()}</p>
-            <p><strong>Estimated Grow Time:</strong> ${formatDuration(data.growDurationMs)}</p>
-            <p><strong>Estimated Harvest Time:</strong> ${data.harvestTime.toLocaleString()}</p>
+            <p><strong>Planted At:</strong> ${formatDateTime(data.plantTime)}</p> <!-- Use imported helper -->
+            <p><strong>Estimated Grow Time:</strong> ${formatTimeDifference(data.growDurationMs)}</p> <!-- Use imported helper -->
+            <p><strong>Estimated Harvest Time:</strong> ${formatDateTime(data.harvestTime)}</p> <!-- Use imported helper -->
             <p><strong>Est. Watering Interval:</strong> Approx. every ${data.waterIntervalMinutes} game minutes (${data.waterIntervalDuration} real time)</p>
+            <p><strong>Estimated Next Water Needed:</strong> ${formatDateTime(data.nextWaterTime)}</p> <!-- Use imported helper -->
         `;
-    }
-
-    // --- Helper Functions ---
-    function formatDuration(ms) {
-        if (ms < 0) ms = 0;
-        const seconds = Math.floor((ms / 1000) % 60);
-        const minutes = Math.floor((ms / (1000 * 60)) % 60);
-        const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
-        const days = Math.floor(ms / (1000 * 60 * 60 * 24));
-
-        let durationString = "";
-        if (days > 0) durationString += `${days}d `;
-        if (hours > 0) durationString += `${hours}h `;
-        if (minutes > 0) durationString += `${minutes}m `;
-        if (seconds > 0 || durationString === "") durationString += `${seconds}s`; // Show seconds if duration is less than a minute
-
-        return durationString.trim();
     }
 
     // --- Initial Setup ---

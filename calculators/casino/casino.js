@@ -1,4 +1,13 @@
 import { formatCurrency } from '../../utils/helpers.js';
+// Import constants from game_data.js
+import {
+    BLACKJACK_MIN_BET,
+    BLACKJACK_MAX_BET,
+    BLACKJACK_PAYOUTS,
+    RTB_MIN_BET,
+    RTB_MAX_BET,
+    RTB_MULTIPLIERS
+} from '../../database/game_data.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("Casino calculator script loaded!");
@@ -12,8 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const bet = parseFloat(betInput.value);
         const outcome = outcomeSelect.value;
 
-        if (isNaN(bet) || bet < 10 || bet > 1000) {
-            resultDiv.textContent = 'Please enter a valid bet between $10 and $1000.';
+        // Use imported constants for validation
+        if (isNaN(bet) || bet < BLACKJACK_MIN_BET || bet > BLACKJACK_MAX_BET) {
+            resultDiv.textContent = `Please enter a valid bet between ${formatCurrency(BLACKJACK_MIN_BET)} and ${formatCurrency(BLACKJACK_MAX_BET)}.`;
             resultDiv.style.color = '#dc3545'; // Red for error
             return;
         }
@@ -22,23 +32,24 @@ document.addEventListener('DOMContentLoaded', () => {
         let message = '';
         resultDiv.style.color = '#212529'; // Default text color
 
+        // Use imported constants for payouts
         switch (outcome) {
             case 'blackjack':
-                profit = bet * 1.5;
+                profit = bet * BLACKJACK_PAYOUTS.blackjack;
                 message = `Blackjack! Profit: ${formatCurrency(profit)}`;
                 resultDiv.style.color = '#28a745'; // Green for win
                 break;
             case 'win':
-                profit = bet * 1.0;
+                profit = bet * BLACKJACK_PAYOUTS.win;
                 message = `You Win! Profit: ${formatCurrency(profit)}`;
                 resultDiv.style.color = '#28a745'; // Green for win
                 break;
             case 'push':
-                profit = 0;
+                profit = bet * BLACKJACK_PAYOUTS.push; // Will be 0
                 message = `Push! Bet returned. Profit: ${formatCurrency(profit)}`;
                 break;
             case 'lose':
-                profit = -bet;
+                profit = bet * BLACKJACK_PAYOUTS.lose; // Will be -bet
                 message = `You Lose. Loss: ${formatCurrency(Math.abs(profit))}`;
                  resultDiv.style.color = '#dc3545'; // Red for loss
                 break;
@@ -56,18 +67,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const bet = parseFloat(betInput.value);
 
-         if (isNaN(bet) || bet < 10 || bet > 500) {
-            resultDiv.innerHTML = '<p style="color: #dc3545;">Please enter a valid initial bet between $10 and $500.</p>';
+         // Use imported constants for validation
+         if (isNaN(bet) || bet < RTB_MIN_BET || bet > RTB_MAX_BET) {
+            resultDiv.innerHTML = `<p style="color: #dc3545;">Please enter a valid initial bet between ${formatCurrency(RTB_MIN_BET)} and ${formatCurrency(RTB_MAX_BET)}.</p>`;
             return;
         }
 
-        const multipliers = [2, 4, 8, 32]; // Based on inferred rules
+        // Use imported constants for multipliers
+        const multipliers = RTB_MULTIPLIERS;
         const stages = ["Stage 1 (Red/Black)", "Stage 2 (Hi/Lo)", "Stage 3 (In/Out)", "Stage 4 (Suit)"];
 
         let resultHTML = '<ul>';
         for (let i = 0; i < stages.length; i++) {
-            const potentialWinnings = bet * multipliers[i];
-            resultHTML += `<li>After ${stages[i]}: <strong>${formatCurrency(potentialWinnings)}</strong></li>`;
+            // Ensure multiplier exists for the stage
+            const multiplier = multipliers[i] !== undefined ? multipliers[i] : (multipliers[multipliers.length - 1] || 1); // Fallback if stages > multipliers
+            const potentialWinnings = bet * multiplier;
+            resultHTML += `<li>After ${stages[i]}: <strong>${formatCurrency(potentialWinnings)}</strong> (Multiplier: ${multiplier}x)</li>`;
         }
          resultHTML += '</ul><p><em>Note: Losing any stage loses the entire potential amount. You can forfeit before answering the next stage.</em></p>';
 
