@@ -1,12 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Mixes Index</title>
-  <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Custom Mixes</title>
+    <meta name="description" content="Information about custom product mixes created in Schedule 1.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="../../../../style.css">
+    <!-- Link to the database section stylesheet -->
+    <link rel="stylesheet" href="../../../database.css">
+    <!-- Optional: Link to a specific item type stylesheet -->
+    <link rel="stylesheet" href="../items.css">
+    <link rel="stylesheet" href="../products.css"> <!-- Link products CSS -->
 </head>
 <body>
-  <h1>Mixes Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/script.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/" class="active">Database</a></li>
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+            <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/database/">Database</a></li>
+                <li><a href="/database/items/">Items</a></li>
+                <li><a href="/database/items/products/">Products</a></li>
+                <li><span aria-current="page">Custom Mixes</span></li>
+            </ol>
+        </nav>
+
+        <section class="database-section">
+            <h2>Custom Product Mixes</h2>
+            <p>Products created by combining base products with ingredients using a Mixing Station.</p>
+            <div id="mix-product-list-container" class="database-list-container">
+                <!-- Custom mixes could potentially be listed here if data is available, or link to mixing calculator/guide -->
+                Content coming soon... (See <a href="/guides/mechanics/mixing.html">Mixing Guide</a> or <a href="/calculators/mixing-calculator/">Mixing Calculator</a>)
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script type="module" src="../../../../script.js"></script>
+    <!-- No specific JS linked for this sub-page for now -->
 </body>
 </html>

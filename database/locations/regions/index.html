@@ -1,12 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Regions Index</title>
-  <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Map Regions</title>
+    <meta name="description" content="Database of map regions in Schedule 1 and their unlock requirements.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="../../../style.css">
+    <!-- Link to the database section stylesheet -->
+    <link rel="stylesheet" href="../../database.css">
+    <!-- Optional: Link to locations specific stylesheet -->
+    <link rel="stylesheet" href="../locations.css">
 </head>
 <body>
-  <h1>Regions Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/script.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/" class="active">Database</a></li>
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+            <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/database/">Database</a></li>
+                <li><a href="/database/locations/">Locations</a></li>
+                <li><span aria-current="page">Regions</span></li>
+            </ol>
+        </nav>
+
+        <section class="database-section">
+            <h2>Map Regions</h2>
+            <p>The different areas of the game world.</p>
+             <!-- Links to specific region pages -->
+            <div class="subcategory-links">
+                 <a href="docks.html" class="btn btn-secondary">Docks</a>
+                 <a href="downtown.html" class="btn btn-secondary">Downtown</a>
+                 <a href="northtown.html" class="btn btn-secondary">Northtown</a>
+                 <a href="suburbia.html" class="btn btn-secondary">Suburbia</a>
+                 <a href="uptown.html" class="btn btn-secondary">Uptown</a>
+                 <a href="westville.html" class="btn btn-secondary">Westville</a>
+            </div>
+            <div id="region-list-container" class="database-list-container" style="margin-top: 20px;">
+                <!-- Regions will be loaded here by regions.js -->
+                Loading map regions...
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script type="module" src="../../../script.js"></script>
+    <!-- Link to the specific script for this page -->
+    <script type="module" src="regions.js"></script>
 </body>
 </html>
