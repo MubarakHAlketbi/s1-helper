@@ -1,6 +1,4 @@
-// utils/helpers.js - Shared utility functions for Schedule 1 Helper
-
-/**
+**
  * Generates a simple pseudo-random ID.
  * @returns {string} A unique-ish ID string.
  */
@@ -18,8 +16,10 @@ export const formatCurrency = (amount) => {
         // console.warn(`formatCurrency received non-numeric value: ${amount}. Returning $0.00`);
         return '$0.00';
     }
-    return `$${numAmount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+    // Use Intl.NumberFormat for better localization and formatting
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(numAmount);
 };
+
 
 /**
  * Formats a timestamp or Date object into a readable date and time string.
@@ -30,7 +30,7 @@ export const formatCurrency = (amount) => {
 export const formatDateTime = (timestamp) => {
     if (!timestamp) return 'N/A';
     const date = new Date(timestamp);
-    if (isNaN(date)) return 'Invalid Date';
+    if (isNaN(date.getTime())) return 'Invalid Date'; // Check if date is valid
     return date.toLocaleString('en-US', {
         year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true
     });
@@ -45,18 +45,20 @@ export const formatDateTime = (timestamp) => {
 export const formatDateTimeForInput = (timestamp) => {
     if (!timestamp) return '';
     const date = new Date(timestamp);
-    if (isNaN(date)) return '';
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-    const hh = String(date.getHours()).padStart(2, '0');
-    const min = String(date.getMinutes()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+     if (isNaN(date.getTime())) return ''; // Check if date is valid
+
+    // Adjust for local timezone offset before converting to ISO string
+    const offset = date.getTimezoneOffset() * 60000; // Offset in milliseconds
+    const localDate = new Date(date.getTime() - offset);
+
+    // Return the first 16 characters (YYYY-MM-DDTHH:mm)
+    return localDate.toISOString().slice(0, 16);
 };
+
 
 /**
  * Calculates the time remaining until or elapsed since a given timestamp.
- * Used for delivery/grow timers. Returns more descriptive text than formatTimeDifference.
+ * Returns more descriptive text than formatTimeDifference.
  * @param {number|null|undefined} targetTimestamp - The target timestamp (milliseconds).
  * @returns {{text: string, sortValue: number, isPast: boolean}} Object containing display text, sortable millisecond difference, and whether the time is past.
  */
@@ -67,13 +69,16 @@ export const calculateTimeRemaining = (targetTimestamp) => {
     const diff = target - now; // Difference in milliseconds
     const isPast = diff <= 0;
 
+    if (isNaN(target)) return { text: 'Invalid target time', sortValue: Infinity, isPast: false }; // Handle invalid timestamps
+
     if (isPast) { // Past due / Arrived / Ready
         const pastDiff = Math.abs(diff);
         const minutes = Math.floor(pastDiff / (1000 * 60));
         const hours = Math.floor(minutes / 60);
         const days = Math.floor(hours / 24);
 
-        if (days > 0) return { text: `Past due by ${days}d ${hours % 24}h`, sortValue: diff, isPast: true };
+        if (days > 1) return { text: `Past due by ${days}d ${hours % 24}h`, sortValue: diff, isPast: true };
+        if (days === 1) return { text: `Past due by 1d ${hours % 24}h`, sortValue: diff, isPast: true };
         if (hours > 0) return { text: `Past due by ${hours}h ${minutes % 60}m`, sortValue: diff, isPast: true };
         if (minutes > 0) return { text: `Past due by ${minutes}m`, sortValue: diff, isPast: true };
         return { text: `Ready/Arrived now`, sortValue: diff, isPast: true };
@@ -83,7 +88,8 @@ export const calculateTimeRemaining = (targetTimestamp) => {
         const hours = Math.floor(minutes / 60);
         const days = Math.floor(hours / 24);
 
-        if (days > 0) return { text: `In ${days}d ${hours % 24}h`, sortValue: diff, isPast: false };
+        if (days > 1) return { text: `In ${days}d ${hours % 24}h`, sortValue: diff, isPast: false };
+        if (days === 1) return { text: `In 1d ${hours % 24}h`, sortValue: diff, isPast: false };
         if (hours > 0) return { text: `In ${hours}h ${minutes % 60}m`, sortValue: diff, isPast: false };
         if (minutes > 0) return { text: `In ${minutes}m ${seconds % 60}s`, sortValue: diff, isPast: false };
         if (seconds > 0) return { text: `In ${seconds}s`, sortValue: diff, isPast: false };
@@ -95,7 +101,7 @@ export const calculateTimeRemaining = (targetTimestamp) => {
 /**
  * Formats a time difference in milliseconds into a compact human-readable string (e.g., "2d 3h", "15m", "10s").
  * Used for grow planner status display where space might be limited.
- * @param {number} diffMillis - The time difference in milliseconds.
+ * @param {number} diffMillis - The time difference in milliseconds. Can be negative for past times.
  * @returns {string} Formatted time difference string.
  */
 export const formatTimeDifference = (diffMillis) => {
@@ -121,11 +127,11 @@ export const formatTimeDifference = (diffMillis) => {
     if (seconds > 0 && (days === 0 && hours === 0 || parts.length === 0) && totalSeconds > 0) parts.push(`${seconds}s`);
 
     if (parts.length === 0) {
-        // If the difference was exactly 0 or very small, show "Now" or "Soon"
+        // If the difference was exactly 0 or very small
         return isPast ? "Now" : "Soon";
     }
 
-    // Add prefix for past times if needed
+    // Add prefix for past times if needed (e.g., "-10m")
     const prefix = isPast ? "-" : "";
     return prefix + parts.join(' ');
 };
@@ -144,9 +150,11 @@ export const formatDuration = (totalSeconds) => {
     const totalMinutes = Math.floor(totalSeconds / 60);
     const minutes = totalMinutes % 60;
     const hours = Math.floor(totalMinutes / 60);
+    const days = Math.floor(hours / 24); // Added days for longer durations
 
     let parts = [];
-    if (hours > 0) parts.push(`${hours}h`);
+    if (days > 0) parts.push(`${days}d`);
+    if (hours % 24 > 0) parts.push(`${hours % 24}h`); // Show hours remaining after days
     if (minutes > 0) parts.push(`${minutes}m`);
     // Always show seconds if duration is less than a minute or if seconds are non-zero
     if (seconds > 0 || parts.length === 0) parts.push(`${seconds}s`);

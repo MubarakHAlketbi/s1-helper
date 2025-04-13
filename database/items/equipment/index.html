@@ -1,12 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Equipment Index</title>
-  <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Equipment Database</title>
+    <meta name="description" content="Browse equipment like stations, tools, pots, and storage in Schedule 1.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Link to specific stylesheet for this page -->
+    <link rel="stylesheet" href="equipment.css">
 </head>
 <body>
-  <h1>Equipment Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/script.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/" class="active">Database</a></li> <!-- Mark Database as active -->
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+             <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/database/">Database</a></li>
+                <li><a href="/database/items/">Items</a></li>
+                <li><span aria-current="page">Equipment</span></li>
+            </ol>
+        </nav>
+
+        <section class="database-section">
+            <h2>Equipment</h2>
+            <p>List of equipment including stations, tools, pots, storage, and other usable items.</p>
+            <!-- Add filtering/sorting options later if needed -->
+            <div id="equipment-list-container" class="card-grid">
+                <!-- Equipment cards will be injected here by equipment.js -->
+                <p>Loading equipment...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- Link the specific JS for this page -->
+    <script type="module" src="equipment.js"></script>
 </body>
 </html>

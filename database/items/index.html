@@ -1,12 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Items Index</title>
-  <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Items Database</title>
+    <meta name="description" content="Browse items in Schedule 1, including products, ingredients, equipment, and more.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Optional: Link to a specific database index stylesheet -->
+    <link rel="stylesheet" href="../database.css"> <!-- Link to main database CSS -->
 </head>
 <body>
-  <h1>Items Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/script.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/" class="active">Database</a></li> <!-- Mark Database as active -->
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+         <nav aria-label="breadcrumb" class="breadcrumb-nav">
+             <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/database/">Database</a></li>
+                <li><span aria-current="page">Items</span></li>
+            </ol>
+        </nav>
+
+        <section class="database-section">
+            <h2>Items Database</h2>
+            <p>Select an item category to browse.</p>
+
+            <div class="database-category-list card-grid">
+                <article class="database-category-card card">
+                    <i class="category-icon">🌿</i> <!-- Placeholder Icon -->
+                    <h3>Products</h3>
+                    <p>Base products that can be grown, crafted, or acquired.</p>
+                    <a href="/database/items/products/" class="btn btn-primary">View Products</a>
+                </article>
+
+                <article class="database-category-card card">
+                    <i class="category-icon">🧪</i> <!-- Placeholder Icon -->
+                    <h3>Ingredients</h3>
+                    <p>Items used for mixing products in the Mixing Station or Cauldron.</p>
+                     <a href="/database/items/ingredients/" class="btn btn-primary">View Ingredients</a>
+                </article>
+
+                <article class="database-category-card card">
+                    <i class="category-icon">🛠️</i> <!-- Placeholder Icon -->
+                    <h3>Equipment</h3>
+                    <p>Stations, tools, pots, and other equipment used in operations.</p>
+                     <a href="/database/items/equipment/" class="btn btn-primary">View Equipment</a>
+                </article>
+
+                 <article class="database-category-card card">
+                    <i class="category-icon">🧱</i> <!-- Placeholder Icon -->
+                    <h3>Packaging</h3>
+                    <p>Items used for packaging products for sale.</p>
+                     <a href="/database/items/packaging/" class="btn btn-primary">View Packaging</a>
+                </article>
+
+                 <article class="database-category-card card">
+                    <i class="category-icon">🔑</i> <!-- Placeholder Icon -->
+                    <h3>Other Items</h3>
+                    <p>Miscellaneous items like keys, quest items, etc.</p>
+                     <a href="/database/items/other/" class="btn btn-primary">View Other Items</a>
+                </article>
+
+                <!-- Add more categories as needed -->
+
+            </div> <!-- End database-category-list -->
+
+        </section> <!-- End database-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- No specific JS needed for this index page itself -->
 </body>
 </html>

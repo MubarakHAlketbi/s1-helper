@@ -1,12 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Item Template</title>
-  <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title will be set dynamically by JS -->
+    <title>Schedule 1 Helper - Item Details</title>
+    <meta name="description" content="Details for a specific item in Schedule 1.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Link to specific stylesheet for database pages -->
+    <link rel="stylesheet" href="../database.css">
+    <link rel="stylesheet" href="items.css"> <!-- Shared item styling -->
 </head>
 <body>
-  <h1>Item Template</h1>
-  <p>Content coming soon...</p>
-  <script src="/script.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/" class="active">Database</a></li> <!-- Mark Database as active -->
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Breadcrumb will be set dynamically by JS -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav" id="breadcrumb-container">
+             <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/database/">Database</a></li>
+                <li><a href="/database/items/">Items</a></li>
+                <!-- Category and Item name added by JS -->
+            </ol>
+        </nav>
+
+        <section class="database-section item-detail-section card">
+            <h2 id="item-name">Loading Item...</h2>
+
+            <div id="item-details-content">
+                <!-- General Info -->
+                <p><strong>Category:</strong> <span id="item-category">N/A</span></p>
+                <p><strong>Description:</strong> <span id="item-description">N/A</span></p>
+                <p><strong>Cost:</strong> <span id="item-cost">N/A</span></p>
+                <p><strong>Unlock:</strong> Rank/Tier <span id="item-unlock">N/A</span></p>
+
+                <!-- Type Specific Info (Populated by JS) -->
+                <div id="product-info" class="type-specific-info" style="display: none;">
+                    <p><strong>Type:</strong> <span id="product-type">N/A</span></p>
+                    <p><strong>Base Market Value:</strong> <span id="product-value">N/A</span></p>
+                    <p><strong>Base Addictiveness:</strong> <span id="product-addictiveness">N/A</span></p>
+                    <p><strong>Base Properties:</strong> <ul id="product-properties"><li>None</li></ul></p>
+                </div>
+
+                <div id="ingredient-info" class="type-specific-info" style="display: none;">
+                    <p><strong>Adds Effect:</strong> <span id="ingredient-effect">N/A</span></p>
+                </div>
+
+                <div id="equipment-info" class="type-specific-info" style="display: none;">
+                     <p><strong>Power Usage:</strong> <span id="equipment-power">N/A</span></p>
+                     <p><strong>Water Usage:</strong> <span id="equipment-water">N/A</span></p>
+                     <p><strong>Growth Multiplier (Pots):</strong> <span id="equipment-growth">N/A</span></p>
+                </div>
+
+                 <div id="packaging-info" class="type-specific-info" style="display: none;">
+                     <p><strong>Capacity:</strong> <span id="packaging-capacity">N/A</span></p>
+                </div>
+
+                 <div id="other-item-info" class="type-specific-info" style="display: none;">
+                     <!-- Add specific fields for other items if needed -->
+                 </div>
+
+            </div>
+             <p id="loading-error" style="display: none; color: red;">Could not load item details.</p>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- Link the specific JS for this template page -->
+    <script type="module" src="item_template.js"></script>
 </body>
 </html>

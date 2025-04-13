@@ -101,7 +101,7 @@
                         </div>
 
                         <div class="form-group radio-group">
-                            <label>Affected Balance:</label>
+                            <label>Balance Primarily Affected:</label>
                             <div>
                                 <input type="radio" id="tx-affect-cash" name="tx-affect" value="cash" checked>
                                 <label for="tx-affect-cash">Cash</label>
@@ -110,7 +110,7 @@
                                 <input type="radio" id="tx-affect-online" name="tx-affect" value="online">
                                 <label for="tx-affect-online">Online</label>
                             </div>
-                             <small id="tx-transfer-note" style="display: none; color: #0056b3;">(Note: Transfers like ATM/Laundering will affect both balances)</small>
+                             <small id="tx-transfer-note" style="display: none; color: #0056b3;">(Note: Transfers like ATM/Laundering affect both balances. Select the one you want the 'Balance After' column to reflect in the log.)</small>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Add Transaction</button>
@@ -139,7 +139,7 @@
                         </thead>
                         <tbody id="transaction-log-body">
                             <!-- Log entries added by JS -->
-                            <tr id="no-transactions-row">
+                            <tr id="no-transactions-row" style="display: table-row;"> <!-- Initially visible -->
                                 <td colspan="6">No transactions logged yet.</td>
                             </tr>
                         </tbody>

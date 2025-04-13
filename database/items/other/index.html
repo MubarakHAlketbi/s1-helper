@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule 1 Helper - Leveling & Ranks Database</title>
-    <meta name="description" content="View ranks, tiers, XP requirements, and unlocks in Schedule 1.">
+    <title>Schedule 1 Helper - Other Items Database</title>
+    <meta name="description" content="Browse miscellaneous items like tools, consumables, and quest items in Schedule 1.">
     <!-- Link to the main site stylesheet -->
     <link rel="stylesheet" href="/style.css">
     <!-- Link to specific stylesheet for this page -->
-    <link rel="stylesheet" href="leveling.css">
+    <link rel="stylesheet" href="other.css">
 </head>
 <body>
     <header>
@@ -35,18 +35,18 @@
              <ol>
                 <li><a href="/">Home</a></li>
                 <li><a href="/database/">Database</a></li>
-                <li><span aria-current="page">Leveling & Ranks</span></li>
+                <li><a href="/database/items/">Items</a></li>
+                <li><span aria-current="page">Other Items</span></li>
             </ol>
         </nav>
 
         <section class="database-section">
-            <h2>Leveling & Ranks</h2>
-            <p>Information about player ranks, tiers, XP, and associated unlocks.</p>
-            <p>XP per tier scales from <strong><span id="xp-min">...</span> XP</strong> (Rank 0) to <strong><span id="xp-max">...</span> XP</strong> (Rank 10).</p>
+            <h2>Other Items</h2>
+            <p>List of miscellaneous items including tools, consumables, quest items, etc.</p>
 
-            <div id="rank-list-container">
-                <!-- Rank details will be injected here by leveling.js -->
-                <p>Loading rank information...</p>
+            <div id="other-item-list-container" class="card-grid">
+                <!-- Item cards will be injected here by other.js -->
+                <p>Loading items...</p>
             </div>
         </section>
     </main>
@@ -67,6 +67,6 @@
     <!-- Link to the main site script -->
     <script src="/script.js"></script>
     <!-- Link the specific JS for this page -->
-    <script type="module" src="leveling.js"></script>
+    <script type="module" src="other.js"></script>
 </body>
 </html>

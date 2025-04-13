@@ -1,12 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Npc Template</title>
-  <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title will be set dynamically by JS -->
+    <title>Schedule 1 Helper - NPC Details</title>
+    <meta name="description" content="Details for a specific NPC in Schedule 1.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Link to specific stylesheet for database pages -->
+    <link rel="stylesheet" href="../database.css">
+    <link rel="stylesheet" href="npcs.css"> <!-- Shared NPC styling -->
 </head>
 <body>
-  <h1>Npc Template</h1>
-  <p>Content coming soon...</p>
-  <script src="/script.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/" class="active">Database</a></li> <!-- Mark Database as active -->
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Breadcrumb will be set dynamically by JS -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav" id="breadcrumb-container">
+             <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/database/">Database</a></li>
+                <li><a href="/database/npcs/">NPCs</a></li>
+                <!-- Category and NPC name added by JS -->
+            </ol>
+        </nav>
+
+        <section class="database-section npc-detail-section card">
+            <h2 id="npc-name">Loading NPC...</h2>
+
+            <div id="npc-details-content">
+                <!-- General Info -->
+                <p><strong>Type:</strong> <span id="npc-type">N/A</span></p>
+                <p><strong>Notes:</strong> <span id="npc-notes">N/A</span></p>
+
+                <!-- Type Specific Info (Populated by JS) -->
+                <div id="customer-info" class="type-specific-info" style="display: none;">
+                    <p><strong>Quality Standard:</strong> <span id="customer-standard">N/A</span></p>
+                    <p><strong>Affinities:</strong> <ul id="customer-affinities"><li>N/A</li></ul></p>
+                    <p><strong>Preferred Effects:</strong> <ul id="customer-prefs"><li>N/A</li></ul></p>
+                </div>
+
+                <div id="supplier-info" class="type-specific-info" style="display: none;">
+                    <p><strong>Contact Method:</strong> <span id="supplier-contact">N/A</span></p>
+                    <p><strong>Known Items:</strong> <ul id="supplier-items"><li>N/A</li></ul></p>
+                </div>
+
+                <div id="employee-info" class="type-specific-info" style="display: none;">
+                     <p><strong>Role:</strong> <span id="employee-role">N/A</span></p>
+                     <p><strong>Cost:</strong> <span id="employee-cost">N/A</span></p>
+                     <p><strong>Skills:</strong> <ul id="employee-skills"><li>N/A</li></ul></p>
+                     <p><strong>Max Assigned:</strong> <span id="employee-max-assigned">N/A</span></p>
+                </div>
+
+            </div>
+             <p id="loading-error" style="display: none; color: red;">Could not load NPC details.</p>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- Link the specific JS for this template page -->
+    <script type="module" src="npc_template.js"></script>
 </body>
 </html>

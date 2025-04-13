@@ -1,12 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Database Index</title>
-  <link rel="stylesheet" href="/style.css"> <!-- Corrected link -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - Database</title>
+    <meta name="description" content="Browse the Schedule 1 game database for items, effects, NPCs, locations, and more.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Optional: Link to a specific database index stylesheet -->
+    <link rel="stylesheet" href="database.css">
 </head>
 <body>
-  <h1>Database Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/script.js"></script> <!-- Corrected link -->
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/" class="active">Database</a></li> <!-- Mark as active -->
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="database-section">
+            <h2>Game Database</h2>
+            <p>Explore information about various aspects of Schedule 1.</p>
+
+            <div class="database-category-list card-grid">
+                <article class="database-category-card card">
+                    <i class="category-icon">📦</i> <!-- Placeholder Icon -->
+                    <h3>Items</h3>
+                    <p>Browse base products, ingredients, equipment, packaging, and other items.</p>
+                    <div class="sub-links">
+                        <a href="/database/items/products/" class="btn btn-primary btn-small">Products</a>
+                        <a href="/database/items/ingredients/" class="btn btn-secondary btn-small disabled">Ingredients (Soon)</a>
+                        <a href="/database/items/equipment/" class="btn btn-secondary btn-small disabled">Equipment (Soon)</a>
+                        <a href="/database/items/packaging/" class="btn btn-secondary btn-small disabled">Packaging (Soon)</a>
+                    </div>
+                </article>
+
+                <article class="database-category-card card">
+                    <i class="category-icon">✨</i> <!-- Placeholder Icon -->
+                    <h3>Effects</h3>
+                    <p>View details about the various effects (properties) that can appear on products.</p>
+                     <a href="/database/effects/" class="btn btn-primary">View Effects</a>
+                </article>
+
+                <article class="database-category-card card">
+                    <i class="category-icon">👥</i> <!-- Placeholder Icon -->
+                    <h3>NPCs</h3>
+                    <p>Information about Non-Player Characters, including customers, suppliers, and employees.</p>
+                     <div class="sub-links">
+                        <a href="/database/npcs/customers/" class="btn btn-primary btn-small">Customers</a>
+                        <a href="/database/npcs/suppliers/" class="btn btn-primary btn-small">Suppliers</a>
+                        <a href="/database/npcs/employees/" class="btn btn-primary btn-small">Employees</a>
+                    </div>
+                </article>
+
+                 <article class="database-category-card card">
+                    <i class="category-icon">🗺️</i> <!-- Placeholder Icon -->
+                    <h3>Locations</h3>
+                    <p>Details about different regions, properties, and points of interest.</p>
+                     <a href="/database/locations/" class="btn btn-primary">View Locations</a>
+                </article>
+
+                 <article class="database-category-card card">
+                    <i class="category-icon">📈</i> <!-- Placeholder Icon -->
+                    <h3>Leveling & Ranks</h3>
+                    <p>Information on XP requirements, ranks, tiers, and unlocks.</p>
+                     <a href="/database/leveling/" class="btn btn-primary">View Leveling Info</a>
+                </article>
+
+                <!-- Add more categories as needed -->
+
+            </div> <!-- End database-category-list -->
+
+        </section> <!-- End database-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- No specific JS needed for this index page itself -->
 </body>
 </html>

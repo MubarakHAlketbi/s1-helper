@@ -10,14 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearLogBtn = document.getElementById('clear-log-btn');
     const txTypeSelect = document.getElementById('tx-type');
     const txTransferNote = document.getElementById('tx-transfer-note');
+    const txAffectedCashRadio = document.getElementById('tx-affect-cash');
+    const txAffectedOnlineRadio = document.getElementById('tx-affect-online');
 
     const STORAGE_KEY = 'schedule1_financialData';
 
     // --- Utility Functions ---
-    // generateId, formatCurrency, formatDateTimeForInput imported from helpers.js
-
-    // formatTimestamp function removed, using imported formatDateTime instead
-    // formatDateTimeForInput is now imported
+    // generateId, formatCurrency, formatDateTimeForInput, formatDateTime imported from helpers.js
 
     // --- Local Storage Functions ---
     const loadData = () => {
@@ -59,9 +58,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const transactions = data.transactions;
 
         if (transactions.length === 0) {
-            transactionLogBody.appendChild(noTransactionsRow); // Show 'no transactions' message
+            // Ensure the row exists before trying to append it
+            if (noTransactionsRow) {
+                transactionLogBody.appendChild(noTransactionsRow); // Show 'no transactions' message
+            }
             return;
+        } else {
+             // Ensure the row is removed if it exists and there are transactions
+             if (noTransactionsRow && noTransactionsRow.parentNode === transactionLogBody) {
+                 transactionLogBody.removeChild(noTransactionsRow);
+             }
         }
+
 
         // Sort newest first
         transactions.sort((a, b) => b.timestamp - a.timestamp);
@@ -70,28 +78,56 @@ document.addEventListener('DOMContentLoaded', () => {
             const row = document.createElement('tr');
             let amountClass = '';
             let amountPrefix = '';
+            let affectedBalanceText = tx.affected === 'cash' ? 'Cash' : 'Online';
 
+            // Determine prefix and class based on the transaction type AND the affected balance recorded
             switch (tx.type) {
                 case 'Income':
-                case 'Laundering Payout':
-                case 'ATM Withdrawal': // Increases cash
-                     amountClass = 'amount-income';
-                     amountPrefix = '+ ';
-                     break;
+                case 'Laundering Payout': // Increases Online
+                case 'ATM Withdrawal': // Increases Cash
+                    amountClass = 'amount-income';
+                    amountPrefix = '+ ';
+                    break;
                 case 'Expense':
-                case 'Laundering Deposit':
-                case 'ATM Deposit': // Decreases cash
+                case 'Laundering Deposit': // Decreases Cash
+                case 'ATM Deposit': // Decreases Cash
                     amountClass = 'amount-expense';
                     amountPrefix = '- ';
                     break;
-                default:
-                    amountClass = 'amount-transfer'; // Neutral/Other
+                default: // Other or unknown
+                    amountClass = 'amount-transfer';
+                    amountPrefix = ''; // Could be + or - depending on description
             }
 
-            // Adjust prefix for transfers affecting online balance
-            if (tx.affected === 'online') {
-                 if (tx.type === 'ATM Deposit' || tx.type === 'Laundering Payout') amountPrefix = '+ ';
-                 else if (tx.type === 'ATM Withdrawal' || tx.type === 'Laundering Deposit') amountPrefix = '- ';
+            // Specific adjustments for transfers based on the *recorded affected balance*
+            if (tx.type === 'ATM Deposit') { // Cash -> Online
+                if (tx.affected === 'cash') { // Log shows cash decrease
+                    amountClass = 'amount-expense'; amountPrefix = '- ';
+                } else { // Log shows online increase
+                    amountClass = 'amount-income'; amountPrefix = '+ ';
+                }
+                affectedBalanceText += ' (Transfer)';
+            } else if (tx.type === 'ATM Withdrawal') { // Online -> Cash
+                 if (tx.affected === 'cash') { // Log shows cash increase
+                    amountClass = 'amount-income'; amountPrefix = '+ ';
+                } else { // Log shows online decrease
+                    amountClass = 'amount-expense'; amountPrefix = '- ';
+                }
+                affectedBalanceText += ' (Transfer)';
+            } else if (tx.type === 'Laundering Deposit') { // Cash -> Business (not tracked)
+                 if (tx.affected === 'cash') { // Log shows cash decrease
+                    amountClass = 'amount-expense'; amountPrefix = '- ';
+                } else { // Log shows online (no change yet)
+                    amountClass = 'amount-transfer'; amountPrefix = ''; // Or perhaps '-' ? Needs clarification.
+                }
+                 affectedBalanceText += ' (Laundering)';
+            } else if (tx.type === 'Laundering Payout') { // Business -> Online
+                 if (tx.affected === 'cash') { // Log shows cash (no change)
+                     amountClass = 'amount-transfer'; amountPrefix = '';
+                } else { // Log shows online increase
+                    amountClass = 'amount-income'; amountPrefix = '+ ';
+                }
+                 affectedBalanceText += ' (Laundering)';
             }
 
 
@@ -100,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${tx.type}</td>
                 <td>${tx.description}</td>
                 <td class="${amountClass}">${amountPrefix}${formatCurrency(tx.amount)}</td>
-                <td>${formatCurrency(tx.balanceAfter)} (${tx.affected})</td>
+                <td>${formatCurrency(tx.balanceAfter)} (${affectedBalanceText})</td>
                 <td class="action-cell">
                     <button class="btn btn-danger btn-small btn-delete-tx" data-id="${tx.id}">Delete</button>
                 </td>
@@ -154,7 +190,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const type = document.getElementById('tx-type').value;
         const description = document.getElementById('tx-description').value.trim();
         const amountStr = document.getElementById('tx-amount').value;
-        const affected = document.querySelector('input[name="tx-affect"]:checked').value;
+        const affectedRadio = document.querySelector('input[name="tx-affect"]:checked');
+
+        if (!affectedRadio) {
+            alert('Please select which balance is primarily affected.');
+            return;
+        }
+        const affected = affectedRadio.value;
+
 
         if (!timestampStr || !description || !amountStr) {
             alert('Please fill in Date, Description, and Amount.');
@@ -170,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let timestamp;
         try {
             timestamp = new Date(timestampStr).getTime();
-             if (isNaN(timestamp)) throw new Error();
+             if (isNaN(timestamp)) throw new Error("Invalid date/time value");
         } catch (e) {
             alert('Invalid Date/Time selected.');
             return;
@@ -178,40 +221,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         const data = loadData();
-        let currentBalance = (affected === 'cash') ? data.cashBalance : data.onlineBalance;
-        let balanceAfter = currentBalance; // Initialize
+        let balanceAfter; // This will store the balance *of the selected affected account* after the transaction
 
-        // Apply transaction logic
+        // Apply transaction logic to actual balances
         switch (type) {
             case 'Income':
-                if (affected === 'cash') data.cashBalance += amount;
-                else data.onlineBalance += amount;
+                if (affected === 'cash') {
+                    data.cashBalance += amount;
+                    balanceAfter = data.cashBalance;
+                } else {
+                    data.onlineBalance += amount;
+                    balanceAfter = data.onlineBalance;
+                }
                 break;
             case 'Expense':
-                 if (affected === 'cash') data.cashBalance -= amount;
-                 else data.onlineBalance -= amount;
+                 if (affected === 'cash') {
+                    data.cashBalance -= amount;
+                    balanceAfter = data.cashBalance;
+                 } else {
+                    data.onlineBalance -= amount;
+                    balanceAfter = data.onlineBalance;
+                 }
                 break;
             case 'ATM Deposit': // Cash goes down, Online goes up
                 data.cashBalance -= amount;
                 data.onlineBalance += amount;
+                balanceAfter = (affected === 'cash') ? data.cashBalance : data.onlineBalance;
                 break;
             case 'ATM Withdrawal': // Online goes down, Cash goes up
                 data.onlineBalance -= amount;
                 data.cashBalance += amount;
+                balanceAfter = (affected === 'cash') ? data.cashBalance : data.onlineBalance;
                 break;
              case 'Laundering Deposit': // Cash goes down (into the business)
                 data.cashBalance -= amount;
                 // Online balance doesn't change YET
+                 balanceAfter = (affected === 'cash') ? data.cashBalance : data.onlineBalance; // Log shows selected balance
                 break;
             case 'Laundering Payout': // Online goes up (from the business)
                 data.onlineBalance += amount;
                 // Cash balance doesn't change
+                balanceAfter = (affected === 'cash') ? data.cashBalance : data.onlineBalance; // Log shows selected balance
                 break;
             case 'Other':
                 // For 'Other', assume it affects the selected balance directly
-                // User needs to log separate transactions if it's a transfer
-                 if (affected === 'cash') data.cashBalance += amount; // Assume increase, user can use negative desc
-                 else data.onlineBalance += amount;
+                 if (affected === 'cash') {
+                     data.cashBalance += amount; // Assume increase, user can use negative desc/amount if needed? Or add +/- radio?
+                     balanceAfter = data.cashBalance;
+                 } else {
+                     data.onlineBalance += amount;
+                     balanceAfter = data.onlineBalance;
+                 }
                 break;
         }
 
@@ -219,21 +279,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.cashBalance < 0) {
             alert("Warning: Cash balance went negative. Adjusting to $0.00.");
             data.cashBalance = 0;
+            if (affected === 'cash') balanceAfter = 0; // Adjust logged balance if needed
         }
         if (data.onlineBalance < 0) {
              alert("Warning: Online balance went negative. Adjusting to $0.00.");
             data.onlineBalance = 0;
+             if (affected === 'online') balanceAfter = 0; // Adjust logged balance if needed
         }
-
-        // Determine the 'Balance After' for the log based on the primary affected balance
-        balanceAfter = (affected === 'cash') ? data.cashBalance : data.onlineBalance;
-         // For transfers, the log shows the balance of the *selected* radio button after the change
-         if (type === 'ATM Deposit' || type === 'Laundering Deposit') {
-             balanceAfter = (affected === 'cash') ? data.cashBalance : data.onlineBalance;
-         } else if (type === 'ATM Withdrawal' || type === 'Laundering Payout') {
-             balanceAfter = (affected === 'cash') ? data.cashBalance : data.onlineBalance;
-         }
-
 
         const newTransaction = {
             id: generateId(),
@@ -241,8 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
             type: type,
             description: description,
             amount: amount,
-            affected: affected, // Record which balance was primarily selected
-            balanceAfter: balanceAfter
+            affected: affected, // Record which balance was primarily selected for the log context
+            balanceAfter: balanceAfter // Record the balance of the 'affected' account AFTER the transaction
         };
 
         data.transactions.push(newTransaction);
@@ -254,6 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('tx-date').value = formatDateTimeForInput(Date.now());
         // Reset radio button selection note visibility
         txTransferNote.style.display = 'none';
+        txAffectedCashRadio.checked = true; // Default back to cash
 
     });
 
@@ -299,5 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTransactionLog();
     // Set default date/time for the transaction form
     document.getElementById('tx-date').value = formatDateTimeForInput(Date.now());
+    // Ensure note visibility is correct on load
+    txTypeSelect.dispatchEvent(new Event('change'));
 
 }); // End DOMContentLoaded

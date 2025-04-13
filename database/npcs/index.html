@@ -1,12 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Schedule 1 Helper - Npcs Index</title>
-  <link rel="stylesheet" href="/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule 1 Helper - NPCs Database</title>
+    <meta name="description" content="Browse Non-Player Characters (NPCs) in Schedule 1, including customers, suppliers, and employees.">
+    <!-- Link to the main site stylesheet -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- Optional: Link to a specific database index stylesheet -->
+    <link rel="stylesheet" href="../database.css"> <!-- Link to main database CSS -->
 </head>
 <body>
-  <h1>Npcs Index</h1>
-  <p>Content coming soon...</p>
-  <script src="/script.js"></script>
+    <header>
+        <!-- Standard site header -->
+        <div class="container header-content">
+            <div class="logo">
+                <h1><a href="/">Schedule 1 Helper</a></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/database/" class="active">Database</a></li> <!-- Mark Database as active -->
+                    <li><a href="/calculators/">Calculators</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                    <li><a href="/map/">Interactive Map</a></li>
+                    <li><a href="/tools/">Tools & Planners</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+         <nav aria-label="breadcrumb" class="breadcrumb-nav">
+             <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/database/">Database</a></li>
+                <li><span aria-current="page">NPCs</span></li>
+            </ol>
+        </nav>
+
+        <section class="database-section">
+            <h2>NPCs Database</h2>
+            <p>Select an NPC category to browse.</p>
+
+            <div class="database-category-list card-grid">
+                <article class="database-category-card card">
+                    <i class="category-icon">😊</i> <!-- Placeholder Icon -->
+                    <h3>Customers</h3>
+                    <p>NPCs you can sell products to.</p>
+                    <a href="/database/npcs/customers/" class="btn btn-primary">View Customers</a>
+                </article>
+
+                <article class="database-category-card card">
+                    <i class="category-icon">🚚</i> <!-- Placeholder Icon -->
+                    <h3>Suppliers</h3>
+                    <p>NPCs or locations where you can acquire items.</p>
+                     <a href="/database/npcs/suppliers/" class="btn btn-primary">View Suppliers</a>
+                </article>
+
+                <article class="database-category-card card">
+                    <i class="category-icon">🧑‍💼</i> <!-- Placeholder Icon -->
+                    <h3>Employees</h3>
+                    <p>NPCs you can hire to help with tasks.</p>
+                     <a href="/database/npcs/employees/" class="btn btn-primary">View Employees</a>
+                </article>
+
+                 <article class="database-category-card card">
+                    <i class="category-icon">👮</i> <!-- Placeholder Icon -->
+                    <h3>Law Enforcement</h3>
+                    <p>Information about police officers and their behavior.</p>
+                     <a href="/database/npcs/police/" class="btn btn-secondary disabled">View Police Info (Soon)</a>
+                </article>
+
+                <!-- Add more categories as needed -->
+
+            </div> <!-- End database-category-list -->
+
+        </section> <!-- End database-section -->
+    </main>
+
+    <footer>
+        <!-- Standard site footer -->
+        <div class="container">
+            <p>© <span id="current-year"></span> Schedule 1 Helper. All game assets and information are property of the Schedule 1 developers.</p>
+            <p>Disclaimer: Data is based on game files and may become outdated with game updates. This site is an unofficial fan project.</p>
+             <nav class="footer-nav">
+                <a href="#contact">Contact</a> |
+                <a href="#privacy">Privacy Policy</a> |
+                <a href="https://store.steampowered.com/app/1579860/Schedule_1/" target="_blank" rel="noopener noreferrer">Schedule 1 on Steam</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Link to the main site script -->
+    <script src="/script.js"></script>
+    <!-- No specific JS needed for this index page itself -->
 </body>
 </html>
